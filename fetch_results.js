@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 /*
  * fetch_results.js — refresh quiniela_brackets_v4.json with real World Cup 2026
- * results from football-data.org.
+ * results from the openfootball public-domain dataset (no API key required).
+ *
+ * SOURCE
+ *   https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json
  *
  * USAGE
- *   FOOTBALL_DATA_API_KEY=xxxxxxxx node fetch_results.js
- *   FOOTBALL_DATA_API_KEY=xxxxxxxx node fetch_results.js --dry-run
- *   FOOTBALL_DATA_API_KEY=xxxxxxxx node fetch_results.js --file ./quiniela_brackets_v4.json
- *
- * Then re-drop the folder onto Netlify to publish.
+ *   node fetch_results.js
+ *   node fetch_results.js --dry-run
+ *   node fetch_results.js --file ./quiniela_brackets_v4.json
  *
  * WHAT IT DOES
- *   - Pulls FINISHED matches for the World Cup (competition code "WC").
+ *   - Fetches the openfootball worldcup.json (plain JSON, keyless).
  *   - Group stage: matched to the correct src_row by team pairing (group
  *     fixtures are fixed across all brackets), writing score + winner.
  *   - Knockout: writes score / winner / penalties into that round's slots and
@@ -32,9 +33,8 @@ const fs = require('fs');
 const path = require('path');
 
 // ── config ───────────────────────────────────────────────────────────────────
-const API_BASE = 'https://api.football-data.org/v4';
-const COMPETITION = process.env.FOOTBALL_DATA_COMPETITION || 'WC'; // World Cup
-const API_KEY = process.env.FOOTBALL_DATA_API_KEY || process.env.FOOTBALL_DATA_TOKEN;
+const SOURCE_URL = process.env.OPENFOOTBALL_URL ||
+  'https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes('--dry-run');
@@ -43,39 +43,25 @@ const JSON_PATH = path.resolve(
   fileArgIdx !== -1 && args[fileArgIdx + 1] ? args[fileArgIdx + 1] : './quiniela_brackets_v4.json'
 );
 
-// football-data stage code -> quiniela round label
-const STAGE_TO_ROUND = {
-  GROUP_STAGE: 'GROUP',
-  LAST_32: 'Round of 32',
-  ROUND_OF_32: 'Round of 32',
-  LAST_16: 'Round of 16',
-  ROUND_OF_16: 'Round of 16',
-  QUARTER_FINALS: 'Quarter-final',
-  QUARTER_FINAL: 'Quarter-final',
-  SEMI_FINALS: 'Semi-final',
-  SEMI_FINAL: 'Semi-final',
-  THIRD_PLACE: 'Third place',
-  FINAL: 'Final',
-};
 const KO_ROUNDS = ['Round of 32', 'Round of 16', 'Quarter-final', 'Semi-final', 'Final'];
 
-// API team name -> quiniela canonical name (only the non-obvious ones).
-// Matching first tries an exact normalized comparison against the names already
-// in your JSON, then falls back to this alias table.
+// openfootball/source team name -> quiniela canonical name (only the non-obvious
+// ones). Matching first tries an exact normalized comparison against the names
+// already in your JSON, then falls back to this alias table.
 const TEAM_ALIASES = {
-  'korea republic': 'Rep. of Korea',
   'south korea': 'Rep. of Korea',
+  'korea republic': 'Rep. of Korea',
   'republic of korea': 'Rep. of Korea',
-  'czechia': 'Czech Rep.',
   'czech republic': 'Czech Rep.',
+  'czechia': 'Czech Rep.',
   'bosnia and herzegovina': 'Bosnia/Herzeg.',
   'bosnia herzegovina': 'Bosnia/Herzeg.',
   'iran': 'IR Iran',
+  'ir iran': 'IR Iran',
   'islamic republic of iran': 'IR Iran',
   'turkiye': 'Turkey',
   'united states': 'USA',
   'united states of america': 'USA',
-  'usmnt': 'USA',
   'cote divoire': 'Ivory Coast',
   'ivory coast': 'Ivory Coast',
   'china pr': 'China',
@@ -93,7 +79,6 @@ function normName(s) {
     .trim();
 }
 
-// build a resolver from API name -> canonical quiniela name
 function makeResolver(canonicalNames) {
   const byNorm = new Map();
   for (const name of canonicalNames) byNorm.set(normName(name), name);
@@ -102,48 +87,75 @@ function makeResolver(canonicalNames) {
     if (byNorm.has(n)) return byNorm.get(n);
     if (TEAM_ALIASES[n]) {
       const alias = TEAM_ALIASES[n];
-      // alias may itself need normalizing against canonical set
       return byNorm.get(normName(alias)) || alias;
     }
-    return null; // unresolved
+    return null;
   };
 }
 
-function apiWinnerToName(score, homeName, awayName) {
-  switch (score && score.winner) {
-    case 'HOME_TEAM': return homeName;
-    case 'AWAY_TEAM': return awayName;
-    case 'DRAW': return 'Draw';
-    default: return null;
-  }
+// openfootball team fields can be a string or { name, code }
+function teamName(t) {
+  if (t == null) return null;
+  if (typeof t === 'string') return t;
+  return t.name || t.title || t.code || null;
 }
 
-async function fetchMatches() {
+// map an openfootball knockout round label to a quiniela round
+function koRoundLabel(raw) {
+  const n = normName(raw);
+  if (!n) return null;
+  if (/round of 32|last 32|1 32/.test(n)) return 'Round of 32';
+  if (/round of 16|last 16|1 16/.test(n)) return 'Round of 16';
+  if (/quarter/.test(n)) return 'Quarter-final';
+  if (/semi/.test(n)) return 'Semi-final';
+  if (/third|3rd|3 4|play off for third|bronze/.test(n)) return 'Third place';
+  if (/final/.test(n)) return 'Final';   // checked after semi to avoid "semifinal"
+  return null;
+}
+
+// flatten the various openfootball container shapes into a flat match list
+function collectMatches(data) {
+  const out = [];
+  const pushAll = arr => { if (Array.isArray(arr)) out.push(...arr); };
+  if (Array.isArray(data.matches)) pushAll(data.matches);
+  if (Array.isArray(data.rounds)) for (const r of data.rounds) pushAll(r.matches);
+  if (Array.isArray(data.stages)) for (const s of data.stages) {
+    pushAll(s.matches);
+    if (Array.isArray(s.rounds)) for (const r of s.rounds) pushAll(r.matches);
+  }
+  return out;
+}
+
+// extract [home, away] regulation/ET score + optional penalties from a match
+function readScore(m) {
+  const s = m.score || {};
+  // openfootball: { ft:[a,b], ht:[..], et:[..], p:[..] }  (some files use full words)
+  const ft = s.ft || s.fullTime || s.full_time || (Array.isArray(s) ? s : null);
+  const et = s.et || s.extraTime || s.extra_time || null;
+  const p = s.p || s.pen || s.penalties || null;
+  const reg = (Array.isArray(et) && et.length === 2) ? et
+            : (Array.isArray(ft) && ft.length === 2) ? ft
+            : null;
+  const pens = (Array.isArray(p) && p.length === 2) ? p : null;
+  return { reg, pens };
+}
+
+async function fetchSource() {
   if (typeof fetch !== 'function') {
     die('global fetch() not available — please use Node 18+ (node --version).');
   }
-  const url = `${API_BASE}/competitions/${COMPETITION}/matches`;
-  const res = await fetch(url, { headers: { 'X-Auth-Token': API_KEY } });
-  if (res.status === 403 || res.status === 429) {
-    const body = await res.text().catch(() => '');
-    die(`football-data.org returned ${res.status}. The free tier may not cover ` +
-        `competition "${COMPETITION}". ${body}\n` +
-        `If the World Cup isn't available on your plan, tell me and I'll switch ` +
-        `the script to another free source (e.g. TheSportsDB / API-Football free tier).`);
+  const res = await fetch(SOURCE_URL, { headers: { 'accept': 'application/json' } });
+  if (!res.ok) {
+    die(`Could not fetch openfootball data (HTTP ${res.status}) from\n   ${SOURCE_URL}\n` +
+        `If the 2026 file isn't published yet, the season may not have started. ` +
+        `You can point at another path with OPENFOOTBALL_URL=...`);
   }
-  if (!res.ok) die(`API error ${res.status}: ${await res.text().catch(() => '')}`);
-  const data = await res.json();
-  return data.matches || [];
+  return res.json();
 }
 
 // ── main ─────────────────────────────────────────────────────────────────────
 (async function main() {
-  if (!API_KEY) {
-    die('Set FOOTBALL_DATA_API_KEY in your environment (do not hardcode it).\n' +
-        '   e.g.  FOOTBALL_DATA_API_KEY=xxxx node fetch_results.js');
-  }
   if (!fs.existsSync(JSON_PATH)) die(`Cannot find ${JSON_PATH}`);
-
   const DATA = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
   DATA.results = DATA.results || {};
 
@@ -169,65 +181,72 @@ async function fetchMatches() {
   for (const rd of KO_ROUNDS) {
     koSlots[rd] = refPicks.filter(p => p.round === rd).map(p => p.src_row).sort((a, b) => a - b);
   }
+  const thirdSlot = refPicks.find(p => p.round === 'Third place');
 
-  const matches = await fetchMatches();
-  const finished = matches.filter(m => m.status === 'FINISHED');
-  console.log(`Fetched ${matches.length} matches; ${finished.length} finished.`);
+  const data = await fetchSource();
+  const allMatches = collectMatches(data);
+  console.log(`Fetched ${allMatches.length} matches from openfootball.`);
 
-  const writes = {};        // src_row -> result object
-  const koByRound = {};     // round -> [ {match, home, away, winner, ...} ]
-  const reachedByRound = {}; // round -> Set of team names
+  const writes = {};            // src_row -> result object
+  const koByRound = {};         // round -> [ game ]
+  const reachedByRound = {};    // round -> Set
   const warnings = [];
+  let finishedCount = 0;
 
-  for (const m of finished) {
-    const round = STAGE_TO_ROUND[m.stage];
-    const home = resolve(m.homeTeam && m.homeTeam.name);
-    const away = resolve(m.awayTeam && m.awayTeam.name);
-    if (!round) { warnings.push(`Unknown stage "${m.stage}" — skipped.`); continue; }
+  for (const m of allMatches) {
+    const { reg, pens } = readScore(m);
+    if (!reg || reg[0] == null || reg[1] == null) continue; // not finished
+    finishedCount++;
+
+    const home = resolve(teamName(m.team1 || m.home || m.team_1));
+    const away = resolve(teamName(m.team2 || m.away || m.team_2));
     if (!home || !away) {
-      warnings.push(`Unresolved team(s): "${m.homeTeam && m.homeTeam.name}" / ` +
-                    `"${m.awayTeam && m.awayTeam.name}" (${m.stage}). Add to TEAM_ALIASES.`);
+      warnings.push(`Unresolved team(s): "${teamName(m.team1)}" / "${teamName(m.team2)}". Add to TEAM_ALIASES.`);
       continue;
     }
 
-    const ft = (m.score && m.score.fullTime) || {};
-    const homeGoals = ft.home, awayGoals = ft.away;
-    if (homeGoals == null || awayGoals == null) { warnings.push(`No score for ${home}-${away}.`); continue; }
+    const isGroup = m.group != null || /^group/i.test(String(m.round || ''));
+    const koRound = isGroup ? null : koRoundLabel(m.round || m.stage || m.name);
 
-    const pens = (m.score && m.score.penalties) || {};
-    const hasPens = pens.home != null && pens.away != null;
-    let winnerName = apiWinnerToName(m.score, home, away);
-    if (round !== 'GROUP' && winnerName === 'Draw' && hasPens) {
-      winnerName = pens.home > pens.away ? home : away;
-    }
+    // winner from regulation/ET, with penalties as tiebreak
+    let winnerName;
+    if (pens && pens[0] !== pens[1]) winnerName = pens[0] > pens[1] ? home : away;
+    else winnerName = reg[0] > reg[1] ? home : reg[1] > reg[0] ? away : 'Draw';
 
-    if (round === 'GROUP') {
+    if (isGroup) {
       const key = [normName(home), normName(away)].sort().join(' | ');
       const slot = groupIndex.get(key);
       if (!slot) { warnings.push(`No group slot for ${home} vs ${away}.`); continue; }
-      // align scores to the slot's team1/team2 orientation
       const t1IsHome = normName(slot.team1) === normName(home);
-      const score1 = t1IsHome ? homeGoals : awayGoals;
-      const score2 = t1IsHome ? awayGoals : homeGoals;
+      const score1 = t1IsHome ? reg[0] : reg[1];
+      const score2 = t1IsHome ? reg[1] : reg[0];
       const winner = score1 > score2 ? slot.team1 : score2 > score1 ? slot.team2 : 'Draw';
-      writes[slot.src_row] = {
-        team1: slot.team1, team2: slot.team2, score1, score2, winner, final: true,
-      };
-    } else {
-      // collect knockout matches; assign to slots after sorting chronologically
-      (koByRound[round] ||= []).push({
-        utcDate: m.utcDate, home, away, homeGoals, awayGoals,
-        pen1: hasPens ? pens.home : null, pen2: hasPens ? pens.away : null,
+      writes[slot.src_row] = { team1: slot.team1, team2: slot.team2, score1, score2, winner, final: true };
+
+    } else if (koRound === 'Third place') {
+      if (thirdSlot) {
+        writes[thirdSlot.src_row] = {
+          team1: home, team2: away, score1: reg[0], score2: reg[1], winner: winnerName, final: true,
+        };
+      }
+
+    } else if (koRound) {
+      (koByRound[koRound] ||= []).push({
+        date: m.date || m.utcDate || '', home, away,
+        score1: reg[0], score2: reg[1],
+        pen1: pens ? pens[0] : null, pen2: pens ? pens[1] : null,
         winner: winnerName,
       });
-      // a team that played in this round has reached it
-      (reachedByRound[round] ||= new Set()).add(home).add(away);
+      (reachedByRound[koRound] ||= new Set()).add(home).add(away);
+
+    } else {
+      warnings.push(`Unrecognised round "${m.round || m.stage || m.name}" — skipped.`);
     }
   }
 
   // assign knockout matches to that round's slots (best-effort, by date order)
   for (const round of KO_ROUNDS) {
-    const games = (koByRound[round] || []).slice().sort((a, b) => String(a.utcDate).localeCompare(String(b.utcDate)));
+    const games = (koByRound[round] || []).slice().sort((a, b) => String(a.date).localeCompare(String(b.date)));
     const slots = koSlots[round] || [];
     if (games.length > slots.length) {
       warnings.push(`${round}: ${games.length} finished matches but only ${slots.length} slots — extra ignored.`);
@@ -236,7 +255,7 @@ async function fetchMatches() {
     games.forEach((g, i) => {
       if (i >= slots.length) return;
       writes[slots[i]] = {
-        team1: g.home, team2: g.away, score1: g.homeGoals, score2: g.awayGoals,
+        team1: g.home, team2: g.away, score1: g.score1, score2: g.score2,
         ...(g.pen1 != null ? { pen1: g.pen1 } : {}),
         ...(g.pen2 != null ? { pen2: g.pen2 } : {}),
         winner: g.winner, reached, final: true,
@@ -244,27 +263,12 @@ async function fetchMatches() {
     });
   }
 
-  // Third place (no `reached` needed — scoring uses winner only)
-  for (const m of finished) {
-    if (STAGE_TO_ROUND[m.stage] !== 'Third place') continue;
-    const home = resolve(m.homeTeam && m.homeTeam.name);
-    const away = resolve(m.awayTeam && m.awayTeam.name);
-    const ft = (m.score && m.score.fullTime) || {};
-    if (!home || !away || ft.home == null) continue;
-    const pens = (m.score && m.score.penalties) || {};
-    let winner = apiWinnerToName(m.score, home, away);
-    if (winner === 'Draw' && pens.home != null) winner = pens.home > pens.away ? home : away;
-    const slot = refPicks.find(p => p.round === 'Third place');
-    if (slot) {
-      writes[slot.src_row] = { team1: home, team2: away, score1: ft.home, score2: ft.away, winner, final: true };
-    }
-  }
+  console.log(`${finishedCount} finished match(es) parsed.`);
 
   // ── apply (only finished matches; never touches entrants) ──
   const changed = [];
   for (const [src_row, result] of Object.entries(writes)) {
-    const prev = JSON.stringify(DATA.results[src_row]);
-    if (prev !== JSON.stringify(result)) changed.push(src_row);
+    if (JSON.stringify(DATA.results[src_row]) !== JSON.stringify(result)) changed.push(src_row);
     DATA.results[src_row] = result;
   }
 
@@ -275,9 +279,11 @@ async function fetchMatches() {
   }
 
   if (DRY_RUN) {
-    console.log('\n--dry-run: no file written.');
+    console.log('\n--dry-run: no file written. Sample of what would be written:');
+    const sample = Object.fromEntries(Object.entries(writes).slice(0, 6));
+    console.log(JSON.stringify(sample, null, 2));
     return;
   }
   fs.writeFileSync(JSON_PATH, JSON.stringify(DATA, null, 1));
-  console.log(`\n✓ Wrote ${JSON_PATH}. Re-deploy the folder to Netlify to publish.`);
+  console.log(`\n✓ Wrote ${JSON_PATH}.`);
 })().catch(err => die(err.stack || err.message));
