@@ -104,6 +104,10 @@
   .fullname { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .champ-line { font-size: 11px; color: var(--muted); margin-top: 4px; }
   .champ-line span { color: var(--primary); font-weight: 700; }
+  .move { font-size: 13px; font-weight: 800; width: 16px; text-align: center; }
+  .move-up { color: var(--green); }
+  .move-down { color: var(--red); }
+  .move-flat { color: var(--muted); opacity: .6; }
   .pts-wrap { text-align: right; }
   .pts-badge { font-size: 27px; font-weight: 800; line-height: 1; color: var(--primary); letter-spacing: -1px; }
   .pts-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px; }
@@ -193,9 +197,11 @@
   .gm .gm-sc { font-weight: 800; color: var(--mid); min-width: 30px; text-align: center; font-variant-numeric: tabular-nums; }
   .gm.win-team1 .gm-t.t1, .gm.win-team2 .gm-t.t2 { font-weight: 800; color: var(--text); }
   .gm .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; background: var(--border2); }
-  .gm.r-exact .dot { background: var(--primary); box-shadow: 0 0 6px var(--primary-soft); }
-  .gm.r-winner .dot { background: var(--teal); }
-  .gm.r-wrong .dot { background: var(--accent); }
+  .gm.r-correct .dot { background: var(--green); box-shadow: 0 0 6px rgba(43,157,94,.6); }
+  .gm.r-wrong .dot { background: var(--red); }
+  .gm-pts { font-size: 11px; font-weight: 800; min-width: 22px; text-align: right; color: var(--green); font-variant-numeric: tabular-nums; }
+  .gm-pts.zero { color: var(--red); }
+  .gm-pts.blank { color: transparent; }
 
   /* ── KNOCKOUT BRACKET TREE ── */
   .ko-scroll { overflow-x: auto; padding: 4px 2px 20px; }
@@ -223,22 +229,51 @@
     box-shadow: 0 1px 3px rgba(29,22,51,.06);
   }
   .ko-game:hover { border-color: var(--border2); transform: translateY(-1px); }
-  .ko-game.exact  { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary), 0 6px 16px rgba(109,40,217,.2); }
-  .ko-game.winner { border-color: var(--teal); box-shadow: 0 0 0 1px var(--teal); }
-  .ko-game.wrong  { opacity: .58; }
+  .ko-game.correct { border-color: var(--green); box-shadow: 0 0 0 1px var(--green), 0 6px 16px rgba(43,157,94,.18); }
+  .ko-game.wrong   { border-color: var(--red); box-shadow: 0 0 0 1px var(--red); opacity: .8; }
   .kg-row { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 12px; }
   .kg-row + .kg-row { border-top: 1px solid var(--border); }
   .kg-team { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
   .kg-row.is-winner .kg-team { color: var(--text); font-weight: 800; }
   .kg-sc { font-weight: 800; font-variant-numeric: tabular-nums; min-width: 16px; text-align: right; color: var(--mid); }
-  .kg-pts { position: absolute; top: -9px; right: 8px; font-size: 10px; font-weight: 800; background: var(--teal); color: #fff; border-radius: 10px; padding: 1px 7px; box-shadow: 0 2px 6px rgba(15,184,147,.4); }
-  .kg-pts.zero { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); box-shadow: none; }
+  .kg-pts { position: absolute; top: -9px; right: 8px; font-size: 10px; font-weight: 800; background: var(--green); color: #fff; border-radius: 10px; padding: 1px 7px; box-shadow: 0 2px 6px rgba(43,157,94,.4); }
+  .kg-pts.zero { background: var(--red); color: #fff; border: none; box-shadow: 0 2px 6px rgba(229,72,77,.35); }
 
   .final-third { display: flex; gap: 18px; flex-wrap: wrap; align-items: stretch; margin-top: 8px; }
   .trophy-card { flex: 1 1 240px; background: linear-gradient(160deg, #fff7e9, #fffdfa); border: 1px solid #f4d9a8; border-radius: 18px; padding: 18px 20px; text-align: center; box-shadow: 0 6px 18px rgba(245,158,11,.14); }
   .trophy-card .tc-eyebrow { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-weight: 700; }
   .trophy-card .tc-champ { font-size: 26px; font-weight: 800; letter-spacing: -.5px; margin: 8px 0 2px; }
   .trophy-card .tc-icon { font-size: 34px; }
+
+  /* ── WHAT-IF ── */
+  .wi-standings { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+  @media (max-width: 700px) { .wi-standings { grid-template-columns: 1fr; } }
+  .wi-col { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 12px 14px; box-shadow: 0 1px 2px rgba(29,22,51,.04); }
+  .wi-col-head { font-size: 12px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); padding: 4px 4px 10px; }
+  .wi-row { display: flex; align-items: center; gap: 9px; padding: 5px 4px; border-bottom: 1px solid var(--border); }
+  .wi-row:last-child { border: none; }
+  .wi-row.gained { background: linear-gradient(90deg, rgba(43,157,94,.08), transparent); border-radius: 8px; }
+  .wi-rank { width: 24px; text-align: center; font-weight: 800; color: var(--muted); font-size: 13px; }
+  .wi-name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; font-size: 13px; }
+  .wi-pts { font-weight: 800; color: var(--primary); font-size: 15px; min-width: 26px; text-align: right; }
+  .wi-delta { font-size: 11px; font-weight: 800; color: var(--green); }
+
+  .wi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-bottom: 6px; }
+  .wi-match { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; box-shadow: 0 1px 2px rgba(29,22,51,.04); }
+  .wi-match.has-hyp { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+  .wi-match.locked { display: flex; align-items: center; gap: 8px; opacity: .7; }
+  .wi-teams { font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+  .wi-match.locked .wi-teams { margin: 0; flex: 1; }
+  .wi-lock { font-size: 13px; }
+  .wi-final-tag { font-size: 9px; font-weight: 800; letter-spacing: .5px; background: linear-gradient(180deg, #35cf78, var(--green)); color: #fff; padding: 2px 7px; border-radius: 20px; }
+  .wi-winners { display: flex; gap: 5px; margin-bottom: 8px; }
+  .wi-w { flex: 1; min-width: 0; padding: 5px 6px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); cursor: pointer; font-size: 11px; font-weight: 700; font-family: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: all .12s; }
+  .wi-w:hover { border-color: var(--border2); color: var(--text); }
+  .wi-w.active { background: linear-gradient(180deg, var(--primary-soft), var(--primary)); color: #fff; border-color: var(--primary); }
+  .wi-score { display: flex; align-items: center; gap: 6px; }
+  .wi-score input { width: 48px; }
+  .wi-clear { margin-left: auto; padding: 4px 10px; border-radius: 8px; border: 1px solid var(--border2); background: transparent; color: var(--muted); cursor: pointer; font-size: 11px; font-family: inherit; }
+  .wi-clear:hover { border-color: var(--accent); color: var(--accent); }
 
   /* ── ADMIN ── */
   .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
@@ -269,7 +304,8 @@
   <button class="nav-btn active" onclick="showView('standings')">Standings</button>
   <button class="nav-btn" onclick="showView('breakdown')">Match Breakdown</button>
   <button class="nav-btn" onclick="showView('bracket')">Brackets</button>
-  <button class="nav-btn" onclick="showView('admin')">Enter Results</button>
+  <button class="nav-btn" onclick="showView('whatif')">What-If</button>
+  <button id="nav-admin" class="nav-btn" onclick="showView('admin')">Enter Results</button>
 </nav>
 
 <main id="app">
@@ -277,6 +313,9 @@
 </main>
 
 <script type="module">
+import { scoreCard } from './scorecard.js';
+import { hypotheticalActual, projectTotals } from './whatif.js';
+
 // ═══════════════════════════════════════════════════════════════════════════
 // scoring engine (mirrors scoring.js)
 // ═══════════════════════════════════════════════════════════════════════════
@@ -359,6 +398,15 @@ let breakdownSrcRow = 6;
 let breakdownRound = 'Group A';
 let bracketEntrant = 0;
 let adminRound = 'Group Stage';
+let whatIf = {};   // src_row -> hypothetical outcome ({winner} or {score1,score2}); in memory only
+
+// hidden admin mode — manual results entry only shows with ?admin=1 in the URL
+const ADMIN_MODE = new URLSearchParams(location.search).get('admin') === '1';
+
+// standings movement (in memory only — no localStorage / no persistence)
+let baselineOrder = null;   // entrant order under the *previous* results
+let displayedSig = null;    // results signature currently on screen
+let displayedOrder = null;  // entrant order under displayedSig
 
 const NEW_ENTRANTS = new Set(['Jose Larena', 'Peter', 'Nate Oakes', 'Nayan']);
 
@@ -412,10 +460,13 @@ window.showView = function(v) {
 // render dispatcher
 // ═══════════════════════════════════════════════════════════════════════════
 function render() {
+  // admin views are gated behind ?admin=1
+  if (currentView === 'admin' && !ADMIN_MODE) currentView = 'standings';
   const app = document.getElementById('app');
   if (currentView === 'standings') app.innerHTML = renderStandings();
   else if (currentView === 'breakdown') app.innerHTML = renderBreakdownShell();
   else if (currentView === 'bracket') app.innerHTML = renderBracketShell();
+  else if (currentView === 'whatif') app.innerHTML = renderWhatIf();
   else if (currentView === 'admin') app.innerHTML = renderAdmin();
   attachEvents();
 }
@@ -441,6 +492,28 @@ function renderStandings() {
   const playedCount = Object.values(r).filter(v => v.final).length;
   const inProgressCount = Object.values(r).filter(v => !v.final && v.status === 'in_progress').length;
 
+  // ── movement since the previous results update (in memory only) ──
+  const curOrder = scored.map(s => DATA.entrants.indexOf(s.e));
+  const curSig = JSON.stringify(r);
+  if (displayedSig === null) {
+    // first load — no prior order to compare against
+    baselineOrder = null;
+    displayedSig = curSig; displayedOrder = curOrder;
+  } else if (curSig !== displayedSig) {
+    // results changed — roll the baseline forward to the prior order
+    baselineOrder = displayedOrder;
+    displayedSig = curSig; displayedOrder = curOrder;
+  }
+  // (unchanged results: keep baseline so arrows persist across tab switches)
+  function movement(id, curPos) {
+    if (!baselineOrder) return { cls: 'move-flat', sym: '–' };
+    const prevPos = baselineOrder.indexOf(id);
+    if (prevPos === -1) return { cls: 'move-flat', sym: '–' };
+    if (prevPos > curPos) return { cls: 'move-up', sym: '▲' };
+    if (prevPos < curPos) return { cls: 'move-down', sym: '▼' };
+    return { cls: 'move-flat', sym: '–' };
+  }
+
   const medals = ['🥇', '🥈', '🥉'];
   let cards = scored.map(({ e, pts }, i) => {
     const isNew = NEW_ENTRANTS.has(e.name);
@@ -448,6 +521,7 @@ function renderStandings() {
     const rankCell = (i < 3 && pts > 0)
       ? `<span class="rank-medal">${medals[i]}</span>`
       : `<span class="rank-num num">${i+1}</span>`;
+    const mv = movement(DATA.entrants.indexOf(e), i);
     return `
       <div class="card ${tier(pts)}" onclick="drillDown(${e.picks[0]?.src_row ?? 6}, '${e.alias}')">
         <div class="rank">${rankCell}</div>
@@ -456,6 +530,7 @@ function renderStandings() {
           <div class="fullname">${e.name} · ${e.nationality}</div>
           <div class="champ-line">🏆 <span>${e.champion}</span></div>
         </div>
+        <span class="move ${mv.cls}" title="movement since last update">${mv.sym}</span>
         <div class="pts-wrap">
           <div class="pts-badge num">${pts}</div>
           <div class="pts-label">pts</div>
@@ -478,7 +553,7 @@ window.drillDown = function(srcRow, alias) {
 function showViewDirect(v) {
   currentView = v;
   document.querySelectorAll('.nav-btn').forEach((b,i) => {
-    const views = ['standings','breakdown','bracket','admin'];
+    const views = ['standings','breakdown','bracket','whatif','admin'];
     b.classList.toggle('active', views[i] === v);
   });
   render();
@@ -649,17 +724,18 @@ window.selectBracketEntrant = function(i) { bracketEntrant = i; render(); };
 // render a single knockout game card
 function koGameCard(p, r) {
   const actual = r[String(p.src_row)];
-  const pts = actual && actual.final ? pointsForPick(p, actual, DATA.scoring) : 0;
-  const oc = pickOutcome(p, actual);
-  const gameCls = oc === 'exact' ? 'exact' : oc === 'winner' ? 'winner' : oc === 'wrong' ? 'wrong' : '';
+  // scoreCard() (scorecard.js) delegates to pointsForPick in scoring.js and
+  // gates on actual.final — unplayed matches stay uncolored.
+  const { state, points } = scoreCard(p, actual, DATA.scoring);
+  const gameCls = state === 'correct' ? 'correct' : state === 'wrong' ? 'wrong' : '';
 
   const s1 = p.score1 !== null ? p.score1 : '–';
   const s2 = p.score2 !== null ? p.score2 : '–';
   const pen = (p.pen1 != null && p.pen2 != null) ? ` <span style="color:var(--muted);font-size:10px">(${p.pen1}-${p.pen2}p)</span>` : '';
   const win1 = p.winner === p.team1 ? 'is-winner' : '';
   const win2 = p.winner === p.team2 ? 'is-winner' : '';
-  const ptsBadge = (actual && actual.final)
-    ? `<span class="kg-pts ${pts > 0 ? '' : 'zero'}">${pts > 0 ? '+' : ''}${pts}</span>`
+  const ptsBadge = (state !== 'unplayed')
+    ? `<span class="kg-pts ${points > 0 ? '' : 'zero'}">${points > 0 ? '+' : ''}${points}</span>`
     : '';
 
   return `
@@ -687,18 +763,21 @@ function renderBracket(idx) {
   const groupCards = groupRounds.map(rd => {
     const rows = byRound[rd].map(p => {
       const actual = r[String(p.src_row)];
-      const oc = pickOutcome(p, actual);
-      const rcls = (actual && (actual.final || actual.status === 'in_progress'))
-        ? (oc === 'exact' ? 'r-exact' : oc === 'winner' ? 'r-winner' : 'r-wrong') : '';
+      const { state, points } = scoreCard(p, actual, DATA.scoring);
+      const rcls = state === 'correct' ? 'r-correct' : state === 'wrong' ? 'r-wrong' : '';
       const s1 = p.score1 !== null ? p.score1 : '–';
       const s2 = p.score2 !== null ? p.score2 : '–';
       const wcls = p.winner === p.team1 ? 'win-team1' : p.winner === p.team2 ? 'win-team2' : '';
+      const ptsTag = state !== 'unplayed'
+        ? `<span class="gm-pts ${points > 0 ? '' : 'zero'}">${points > 0 ? '+' : ''}${points}</span>`
+        : '<span class="gm-pts blank"></span>';
       return `
         <div class="gm ${wcls} ${rcls}">
           <span class="dot"></span>
           <span class="gm-t t1">${p.team1}</span>
           <span class="gm-sc">${s1}-${s2}</span>
           <span class="gm-t t2">${p.team2}</span>
+          ${ptsTag}
         </div>`;
     }).join('');
     return `<div class="group-card"><h4>${rd}</h4>${rows}</div>`;
@@ -758,6 +837,151 @@ function renderBracket(idx) {
     ${groupCards ? `
       <div class="section-eyebrow">Group Stage Predictions</div>
       <div class="group-grid">${groupCards}</div>` : ''}`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// VIEW — WHAT-IF (hypothetical outcomes for unsettled group matches)
+// ═══════════════════════════════════════════════════════════════════════════
+// Editable universe = group fixtures (fixed teams) not yet marked final.
+// Knockout slots have entrant-specific teams, so they aren't hypothesizable here.
+function whatIfGroupMatches() {
+  return DATA.entrants[0].picks.filter(p => p.round.startsWith('Group '));
+}
+function whatIfMatchBySrc() {
+  const m = {};
+  for (const p of whatIfGroupMatches()) m[p.src_row] = p;
+  return m;
+}
+
+window.setWhatIfWinner = function(srcRow, winner) {
+  const cur = whatIf[srcRow];
+  // tapping the active winner again clears the hypothetical
+  if (cur && cur.winner === winner && cur.score1 == null) delete whatIf[srcRow];
+  else whatIf[srcRow] = { winner };
+  render();
+};
+
+window.applyWhatIfScore = function(srcRow) {
+  const s1 = document.getElementById(`wi-s1-${srcRow}`)?.value;
+  const s2 = document.getElementById(`wi-s2-${srcRow}`)?.value;
+  if (s1 === '' || s2 === '' || s1 == null || s2 == null) { delete whatIf[srcRow]; render(); return; }
+  whatIf[srcRow] = { score1: parseInt(s1), score2: parseInt(s2) };
+  render();
+};
+
+window.clearWhatIfMatch = function(srcRow) { delete whatIf[srcRow]; render(); };
+window.resetWhatIf = function() { whatIf = {}; render(); };
+
+function renderWhatIf() {
+  const scoring = DATA.scoring;
+  const r = getResults();
+  const matchBySrc = whatIfMatchBySrc();
+
+  // build hypothetical actuals and a merged results map
+  const hypActuals = {};
+  for (const [sr, outcome] of Object.entries(whatIf)) {
+    const match = matchBySrc[sr];
+    if (match) hypActuals[sr] = hypotheticalActual(match, outcome);
+  }
+  const merged = { ...r, ...hypActuals };
+
+  // current vs projected standings (totalPoints from scoring.js, via projectTotals)
+  const cur = projectTotals(DATA.entrants, r, scoring)
+    .sort((a, b) => b.points - a.points || (a.entrant.alias || a.entrant.name).localeCompare(b.entrant.alias || b.entrant.name));
+  const proj = projectTotals(DATA.entrants, merged, scoring)
+    .sort((a, b) => b.points - a.points || (a.entrant.alias || a.entrant.name).localeCompare(b.entrant.alias || b.entrant.name));
+
+  const curRank = new Map(cur.map((x, i) => [x.entrant, i]));
+  const curPts = new Map(cur.map(x => [x.entrant, x.points]));
+
+  // ── editable match controls, grouped by group ──
+  const groupRounds = DATA.round_order.filter(rd => rd.startsWith('Group '));
+  const groupSections = groupRounds.map(rd => {
+    const matches = whatIfGroupMatches().filter(p => p.round === rd);
+    if (!matches.length) return '';
+    const rows = matches.map(p => {
+      const real = r[String(p.src_row)];
+      const locked = !!(real && real.final);
+      if (locked) {
+        return `
+          <div class="wi-match locked">
+            <span class="wi-lock">🔒</span>
+            <span class="wi-teams">${p.team1} <b>${real.score1}–${real.score2}</b> ${p.team2}</span>
+            <span class="wi-final-tag">FINAL</span>
+          </div>`;
+      }
+      const sel = whatIf[p.src_row] || {};
+      const activeT1 = sel.winner === p.team1 ? 'active' : '';
+      const activeD  = sel.winner === 'Draw' ? 'active' : '';
+      const activeT2 = sel.winner === p.team2 ? 'active' : '';
+      const s1 = sel.score1 != null ? sel.score1 : '';
+      const s2 = sel.score2 != null ? sel.score2 : '';
+      const hasHyp = whatIf[p.src_row] != null;
+      return `
+        <div class="wi-match ${hasHyp ? 'has-hyp' : ''}">
+          <div class="wi-teams">${p.team1} <span style="color:var(--muted)">v</span> ${p.team2}</div>
+          <div class="wi-winners">
+            <button class="wi-w ${activeT1}" onclick="setWhatIfWinner(${p.src_row}, '${p.team1.replace(/'/g,"\\'")}')">${p.team1}</button>
+            <button class="wi-w ${activeD}" onclick="setWhatIfWinner(${p.src_row}, 'Draw')">Draw</button>
+            <button class="wi-w ${activeT2}" onclick="setWhatIfWinner(${p.src_row}, '${p.team2.replace(/'/g,"\\'")}')">${p.team2}</button>
+          </div>
+          <div class="wi-score">
+            <input type="number" min="0" max="20" id="wi-s1-${p.src_row}" value="${s1}" onchange="applyWhatIfScore(${p.src_row})">
+            <span style="color:var(--muted)">–</span>
+            <input type="number" min="0" max="20" id="wi-s2-${p.src_row}" value="${s2}" onchange="applyWhatIfScore(${p.src_row})">
+            ${hasHyp ? `<button class="wi-clear" onclick="clearWhatIfMatch(${p.src_row})">clear</button>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+    return `<div class="section-eyebrow">${rd}</div><div class="wi-grid">${rows}</div>`;
+  }).join('');
+
+  // ── standings comparison (current vs projected) ──
+  const medals = ['🥇', '🥈', '🥉'];
+  function colList(list, isProj) {
+    return list.map((x, i) => {
+      const e = x.entrant;
+      const alias = e.alias || `${e.name.split(' ')[0]} (no alias)`;
+      const rankCell = i < 3 && x.points > 0 ? medals[i] : (i + 1);
+      let move = '';
+      if (isProj) {
+        const prevRank = curRank.get(e);
+        const dPts = x.points - (curPts.get(e) || 0);
+        const sym = prevRank > i ? '▲' : prevRank < i ? '▼' : '–';
+        const cls = prevRank > i ? 'move-up' : prevRank < i ? 'move-down' : 'move-flat';
+        move = `<span class="move ${cls}">${sym}</span>${dPts > 0 ? `<span class="wi-delta">+${dPts}</span>` : ''}`;
+      }
+      return `
+        <div class="wi-row ${isProj && x.points - (curPts.get(e) || 0) > 0 ? 'gained' : ''}">
+          <span class="wi-rank">${rankCell}</span>
+          <span class="wi-name">${alias}</span>
+          ${move}
+          <span class="wi-pts num">${x.points}</span>
+        </div>`;
+    }).join('');
+  }
+
+  const hypCount = Object.keys(hypActuals).length;
+  return `
+    <h2>What-If</h2>
+    <p class="subtitle">Pick hypothetical outcomes for matches that haven't finished — tap a winner, or enter an exact score for exact-score points. Standings recompute instantly. Final matches are locked.</p>
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px;flex-wrap:wrap">
+      <button class="save-btn" onclick="resetWhatIf()">↺ Reset hypotheticals</button>
+      <span style="color:var(--muted);font-size:13px">${hypCount} hypothetical${hypCount !== 1 ? 's' : ''} active</span>
+    </div>
+
+    <div class="wi-standings">
+      <div class="wi-col">
+        <div class="wi-col-head">Current</div>
+        ${colList(cur, false)}
+      </div>
+      <div class="wi-col">
+        <div class="wi-col-head">Projected ${hypCount ? `<span style="color:var(--primary)">· ${hypCount} what-if${hypCount !== 1 ? 's' : ''}</span>` : ''}</div>
+        ${colList(proj, true)}
+      </div>
+    </div>
+
+    ${groupSections}`;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -1019,6 +1243,12 @@ async function boot() {
   } catch (err) {
     showLoadError(err.message);
   }
+}
+
+// hide the manual "Enter Results" tab for normal visitors
+if (!ADMIN_MODE) {
+  const adminBtn = document.getElementById('nav-admin');
+  if (adminBtn) adminBtn.style.display = 'none';
 }
 
 boot();
