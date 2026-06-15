@@ -73,6 +73,7 @@
    "team2": "South Africa",
    "score1": 2,
    "score2": 0,
+   "winner": "Mexico",
    "final": true
   },
   "7": {
@@ -80,6 +81,7 @@
    "team2": "Czech Rep.",
    "score1": 2,
    "score2": 1,
+   "winner": "Rep. of Korea",
    "final": true
   },
   "13": {
@@ -87,6 +89,7 @@
    "team2": "Bosnia/Herzeg.",
    "score1": 1,
    "score2": 1,
+   "winner": "Draw",
    "final": true
   },
   "14": {
@@ -94,6 +97,7 @@
    "team2": "Switzerland",
    "score1": 1,
    "score2": 1,
+   "winner": "Draw",
    "final": true
   },
   "20": {
@@ -101,6 +105,7 @@
    "team2": "Morocco",
    "score1": 1,
    "score2": 1,
+   "winner": "Draw",
    "final": true
   },
   "21": {
@@ -108,6 +113,7 @@
    "team2": "Scotland",
    "score1": 0,
    "score2": 1,
+   "winner": "Scotland",
    "final": true
   },
   "27": {
@@ -115,6 +121,7 @@
    "team2": "Paraguay",
    "score1": 4,
    "score2": 1,
+   "winner": "USA",
    "final": true
   },
   "28": {
@@ -122,6 +129,7 @@
    "team2": "Turkey",
    "score1": 2,
    "score2": 0,
+   "winner": "Australia",
    "final": true
   },
   "34": {
@@ -129,6 +137,7 @@
    "team2": "Curaçao",
    "score1": 7,
    "score2": 1,
+   "winner": "Germany",
    "final": true
   },
   "35": {
@@ -136,6 +145,7 @@
    "team2": "Ecuador",
    "score1": 1,
    "score2": 0,
+   "winner": "Ivory Coast",
    "final": true
   },
   "41": {
@@ -143,6 +153,15 @@
    "team2": "Japan",
    "score1": 2,
    "score2": 2,
+   "winner": "Draw",
+   "final": true
+  },
+  "42": {
+   "team1": "Sweden",
+   "team2": "Tunisia",
+   "score1": 5,
+   "score2": 1,
+   "winner": "Sweden",
    "final": true
   },
   "48": {
@@ -150,6 +169,7 @@
    "team2": "Egypt",
    "score1": 1,
    "score2": 1,
+   "winner": "Draw",
    "final": true
   },
   "55": {
@@ -157,6 +177,7 @@
    "team2": "Cape Verde",
    "score1": 0,
    "score2": 0,
+   "winner": "Draw",
    "final": true
   }
  },
