@@ -1,0 +1,10 @@
+{
+  "name": "la-quiniela",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "La Quiniela — World Cup 2026 pool dashboard",
+  "scripts": {
+    "test": "node --test"
+  }
+}

@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Quiniela — 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f2fb;
+    --bg2: #ffffff;
+    --surface: #ffffff;
+    --surface2: #f3f0fc;
+    --border: #e7e2f5;
+    --border2: #d5cdf0;
+    --text: #1d1633;
+    --muted: #726b8c;
+    --primary: #6d28d9;        /* electric violet */
+    --primary-soft: #8b5cf6;
+    --primary-deep: #4c1d95;
+    --accent: #ff5b2e;         /* orange pop */
+    --gold: #f59e0b;           /* trophy amber */
+    --teal: #0fb893;
+    --mid: #5046e4;            /* indigo */
+    --low: #9b95c9;
+    --red: #e5484d;
+    --green: #2b9d5e;
+    --line: #d5cdf0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(1100px 560px at 88% -12%, rgba(109,40,217,.10), transparent 60%),
+      radial-gradient(820px 460px at -5% 0%, rgba(255,91,46,.07), transparent 55%),
+      var(--bg);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 14px; min-height: 100vh; line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ── NAV / HEADER ── */
+  nav {
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 24px;
+    background: rgba(255,255,255,.78);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(12px) saturate(1.4);
+  }
+  nav::before {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-soft), var(--accent));
+  }
+  .brand { display: flex; align-items: baseline; gap: 10px; margin-right: auto; }
+  .nav-title { font-weight: 800; font-size: 19px; letter-spacing: -.4px; color: var(--text); white-space: nowrap; }
+  .nav-title .accent { color: var(--primary); }
+  .nav-sub { font-size: 11px; color: var(--muted); letter-spacing: .8px; text-transform: uppercase; font-weight: 600; }
+  .nav-btn {
+    padding: 8px 16px; border-radius: 10px; border: 1px solid transparent;
+    background: transparent; color: var(--muted); cursor: pointer; font-size: 13px; font-weight: 600;
+    transition: all .15s;
+  }
+  .nav-btn:hover { background: var(--surface2); color: var(--primary); }
+  .nav-btn.active {
+    background: linear-gradient(180deg, var(--primary-soft), var(--primary));
+    color: #fff; box-shadow: 0 4px 14px rgba(109,40,217,.32);
+  }
+
+  /* ── MAIN ── */
+  main { padding: 28px 24px 64px; max-width: 1500px; margin: 0 auto; }
+  h2 { font-size: 24px; font-weight: 800; letter-spacing: -.6px; margin-bottom: 4px; }
+  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--primary); margin: 28px 0 14px; display: flex; align-items: center; gap: 10px; }
+  .section-eyebrow::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border2), transparent); }
+
+  /* ── STANDINGS ── */
+  .standings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border); border-radius: 16px; padding: 14px 16px;
+    display: flex; align-items: center; gap: 14px;
+    transition: transform .15s, border-color .15s, box-shadow .15s; cursor: pointer;
+    position: relative; overflow: hidden;
+    box-shadow: 0 1px 2px rgba(29,22,51,.04);
+  }
+  .card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--border2); }
+  .card:hover { transform: translateY(-2px); border-color: var(--border2); box-shadow: 0 12px 28px rgba(109,40,217,.14); }
+  .card.tier-gold::before { background: linear-gradient(180deg, var(--primary-soft), var(--primary)); }
+  .card.tier-teal::before { background: var(--teal); }
+  .card.tier-mid::before  { background: var(--mid); }
+  .card.tier-low::before  { background: var(--low); }
+  .card.tier-red::before  { background: var(--accent); }
+  .rank { min-width: 30px; text-align: center; }
+  .rank-num { font-size: 19px; font-weight: 800; color: var(--muted); }
+  .rank-medal { font-size: 22px; }
+  .card-body { flex: 1; min-width: 0; }
+  .alias { font-weight: 800; font-size: 15px; letter-spacing: -.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fullname { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .champ-line { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .champ-line span { color: var(--primary); font-weight: 700; }
+  .move { font-size: 13px; font-weight: 800; width: 16px; text-align: center; }
+  .move-up { color: var(--green); }
+  .move-down { color: var(--red); }
+  .move-flat { color: var(--muted); opacity: .6; }
+  .pts-wrap { text-align: right; }
+  .pts-badge { font-size: 27px; font-weight: 800; line-height: 1; color: var(--primary); letter-spacing: -1px; }
+  .pts-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px; }
+  .new-tag { font-size: 9px; background: var(--accent); color: #fff; border-radius: 5px; padding: 2px 6px; font-weight: 800; margin-left: 6px; vertical-align: middle; letter-spacing: .5px; }
+
+  /* ── MATCH BREAKDOWN ── */
+  .match-header {
+    background: linear-gradient(135deg, #ffffff, #f7f4fe);
+    border: 1px solid var(--border); border-radius: 16px; padding: 18px 22px; margin-bottom: 18px;
+    display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+    box-shadow: 0 1px 2px rgba(29,22,51,.04);
+  }
+  .match-teams { font-size: 25px; font-weight: 800; letter-spacing: -.6px; }
+  .match-round { color: var(--primary); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 4px; }
+  .result-banner { padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 16px; letter-spacing: .3px; }
+  .result-banner.final { background: linear-gradient(180deg, #35cf78, var(--green)); color: #fff; }
+  .result-banner.live  { background: linear-gradient(180deg, #ff7a52, var(--accent)); color: #fff; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:.55 } }
+
+  .kpi-strip { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 18px; min-width: 120px; box-shadow: 0 1px 2px rgba(29,22,51,.04); }
+  .kpi-val { font-size: 21px; font-weight: 800; letter-spacing: -.5px; }
+  .kpi-lbl { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  .breakdown-cols { column-count: 4; column-gap: 14px; }
+  @media (max-width: 1100px) { .breakdown-cols { column-count: 3; } }
+  @media (max-width: 800px) { .breakdown-cols { column-count: 2; } }
+  @media (max-width: 500px) { .breakdown-cols { column-count: 1; } }
+  .score-card { break-inside: avoid; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 14px; box-shadow: 0 1px 2px rgba(29,22,51,.04); }
+  .score-card.outcome-t1   { border-top: 3px solid var(--accent); }
+  .score-card.outcome-draw { border-top: 3px solid var(--low); }
+  .score-card.outcome-t2   { border-top: 3px solid var(--mid); }
+  .score-card.exact-match  { border-color: var(--primary) !important; box-shadow: 0 0 0 1px var(--primary), 0 8px 20px rgba(109,40,217,.18); }
+  .score-card.winner-match { border-color: var(--teal) !important; box-shadow: 0 0 0 1px var(--teal); }
+  .score-line { font-size: 21px; font-weight: 800; letter-spacing: -.5px; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .score-count { font-size: 11px; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 2px 10px; color: var(--muted); font-weight: 700; }
+  .picker-list { display: flex; flex-direction: column; gap: 2px; }
+  .picker-item { display: flex; justify-content: space-between; font-size: 12px; padding: 4px 0; border-bottom: 1px solid var(--border); }
+  .picker-item:last-child { border: none; }
+  .picker-name { color: var(--text); font-weight: 500; }
+  .picker-winner { color: var(--muted); font-size: 11px; }
+
+  /* ── SELECTORS / CHIPS ── */
+  .match-selector { margin-bottom: 22px; }
+  .round-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+  .round-tab { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 600; transition: all .15s; }
+  .round-tab:hover { color: var(--primary); border-color: var(--border2); }
+  .round-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .match-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .match-pill { padding: 7px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; font-size: 12px; font-weight: 600; transition: all .15s; box-shadow: 0 1px 2px rgba(29,22,51,.03); }
+  .match-pill:hover { border-color: var(--border2); transform: translateY(-1px); }
+  .match-pill.active { border-color: var(--primary); color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+  .match-pill.has-result { border-left: 3px solid var(--green); }
+  .match-pill.in-progress { border-left: 3px solid var(--accent); }
+
+  .entrant-selector { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .entrant-chip { padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 600; transition: all .15s; }
+  .entrant-chip:hover { border-color: var(--border2); color: var(--primary); }
+  .entrant-chip.active { background: linear-gradient(180deg, var(--primary-soft), var(--primary)); color: #fff; border-color: var(--primary); }
+
+  /* ── BRACKET HERO ── */
+  .bracket-hero {
+    display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+    background: linear-gradient(135deg, var(--primary), var(--primary-deep) 70%, #3b1875);
+    border-radius: 18px; padding: 22px 26px; margin-bottom: 24px;
+    color: #fff; box-shadow: 0 12px 30px rgba(109,40,217,.28);
+    position: relative; overflow: hidden;
+  }
+  .bracket-hero::after {
+    content: ''; position: absolute; right: -40px; top: -60px; width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(255,91,46,.55), transparent 70%);
+  }
+  .bracket-hero .bh-alias { font-size: 26px; font-weight: 800; letter-spacing: -.6px; }
+  .bracket-hero .bh-name { color: rgba(255,255,255,.78); font-size: 13px; }
+  .bracket-hero .bh-pts { margin-left: auto; text-align: right; position: relative; z-index: 1; }
+  .bracket-hero .bh-pts .v { font-size: 36px; font-weight: 800; letter-spacing: -1.5px; line-height: 1; }
+  .bracket-hero .bh-pts .l { font-size: 10px; color: rgba(255,255,255,.7); text-transform: uppercase; letter-spacing: 1.5px; }
+
+  /* ── GROUP STAGE GRID ── */
+  .group-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin-bottom: 10px; }
+  .group-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; box-shadow: 0 1px 2px rgba(29,22,51,.04); }
+  .group-card h4 { font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 10px; }
+  .gm { display: flex; align-items: center; gap: 6px; font-size: 12px; padding: 5px 0; border-bottom: 1px solid var(--border); }
+  .gm:last-child { border: none; }
+  .gm .gm-t { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
+  .gm .gm-t.t2 { text-align: right; }
+  .gm .gm-sc { font-weight: 800; color: var(--mid); min-width: 30px; text-align: center; font-variant-numeric: tabular-nums; }
+  .gm.win-team1 .gm-t.t1, .gm.win-team2 .gm-t.t2 { font-weight: 800; color: var(--text); }
+  .gm .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; background: var(--border2); }
+  .gm.r-correct .dot { background: var(--green); box-shadow: 0 0 6px rgba(43,157,94,.6); }
+  .gm.r-wrong .dot { background: var(--red); }
+  .gm-pts { font-size: 11px; font-weight: 800; min-width: 22px; text-align: right; color: var(--green); font-variant-numeric: tabular-nums; }
+  .gm-pts.zero { color: var(--red); }
+  .gm-pts.blank { color: transparent; }
+
+  /* ── KNOCKOUT BRACKET TREE ── */
+  .ko-scroll { overflow-x: auto; padding: 4px 2px 20px; }
+  .ko-bracket { display: flex; gap: 30px; min-width: min-content; }
+  .ko-round { flex: 1 0 196px; display: flex; flex-direction: column; }
+  .ko-round-head { text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; }
+  .ko-col { flex: 1; display: flex; flex-direction: column; }
+  .ko-match { flex: 1; display: flex; align-items: center; position: relative; min-height: 70px; }
+
+  /* connector elbows (valid when match counts halve each round) */
+  .ko-col.has-out .ko-match::after {
+    content: ''; position: absolute; left: 100%; width: 15px; height: 50%;
+    border-right: 2px solid var(--line);
+  }
+  .ko-col.has-out .ko-match:nth-child(odd)::after { top: 50%; border-top: 2px solid var(--line); }
+  .ko-col.has-out .ko-match:nth-child(even)::after { bottom: 50%; border-bottom: 2px solid var(--line); }
+  .ko-col.has-in .ko-match::before {
+    content: ''; position: absolute; right: 100%; width: 15px; height: 2px; top: 50%; background: var(--line);
+  }
+
+  .ko-game {
+    width: 100%; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 12px; padding: 8px 11px;
+    position: relative; transition: border-color .15s, box-shadow .15s, transform .15s;
+    box-shadow: 0 1px 3px rgba(29,22,51,.06);
+  }
+  .ko-game:hover { border-color: var(--border2); transform: translateY(-1px); }
+  .ko-game.correct { border-color: var(--green); box-shadow: 0 0 0 1px var(--green), 0 6px 16px rgba(43,157,94,.18); }
+  .ko-game.wrong   { border-color: var(--red); box-shadow: 0 0 0 1px var(--red); opacity: .8; }
+  .kg-row { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 12px; }
+  .kg-row + .kg-row { border-top: 1px solid var(--border); }
+  .kg-team { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
+  .kg-row.is-winner .kg-team { color: var(--text); font-weight: 800; }
+  .kg-sc { font-weight: 800; font-variant-numeric: tabular-nums; min-width: 16px; text-align: right; color: var(--mid); }
+  .kg-pts { position: absolute; top: -9px; right: 8px; font-size: 10px; font-weight: 800; background: var(--green); color: #fff; border-radius: 10px; padding: 1px 7px; box-shadow: 0 2px 6px rgba(43,157,94,.4); }
+  .kg-pts.zero { background: var(--red); color: #fff; border: none; box-shadow: 0 2px 6px rgba(229,72,77,.35); }
+
+  .final-third { display: flex; gap: 18px; flex-wrap: wrap; align-items: stretch; margin-top: 8px; }
+  .trophy-card { flex: 1 1 240px; background: linear-gradient(160deg, #fff7e9, #fffdfa); border: 1px solid #f4d9a8; border-radius: 18px; padding: 18px 20px; text-align: center; box-shadow: 0 6px 18px rgba(245,158,11,.14); }
+  .trophy-card .tc-eyebrow { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+  .trophy-card .tc-champ { font-size: 26px; font-weight: 800; letter-spacing: -.5px; margin: 8px 0 2px; }
+  .trophy-card .tc-icon { font-size: 34px; }
+
+  /* ── WHAT-IF ── */
+  .wi-standings { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+  @media (max-width: 700px) { .wi-standings { grid-template-columns: 1fr; } }
+  .wi-col { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 12px 14px; box-shadow: 0 1px 2px rgba(29,22,51,.04); }
+  .wi-col-head { font-size: 12px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); padding: 4px 4px 10px; }
+  .wi-row { display: flex; align-items: center; gap: 9px; padding: 5px 4px; border-bottom: 1px solid var(--border); }
+  .wi-row:last-child { border: none; }
+  .wi-row.gained { background: linear-gradient(90deg, rgba(43,157,94,.08), transparent); border-radius: 8px; }
+  .wi-rank { width: 24px; text-align: center; font-weight: 800; color: var(--muted); font-size: 13px; }
+  .wi-name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; font-size: 13px; }
+  .wi-pts { font-weight: 800; color: var(--primary); font-size: 15px; min-width: 26px; text-align: right; }
+  .wi-delta { font-size: 11px; font-weight: 800; color: var(--green); }
+
+  .wi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-bottom: 6px; }
+  .wi-match { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; box-shadow: 0 1px 2px rgba(29,22,51,.04); }
+  .wi-match.has-hyp { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+  .wi-match.locked { display: flex; align-items: center; gap: 8px; opacity: .7; }
+  .wi-teams { font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+  .wi-match.locked .wi-teams { margin: 0; flex: 1; }
+  .wi-lock { font-size: 13px; }
+  .wi-final-tag { font-size: 9px; font-weight: 800; letter-spacing: .5px; background: linear-gradient(180deg, #35cf78, var(--green)); color: #fff; padding: 2px 7px; border-radius: 20px; }
+  .wi-winners { display: flex; gap: 5px; margin-bottom: 8px; }
+  .wi-w { flex: 1; min-width: 0; padding: 5px 6px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); cursor: pointer; font-size: 11px; font-weight: 700; font-family: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: all .12s; }
+  .wi-w:hover { border-color: var(--border2); color: var(--text); }
+  .wi-w.active { background: linear-gradient(180deg, var(--primary-soft), var(--primary)); color: #fff; border-color: var(--primary); }
+  .wi-score { display: flex; align-items: center; gap: 6px; }
+  .wi-score input { width: 48px; }
+  .wi-clear { margin-left: auto; padding: 4px 10px; border-radius: 8px; border: 1px solid var(--border2); background: transparent; color: var(--muted); cursor: pointer; font-size: 11px; font-family: inherit; }
+  .wi-clear:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── ADMIN ── */
+  .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+  .admin-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: 0 1px 2px rgba(29,22,51,.04); }
+  .admin-card .match-name { font-weight: 800; font-size: 15px; margin-bottom: 12px; letter-spacing: -.2px; }
+  .input-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+  .input-row label { font-size: 12px; color: var(--muted); min-width: 56px; }
+  input[type=number], input[type=text], select { background: var(--bg2); border: 1px solid var(--border); color: var(--text); border-radius: 9px; padding: 7px 10px; font-size: 13px; width: 72px; font-family: inherit; }
+  input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(109,40,217,.12); }
+  select { width: auto; }
+  .save-btn { padding: 8px 16px; border-radius: 10px; border: none; background: linear-gradient(180deg, var(--primary-soft), var(--primary)); color: #fff; font-weight: 800; cursor: pointer; font-size: 13px; transition: filter .15s; box-shadow: 0 4px 12px rgba(109,40,217,.28); font-family: inherit; }
+  .save-btn:hover { filter: brightness(1.08); }
+  .clear-btn { padding: 8px 16px; border-radius: 10px; border: 1px solid var(--border2); background: transparent; color: var(--muted); cursor: pointer; font-size: 13px; font-family: inherit; }
+  .clear-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .status-pill { font-size: 10px; padding: 3px 10px; border-radius: 20px; display: inline-block; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+  .status-pill.final     { background: linear-gradient(180deg, #35cf78, var(--green)); color: #fff; }
+  .status-pill.live      { background: var(--accent); color: #fff; }
+  .status-pill.pending   { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">
+    <span class="nav-title">⚽ La <span class="accent">Quiniela</span></span>
+    <span class="nav-sub">World Cup 2026</span>
+  </div>
+  <button class="nav-btn active" onclick="showView('standings')">Standings</button>
+  <button class="nav-btn" onclick="showView('breakdown')">Match Breakdown</button>
+  <button class="nav-btn" onclick="showView('bracket')">Brackets</button>
+  <button class="nav-btn" onclick="showView('whatif')">What-If</button>
+  <button id="nav-admin" class="nav-btn" onclick="showView('admin')">Enter Results</button>
+</nav>
+
+<main id="app">
+  <p style="color:var(--muted); padding:40px; text-align:center;">Loading data…</p>
+</main>
+
+<script type="module">
+import { scoreCard } from './scorecard.js';
+import { hypotheticalActual, projectTotals } from './whatif.js';
+
+// ═══════════════════════════════════════════════════════════════════════════
+// scoring engine (mirrors scoring.js)
+// ═══════════════════════════════════════════════════════════════════════════
+function resultOf(m) {
+  if (m.score1 > m.score2) return 'team1';
+  if (m.score2 > m.score1) return 'team2';
+  return 'draw';
+}
+function toSet(r) { return r instanceof Set ? r : new Set(r || []); }
+
+function pointsForPick(pick, actual, scoring) {
+  if (!actual) return 0;
+  if (pick.score1 === null || pick.score2 === null || pick.winner === null) return 0;
+  const round = pick.round;
+
+  if (round.startsWith('Group ')) {
+    const sc = scoring.group;
+    if (resultOf(pick) !== resultOf(actual)) return 0;
+    const exact = pick.score1 === actual.score1 && pick.score2 === actual.score2;
+    return sc.correct_result + (exact ? sc.exact_score : 0);
+  }
+
+  if (round === 'Third place') {
+    return pick.winner === actual.winner ? scoring['Third place'].correct_winner : 0;
+  }
+
+  if (round === 'Final') {
+    const sc = scoring['Final'];
+    const reached = toSet(actual.reached);
+    const t1 = reached.has(pick.team1), t2 = reached.has(pick.team2);
+    let pts = (t1 ? sc.finalist_reaches : 0) + (t2 ? sc.finalist_reaches : 0);
+    if (t1 && t2) {
+      if (pick.winner === actual.winner) pts += sc.correct_champion;
+      if (pick.score1 === actual.score1 && pick.score2 === actual.score2) pts += sc.exact_score;
+    }
+    return pts;
+  }
+
+  const sc = scoring[round];
+  if (!sc) return 0;
+  const reached = toSet(actual.reached);
+  const t1 = reached.has(pick.team1), t2 = reached.has(pick.team2);
+  let pts = (t1 ? sc.team_reaches : 0) + (t2 ? sc.team_reaches : 0);
+  if (pick.team1 === actual.team1 && pick.team2 === actual.team2) {
+    if (pick.winner === actual.winner) pts += sc.correct_winner;
+    if (pick.score1 === actual.score1 && pick.score2 === actual.score2) pts += sc.exact_score;
+  }
+  return pts;
+}
+
+function totalPoints(entrant, results, scoring) {
+  return entrant.picks.reduce((sum, pick) => {
+    const actual = results[String(pick.src_row)];
+    return sum + (actual && actual.final ? pointsForPick(pick, actual, scoring) : 0);
+  }, 0);
+}
+
+function pickOutcome(pick, actual) {
+  // returns 'exact' | 'winner' | 'wrong' | 'pending'
+  if (!actual) return 'pending';
+  if (!actual.final && actual.status !== 'in_progress') return 'pending';
+  if (pick.score1 === null) return 'wrong';
+  if (pick.round.startsWith('Group ')) {
+    const exact = pick.score1 === actual.score1 && pick.score2 === actual.score2;
+    if (exact) return 'exact';
+    return resultOf(pick) === resultOf(actual) ? 'winner' : 'wrong';
+  }
+  // simplified for bracket view
+  if (pick.score1 === actual.score1 && pick.score2 === actual.score2) return 'exact';
+  if (pick.winner === actual.winner) return 'winner';
+  return 'wrong';
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// state
+// ═══════════════════════════════════════════════════════════════════════════
+let DATA = null;
+let currentView = 'standings';
+let breakdownSrcRow = 6;
+let breakdownRound = 'Group A';
+let bracketEntrant = 0;
+let adminRound = 'Group Stage';
+let whatIf = {};   // src_row -> hypothetical outcome ({winner} or {score1,score2}); in memory only
+
+// hidden admin mode — manual results entry only shows with ?admin=1 in the URL
+const ADMIN_MODE = new URLSearchParams(location.search).get('admin') === '1';
+
+// standings movement (in memory only — no localStorage / no persistence)
+let baselineOrder = null;   // entrant order under the *previous* results
+let displayedSig = null;    // results signature currently on screen
+let displayedOrder = null;  // entrant order under displayedSig
+
+const NEW_ENTRANTS = new Set(['Jose Larena', 'Peter', 'Nate Oakes', 'Nayan']);
+
+function getResults() {
+  return DATA.results;
+}
+
+// Results are produced offline by fetch_results.js (or the local Enter Results
+// tab) and baked into quiniela_brackets_v4.json. The hosted site is read-only,
+// so "saving" here just updates the in-memory copy and offers a JSON download
+// the local operator can use to replace the file before re-deploying.
+async function saveResults() {
+  showSaveIndicator('✓ Updated locally — use “Download JSON” to persist');
+}
+
+function downloadJSON() {
+  const blob = new Blob([JSON.stringify(DATA, null, 1)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'quiniela_brackets_v4.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+window.downloadJSON = downloadJSON;
+
+function showSaveIndicator(msg) {
+  let el = document.getElementById('save-indicator');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'save-indicator';
+    el.style.cssText = 'position:fixed;bottom:16px;right:16px;background:#2b9d5e;color:#fff;padding:8px 16px;border-radius:10px;font-weight:700;font-size:13px;z-index:999;box-shadow:0 4px 14px rgba(43,157,94,.4);transition:opacity .4s';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg || '✓ Updated';
+  el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.style.opacity = '0', 2600);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// routing
+// ═══════════════════════════════════════════════════════════════════════════
+window.showView = function(v) {
+  currentView = v;
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  render();
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// render dispatcher
+// ═══════════════════════════════════════════════════════════════════════════
+function render() {
+  // admin views are gated behind ?admin=1
+  if (currentView === 'admin' && !ADMIN_MODE) currentView = 'standings';
+  const app = document.getElementById('app');
+  if (currentView === 'standings') app.innerHTML = renderStandings();
+  else if (currentView === 'breakdown') app.innerHTML = renderBreakdownShell();
+  else if (currentView === 'bracket') app.innerHTML = renderBracketShell();
+  else if (currentView === 'whatif') app.innerHTML = renderWhatIf();
+  else if (currentView === 'admin') app.innerHTML = renderAdmin();
+  attachEvents();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// VIEW A — STANDINGS
+// ═══════════════════════════════════════════════════════════════════════════
+function renderStandings() {
+  const r = getResults();
+  const scored = DATA.entrants.map(e => ({
+    e, pts: totalPoints(e, r, DATA.scoring)
+  })).sort((a, b) => b.pts - a.pts || a.e.alias.localeCompare(b.e.alias));
+
+  const maxPts = scored[0]?.pts ?? 0;
+  function tier(pts) {
+    if (pts === maxPts && pts > 0) return 'tier-gold';
+    if (pts >= maxPts - 1 && pts > 0) return 'tier-teal';
+    if (pts >= maxPts - 2 && pts > 0) return 'tier-mid';
+    if (pts > 0) return 'tier-low';
+    return 'tier-red';
+  }
+
+  const playedCount = Object.values(r).filter(v => v.final).length;
+  const inProgressCount = Object.values(r).filter(v => !v.final && v.status === 'in_progress').length;
+
+  // ── movement since the previous results update (in memory only) ──
+  const curOrder = scored.map(s => DATA.entrants.indexOf(s.e));
+  const curSig = JSON.stringify(r);
+  if (displayedSig === null) {
+    // first load — no prior order to compare against
+    baselineOrder = null;
+    displayedSig = curSig; displayedOrder = curOrder;
+  } else if (curSig !== displayedSig) {
+    // results changed — roll the baseline forward to the prior order
+    baselineOrder = displayedOrder;
+    displayedSig = curSig; displayedOrder = curOrder;
+  }
+  // (unchanged results: keep baseline so arrows persist across tab switches)
+  function movement(id, curPos) {
+    if (!baselineOrder) return { cls: 'move-flat', sym: '–' };
+    const prevPos = baselineOrder.indexOf(id);
+    if (prevPos === -1) return { cls: 'move-flat', sym: '–' };
+    if (prevPos > curPos) return { cls: 'move-up', sym: '▲' };
+    if (prevPos < curPos) return { cls: 'move-down', sym: '▼' };
+    return { cls: 'move-flat', sym: '–' };
+  }
+
+  const medals = ['🥇', '🥈', '🥉'];
+  let cards = scored.map(({ e, pts }, i) => {
+    const isNew = NEW_ENTRANTS.has(e.name);
+    const alias = e.alias || `${e.name.split(' ')[0]} (no alias)`;
+    const rankCell = (i < 3 && pts > 0)
+      ? `<span class="rank-medal">${medals[i]}</span>`
+      : `<span class="rank-num num">${i+1}</span>`;
+    const mv = movement(DATA.entrants.indexOf(e), i);
+    return `
+      <div class="card ${tier(pts)}" onclick="drillDown(${e.picks[0]?.src_row ?? 6}, '${e.alias}')">
+        <div class="rank">${rankCell}</div>
+        <div class="card-body">
+          <div class="alias">${alias}${isNew ? '<span class="new-tag">NEW</span>' : ''}</div>
+          <div class="fullname">${e.name} · ${e.nationality}</div>
+          <div class="champ-line">🏆 <span>${e.champion}</span></div>
+        </div>
+        <span class="move ${mv.cls}" title="movement since last update">${mv.sym}</span>
+        <div class="pts-wrap">
+          <div class="pts-badge num">${pts}</div>
+          <div class="pts-label">pts</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  return `
+    <h2>Standings</h2>
+    <p class="subtitle">${playedCount} match${playedCount!==1?'es':''} completed${inProgressCount ? ` · ${inProgressCount} in progress` : ''} · ${DATA.entrants.length} entrants</p>
+    <div class="standings-grid">${cards}</div>`;
+}
+
+window.drillDown = function(srcRow, alias) {
+  // Switch to bracket view for the entrant
+  const idx = DATA.entrants.findIndex(e => e.alias === alias || (e.alias||'') === alias);
+  if (idx >= 0) { bracketEntrant = idx; showViewDirect('bracket'); }
+};
+
+function showViewDirect(v) {
+  currentView = v;
+  document.querySelectorAll('.nav-btn').forEach((b,i) => {
+    const views = ['standings','breakdown','bracket','whatif','admin'];
+    b.classList.toggle('active', views[i] === v);
+  });
+  render();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// VIEW B — MATCH BREAKDOWN
+// ═══════════════════════════════════════════════════════════════════════════
+function buildMatchIndex() {
+  // returns array of {src_row, round, team1, team2} for group-stage matches only
+  // (KO matches differ per entrant, use entrant 0 as reference)
+  const seen = new Set();
+  const matches = [];
+  for (const e of DATA.entrants) {
+    for (const p of e.picks) {
+      if (!seen.has(p.src_row)) {
+        seen.add(p.src_row);
+        matches.push({ src_row: p.src_row, round: p.round, team1: p.team1, team2: p.team2 });
+      }
+    }
+    break; // entrant 0 covers group stage; for KO, all entrants have same src_rows
+  }
+  return matches;
+}
+
+function renderBreakdownShell() {
+  const r = getResults();
+  const matches = buildMatchIndex();
+  const groupMatches = matches.filter(m => m.round.startsWith('Group '));
+
+  const roundTabs = DATA.round_order.filter(rd => groupMatches.some(m => m.round === rd))
+    .map(rd => `<button class="round-tab ${rd === breakdownRound ? 'active' : ''}" onclick="selectBreakdownRound('${rd}')">${rd}</button>`).join('');
+
+  const matchPills = groupMatches.filter(m => m.round === breakdownRound).map(m => {
+    const res = r[String(m.src_row)];
+    const cls = res ? (res.final ? 'has-result' : 'in-progress') : '';
+    const active = m.src_row === breakdownSrcRow ? 'active' : '';
+    return `<button class="match-pill ${cls} ${active}" onclick="selectBreakdownMatch(${m.src_row}, '${m.round}')">${m.team1} vs ${m.team2}</button>`;
+  }).join('');
+
+  return `
+    <h2>Match Breakdown</h2>
+    <div class="match-selector">
+      <div class="round-tabs">${roundTabs}</div>
+      <div class="match-list">${matchPills}</div>
+    </div>
+    ${renderBreakdown(breakdownSrcRow, r)}`;
+}
+
+window.selectBreakdownRound = function(rd) {
+  breakdownRound = rd;
+  const matches = buildMatchIndex().filter(m => m.round === rd);
+  if (matches.length) breakdownSrcRow = matches[0].src_row;
+  render();
+};
+window.selectBreakdownMatch = function(srcRow, round) {
+  breakdownSrcRow = srcRow; breakdownRound = round; render();
+};
+
+function renderBreakdown(srcRow, r) {
+  const actual = r[String(srcRow)];
+  const picks = DATA.entrants.map(e => {
+    const p = e.picks.find(pk => pk.src_row === srcRow);
+    return p ? { ...p, alias: e.alias || e.name, name: e.name } : null;
+  }).filter(Boolean);
+
+  if (!picks.length) return '<p class="subtitle">No picks found for this match.</p>';
+
+  const ref = picks[0];
+  const t1 = ref.team1, t2 = ref.team2, round = ref.round;
+
+  // KPI
+  const total = picks.length;
+  const t1Picks = picks.filter(p => p.winner === t1).length;
+  const t2Picks = picks.filter(p => p.winner === t2).length;
+  const drawPicks = picks.filter(p => p.winner === 'Draw').length;
+  const blankPicks = picks.filter(p => p.score1 === null).length;
+
+  // group by scoreline
+  const groups = {};
+  for (const p of picks) {
+    if (p.score1 === null) continue;
+    const key = `${p.score1}-${p.score2}`;
+    if (!groups[key]) groups[key] = { score1: p.score1, score2: p.score2, winner: p.winner, pickers: [] };
+    groups[key].pickers.push(p);
+  }
+  const sortedGroups = Object.values(groups).sort((a, b) => {
+    const oa = outcomeOrder(a, t1), ob = outcomeOrder(b, t1);
+    if (oa !== ob) return oa - ob;
+    return (b.score1 + b.score2) - (a.score1 + a.score2);
+  });
+
+  function outcomeOrder(g, t1) {
+    if (g.score1 > g.score2) return 0;
+    if (g.score1 === g.score2) return 1;
+    return 2;
+  }
+
+  let resultBanner = '';
+  if (actual) {
+    const scoreStr = `${actual.score1}–${actual.score2}`;
+    const label = actual.final ? '✓ Final' : '🔴 Live';
+    resultBanner = `<span class="result-banner ${actual.final ? 'final' : 'live'}">${label} ${scoreStr}</span>`;
+  }
+
+  const scoreCards = sortedGroups.map(g => {
+    const key = `${g.score1}-${g.score2}`;
+    let cls = g.score1 > g.score2 ? 'outcome-t1' : g.score1 < g.score2 ? 'outcome-t2' : 'outcome-draw';
+    if (actual) {
+      const exactMatch = actual.score1 === g.score1 && actual.score2 === g.score2;
+      const winnerMatch = !exactMatch && resultOf(actual) === resultOf(g);
+      if (exactMatch) cls += ' exact-match';
+      else if (winnerMatch) cls += ' winner-match';
+    }
+    const pList = g.pickers.map(p =>
+      `<div class="picker-item"><span class="picker-name">${p.alias}</span><span class="picker-winner">${p.winner}</span></div>`
+    ).join('');
+    return `
+      <div class="score-card ${cls}">
+        <div class="score-line">
+          ${g.score1}–${g.score2}
+          <span class="score-count">${g.pickers.length}</span>
+        </div>
+        <div class="picker-list">${pList}</div>
+      </div>`;
+  }).join('');
+
+  const avgS1 = avg(picks.filter(p=>p.score1!==null).map(p=>p.score1));
+  const avgS2 = avg(picks.filter(p=>p.score1!==null).map(p=>p.score2));
+
+  return `
+    <div class="match-header">
+      <div>
+        <div class="match-round">${round} · Row ${srcRow}</div>
+        <div class="match-teams">${t1} <span style="color:var(--muted)">vs</span> ${t2}</div>
+      </div>
+      ${resultBanner}
+    </div>
+    <div class="kpi-strip">
+      <div class="kpi"><div class="kpi-val" style="color:var(--accent)">${t1Picks}</div><div class="kpi-lbl">back ${t1}</div></div>
+      <div class="kpi"><div class="kpi-val" style="color:var(--muted)">${drawPicks}</div><div class="kpi-lbl">Draw</div></div>
+      <div class="kpi"><div class="kpi-val" style="color:var(--mid)">${t2Picks}</div><div class="kpi-lbl">back ${t2}</div></div>
+      <div class="kpi"><div class="kpi-val">${avgS1.toFixed(1)}–${avgS2.toFixed(1)}</div><div class="kpi-lbl">avg score</div></div>
+      <div class="kpi"><div class="kpi-val" style="color:var(--muted)">${blankPicks}</div><div class="kpi-lbl">blank picks</div></div>
+    </div>
+    <div class="breakdown-cols">${scoreCards}</div>`;
+}
+
+function avg(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// VIEW C — BRACKET
+// ═══════════════════════════════════════════════════════════════════════════
+function renderBracketShell() {
+  const chips = DATA.entrants.map((e, i) => {
+    const alias = e.alias || e.name.split(' ')[0];
+    return `<button class="entrant-chip ${i === bracketEntrant ? 'active' : ''}" onclick="selectBracketEntrant(${i})">${alias}</button>`;
+  }).join('');
+
+  return `
+    <h2>Bracket View</h2>
+    <div class="entrant-selector">${chips}</div>
+    ${renderBracket(bracketEntrant)}`;
+}
+
+window.selectBracketEntrant = function(i) { bracketEntrant = i; render(); };
+
+// render a single knockout game card
+function koGameCard(p, r) {
+  const actual = r[String(p.src_row)];
+  // scoreCard() (scorecard.js) delegates to pointsForPick in scoring.js and
+  // gates on actual.final — unplayed matches stay uncolored.
+  const { state, points } = scoreCard(p, actual, DATA.scoring);
+  const gameCls = state === 'correct' ? 'correct' : state === 'wrong' ? 'wrong' : '';
+
+  const s1 = p.score1 !== null ? p.score1 : '–';
+  const s2 = p.score2 !== null ? p.score2 : '–';
+  const pen = (p.pen1 != null && p.pen2 != null) ? ` <span style="color:var(--muted);font-size:10px">(${p.pen1}-${p.pen2}p)</span>` : '';
+  const win1 = p.winner === p.team1 ? 'is-winner' : '';
+  const win2 = p.winner === p.team2 ? 'is-winner' : '';
+  const ptsBadge = (state !== 'unplayed')
+    ? `<span class="kg-pts ${points > 0 ? '' : 'zero'}">${points > 0 ? '+' : ''}${points}</span>`
+    : '';
+
+  return `
+    <div class="ko-game ${gameCls}">
+      ${ptsBadge}
+      <div class="kg-row ${win1}"><span class="kg-team">${p.team1 || '—'}</span><span class="kg-sc num">${s1}</span></div>
+      <div class="kg-row ${win2}"><span class="kg-team">${p.team2 || '—'}</span><span class="kg-sc num">${s2}${pen}</span></div>
+    </div>`;
+}
+
+function renderBracket(idx) {
+  const e = DATA.entrants[idx];
+  const r = getResults();
+  const alias = e.alias || e.name;
+
+  const byRound = {};
+  for (const p of e.picks) {
+    (byRound[p.round] ||= []).push(p);
+  }
+
+  const totalPts = totalPoints(e, r, DATA.scoring);
+
+  // ── Group stage grid ──
+  const groupRounds = DATA.round_order.filter(rd => rd.startsWith('Group ') && byRound[rd]);
+  const groupCards = groupRounds.map(rd => {
+    const rows = byRound[rd].map(p => {
+      const actual = r[String(p.src_row)];
+      const { state, points } = scoreCard(p, actual, DATA.scoring);
+      const rcls = state === 'correct' ? 'r-correct' : state === 'wrong' ? 'r-wrong' : '';
+      const s1 = p.score1 !== null ? p.score1 : '–';
+      const s2 = p.score2 !== null ? p.score2 : '–';
+      const wcls = p.winner === p.team1 ? 'win-team1' : p.winner === p.team2 ? 'win-team2' : '';
+      const ptsTag = state !== 'unplayed'
+        ? `<span class="gm-pts ${points > 0 ? '' : 'zero'}">${points > 0 ? '+' : ''}${points}</span>`
+        : '<span class="gm-pts blank"></span>';
+      return `
+        <div class="gm ${wcls} ${rcls}">
+          <span class="dot"></span>
+          <span class="gm-t t1">${p.team1}</span>
+          <span class="gm-sc">${s1}-${s2}</span>
+          <span class="gm-t t2">${p.team2}</span>
+          ${ptsTag}
+        </div>`;
+    }).join('');
+    return `<div class="group-card"><h4>${rd}</h4>${rows}</div>`;
+  }).join('');
+
+  // ── Knockout tree ──
+  const koOrder = ['Round of 32', 'Round of 16', 'Quarter-final', 'Semi-final', 'Final'];
+  const koRounds = koOrder.filter(rd => byRound[rd]);
+  const koCols = koRounds.map((rd, i) => {
+    const hasIn = i > 0;
+    const hasOut = i < koRounds.length - 1;
+    const matches = byRound[rd].map(p =>
+      `<div class="ko-match">${koGameCard(p, r)}</div>`
+    ).join('');
+    return `
+      <div class="ko-round">
+        <div class="ko-round-head">${rd}</div>
+        <div class="ko-col ${hasIn ? 'has-in' : ''} ${hasOut ? 'has-out' : ''}">${matches}</div>
+      </div>`;
+  }).join('');
+
+  // ── Champion + third place cards ──
+  const thirdPicks = byRound['Third place'] || [];
+  const thirdCard = thirdPicks.length ? `
+    <div class="trophy-card" style="background:linear-gradient(160deg, rgba(45,212,167,.12), var(--surface)); border-color:var(--teal)">
+      <div class="tc-icon">🥉</div>
+      <div class="tc-eyebrow">3rd place pick</div>
+      <div class="tc-champ">${e.third_place || thirdPicks[0].winner || '—'}</div>
+    </div>` : '';
+
+  const championCard = `
+    <div class="trophy-card">
+      <div class="tc-icon">🏆</div>
+      <div class="tc-eyebrow">Predicted champion</div>
+      <div class="tc-champ">${e.champion}</div>
+      <div style="color:var(--muted);font-size:12px">runner-up: ${e.runner_up || '—'}</div>
+    </div>`;
+
+  return `
+    <div class="bracket-hero">
+      <div>
+        <div class="bh-alias">${alias}</div>
+        <div class="bh-name">${e.name} · ${e.nationality}${e.city ? ' · ' + e.city : ''}</div>
+      </div>
+      <div class="bh-pts">
+        <div class="v num">${totalPts}</div>
+        <div class="l">points</div>
+      </div>
+    </div>
+
+    <div class="final-third">${championCard}${thirdCard}</div>
+
+    ${koCols ? `
+      <div class="section-eyebrow">Knockout Bracket</div>
+      <div class="ko-scroll"><div class="ko-bracket">${koCols}</div></div>` : ''}
+
+    ${groupCards ? `
+      <div class="section-eyebrow">Group Stage Predictions</div>
+      <div class="group-grid">${groupCards}</div>` : ''}`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// VIEW — WHAT-IF (hypothetical outcomes for unsettled group matches)
+// ═══════════════════════════════════════════════════════════════════════════
+// Editable universe = group fixtures (fixed teams) not yet marked final.
+// Knockout slots have entrant-specific teams, so they aren't hypothesizable here.
+function whatIfGroupMatches() {
+  return DATA.entrants[0].picks.filter(p => p.round.startsWith('Group '));
+}
+function whatIfMatchBySrc() {
+  const m = {};
+  for (const p of whatIfGroupMatches()) m[p.src_row] = p;
+  return m;
+}
+
+window.setWhatIfWinner = function(srcRow, winner) {
+  const cur = whatIf[srcRow];
+  // tapping the active winner again clears the hypothetical
+  if (cur && cur.winner === winner && cur.score1 == null) delete whatIf[srcRow];
+  else whatIf[srcRow] = { winner };
+  render();
+};
+
+window.applyWhatIfScore = function(srcRow) {
+  const s1 = document.getElementById(`wi-s1-${srcRow}`)?.value;
+  const s2 = document.getElementById(`wi-s2-${srcRow}`)?.value;
+  if (s1 === '' || s2 === '' || s1 == null || s2 == null) { delete whatIf[srcRow]; render(); return; }
+  whatIf[srcRow] = { score1: parseInt(s1), score2: parseInt(s2) };
+  render();
+};
+
+window.clearWhatIfMatch = function(srcRow) { delete whatIf[srcRow]; render(); };
+window.resetWhatIf = function() { whatIf = {}; render(); };
+
+function renderWhatIf() {
+  const scoring = DATA.scoring;
+  const r = getResults();
+  const matchBySrc = whatIfMatchBySrc();
+
+  // build hypothetical actuals and a merged results map
+  const hypActuals = {};
+  for (const [sr, outcome] of Object.entries(whatIf)) {
+    const match = matchBySrc[sr];
+    if (match) hypActuals[sr] = hypotheticalActual(match, outcome);
+  }
+  const merged = { ...r, ...hypActuals };
+
+  // current vs projected standings (totalPoints from scoring.js, via projectTotals)
+  const cur = projectTotals(DATA.entrants, r, scoring)
+    .sort((a, b) => b.points - a.points || (a.entrant.alias || a.entrant.name).localeCompare(b.entrant.alias || b.entrant.name));
+  const proj = projectTotals(DATA.entrants, merged, scoring)
+    .sort((a, b) => b.points - a.points || (a.entrant.alias || a.entrant.name).localeCompare(b.entrant.alias || b.entrant.name));
+
+  const curRank = new Map(cur.map((x, i) => [x.entrant, i]));
+  const curPts = new Map(cur.map(x => [x.entrant, x.points]));
+
+  // ── editable match controls, grouped by group ──
+  const groupRounds = DATA.round_order.filter(rd => rd.startsWith('Group '));
+  const groupSections = groupRounds.map(rd => {
+    const matches = whatIfGroupMatches().filter(p => p.round === rd);
+    if (!matches.length) return '';
+    const rows = matches.map(p => {
+      const real = r[String(p.src_row)];
+      const locked = !!(real && real.final);
+      if (locked) {
+        return `
+          <div class="wi-match locked">
+            <span class="wi-lock">🔒</span>
+            <span class="wi-teams">${p.team1} <b>${real.score1}–${real.score2}</b> ${p.team2}</span>
+            <span class="wi-final-tag">FINAL</span>
+          </div>`;
+      }
+      const sel = whatIf[p.src_row] || {};
+      const activeT1 = sel.winner === p.team1 ? 'active' : '';
+      const activeD  = sel.winner === 'Draw' ? 'active' : '';
+      const activeT2 = sel.winner === p.team2 ? 'active' : '';
+      const s1 = sel.score1 != null ? sel.score1 : '';
+      const s2 = sel.score2 != null ? sel.score2 : '';
+      const hasHyp = whatIf[p.src_row] != null;
+      return `
+        <div class="wi-match ${hasHyp ? 'has-hyp' : ''}">
+          <div class="wi-teams">${p.team1} <span style="color:var(--muted)">v</span> ${p.team2}</div>
+          <div class="wi-winners">
+            <button class="wi-w ${activeT1}" onclick="setWhatIfWinner(${p.src_row}, '${p.team1.replace(/'/g,"\\'")}')">${p.team1}</button>
+            <button class="wi-w ${activeD}" onclick="setWhatIfWinner(${p.src_row}, 'Draw')">Draw</button>
+            <button class="wi-w ${activeT2}" onclick="setWhatIfWinner(${p.src_row}, '${p.team2.replace(/'/g,"\\'")}')">${p.team2}</button>
+          </div>
+          <div class="wi-score">
+            <input type="number" min="0" max="20" id="wi-s1-${p.src_row}" value="${s1}" onchange="applyWhatIfScore(${p.src_row})">
+            <span style="color:var(--muted)">–</span>
+            <input type="number" min="0" max="20" id="wi-s2-${p.src_row}" value="${s2}" onchange="applyWhatIfScore(${p.src_row})">
+            ${hasHyp ? `<button class="wi-clear" onclick="clearWhatIfMatch(${p.src_row})">clear</button>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+    return `<div class="section-eyebrow">${rd}</div><div class="wi-grid">${rows}</div>`;
+  }).join('');
+
+  // ── standings comparison (current vs projected) ──
+  const medals = ['🥇', '🥈', '🥉'];
+  function colList(list, isProj) {
+    return list.map((x, i) => {
+      const e = x.entrant;
+      const alias = e.alias || `${e.name.split(' ')[0]} (no alias)`;
+      const rankCell = i < 3 && x.points > 0 ? medals[i] : (i + 1);
+      let move = '';
+      if (isProj) {
+        const prevRank = curRank.get(e);
+        const dPts = x.points - (curPts.get(e) || 0);
+        const sym = prevRank > i ? '▲' : prevRank < i ? '▼' : '–';
+        const cls = prevRank > i ? 'move-up' : prevRank < i ? 'move-down' : 'move-flat';
+        move = `<span class="move ${cls}">${sym}</span>${dPts > 0 ? `<span class="wi-delta">+${dPts}</span>` : ''}`;
+      }
+      return `
+        <div class="wi-row ${isProj && x.points - (curPts.get(e) || 0) > 0 ? 'gained' : ''}">
+          <span class="wi-rank">${rankCell}</span>
+          <span class="wi-name">${alias}</span>
+          ${move}
+          <span class="wi-pts num">${x.points}</span>
+        </div>`;
+    }).join('');
+  }
+
+  const hypCount = Object.keys(hypActuals).length;
+  return `
+    <h2>What-If</h2>
+    <p class="subtitle">Pick hypothetical outcomes for matches that haven't finished — tap a winner, or enter an exact score for exact-score points. Standings recompute instantly. Final matches are locked.</p>
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:18px;flex-wrap:wrap">
+      <button class="save-btn" onclick="resetWhatIf()">↺ Reset hypotheticals</button>
+      <span style="color:var(--muted);font-size:13px">${hypCount} hypothetical${hypCount !== 1 ? 's' : ''} active</span>
+    </div>
+
+    <div class="wi-standings">
+      <div class="wi-col">
+        <div class="wi-col-head">Current</div>
+        ${colList(cur, false)}
+      </div>
+      <div class="wi-col">
+        <div class="wi-col-head">Projected ${hypCount ? `<span style="color:var(--primary)">· ${hypCount} what-if${hypCount !== 1 ? 's' : ''}</span>` : ''}</div>
+        ${colList(proj, true)}
+      </div>
+    </div>
+
+    ${groupSections}`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// VIEW D — ADMIN / RESULTS EDITOR
+// ═══════════════════════════════════════════════════════════════════════════
+const ADMIN_ROUNDS = ['Group Stage', 'Round of 32', 'Round of 16', 'Quarter-final', 'Semi-final', 'Third place', 'Final'];
+
+// map src_row -> round, and gather all team names for autocomplete
+function srcRowRoundMap() {
+  const map = {};
+  for (const p of DATA.entrants[0].picks) map[p.src_row] = p.round;
+  return map;
+}
+function allTeamNames() {
+  const s = new Set();
+  for (const e of DATA.entrants) for (const p of e.picks) {
+    if (p.team1) s.add(p.team1);
+    if (p.team2) s.add(p.team2);
+  }
+  return [...s].sort();
+}
+
+// the canonical slot list for a KO round: src_rows that appear in that round,
+// taken from entrant 0 (positions are stable across brackets)
+function koSlotsForRound(round) {
+  return DATA.entrants[0].picks
+    .filter(p => p.round === round)
+    .map(p => p.src_row);
+}
+
+// after any KO edit, recompute the "reached" set for each KO round
+// = union of the actual teams across all entered slots of that round
+function recomputeReached() {
+  const roundOf = srcRowRoundMap();
+  const koRounds = ['Round of 32', 'Round of 16', 'Quarter-final', 'Semi-final', 'Final'];
+  for (const rd of koRounds) {
+    const teams = new Set();
+    for (const [sr, res] of Object.entries(DATA.results)) {
+      if (roundOf[sr] === rd && res.team1) { teams.add(res.team1); if (res.team2) teams.add(res.team2); }
+    }
+    const reached = [...teams];
+    for (const [sr, res] of Object.entries(DATA.results)) {
+      if (roundOf[sr] === rd) res.reached = reached;
+    }
+  }
+}
+
+function statusPillFor(existing) {
+  if (!existing) return '<span class="status-pill pending">Pending</span>';
+  return existing.final
+    ? '<span class="status-pill final">Final</span>'
+    : '<span class="status-pill live">In Progress</span>';
+}
+
+function statusSelect(sr, existing) {
+  return `
+    <select id="st-${sr}">
+      <option value="pending" ${!existing ? 'selected' : ''}>Pending</option>
+      <option value="in_progress" ${existing && !existing.final ? 'selected' : ''}>In Progress</option>
+      <option value="final" ${existing && existing.final ? 'selected' : ''}>Final</option>
+    </select>`;
+}
+
+function renderAdmin() {
+  const r = getResults();
+  const tabs = ADMIN_ROUNDS.map(rd =>
+    `<button class="round-tab ${rd === adminRound ? 'active' : ''}" onclick="selectAdminRound('${rd}')">${rd}</button>`
+  ).join('');
+
+  const body = adminRound === 'Group Stage' ? renderGroupEditor(r) : renderKOEditor(adminRound, r);
+
+  const note = adminRound === 'Group Stage'
+    ? 'Group fixtures are fixed — just enter the scores.'
+    : 'Enter the actual teams and result for each bracket slot. "Reached this round" points are computed automatically from the teams you enter across all slots in this round.';
+
+  return `
+    <h2>Enter Results <span style="font-size:12px;font-weight:600;color:var(--muted)">· local fallback</span></h2>
+    <p class="subtitle">${note} Edits update this session in memory only — click <strong>Download JSON</strong> to save a new <code>quiniela_brackets_v4.json</code>, then re-deploy. On the hosted site results come from <code>fetch_results.js</code>.</p>
+    <div style="margin-bottom:16px"><button class="save-btn" onclick="downloadJSON()">⬇ Download JSON</button></div>
+    <div class="round-tabs">${tabs}</div>
+    ${body}
+    <datalist id="team-list">${allTeamNames().map(t => `<option value="${t}">`).join('')}</datalist>`;
+}
+
+window.selectAdminRound = function(rd) { adminRound = rd; render(); };
+
+function renderGroupEditor(r) {
+  const groupRounds = DATA.round_order.filter(rd => rd.startsWith('Group '));
+
+  function matchCard(p) {
+    const existing = r[String(p.src_row)];
+    const s1 = existing ? existing.score1 : '';
+    const s2 = existing ? existing.score2 : '';
+    return `
+      <div class="admin-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--muted)">row ${p.src_row}</span>
+          ${statusPillFor(existing)}
+        </div>
+        <div class="match-name">${p.team1} vs ${p.team2}</div>
+        <div class="input-row">
+          <label>Score</label>
+          <input type="number" id="s1-${p.src_row}" min="0" max="20" value="${s1}" placeholder="${p.team1.split(' ')[0]}">
+          <span style="color:var(--muted)">–</span>
+          <input type="number" id="s2-${p.src_row}" min="0" max="20" value="${s2}" placeholder="${p.team2.split(' ')[0]}">
+        </div>
+        <div class="input-row"><label>Status</label>${statusSelect(p.src_row, existing)}</div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="save-btn" onclick="saveGroupResult(${p.src_row},'${p.team1.replace(/'/g,"\\'")}','${p.team2.replace(/'/g,"\\'")}')">Save</button>
+          <button class="clear-btn" onclick="clearResult(${p.src_row})">Clear</button>
+        </div>
+      </div>`;
+  }
+
+  return groupRounds.map(rd => {
+    const matches = DATA.entrants[0].picks.filter(p => p.round === rd);
+    if (!matches.length) return '';
+    const playedHere = matches.filter(p => r[String(p.src_row)]?.final).length;
+    return `
+      <div class="section-eyebrow">${rd}
+        <span style="font-weight:600;letter-spacing:0;text-transform:none;color:var(--muted)">${playedHere}/${matches.length} played</span>
+      </div>
+      <div class="admin-grid">${matches.map(matchCard).join('')}</div>`;
+  }).join('');
+}
+
+function renderKOEditor(round, r) {
+  const slots = koSlotsForRound(round);
+  if (!slots.length) return '<p class="subtitle">No slots for this round.</p>';
+
+  const cards = slots.map((sr, i) => {
+    const existing = r[String(sr)];
+    const t1 = existing?.team1 ?? '';
+    const t2 = existing?.team2 ?? '';
+    const s1 = existing?.score1 ?? '';
+    const s2 = existing?.score2 ?? '';
+    const p1 = existing?.pen1 ?? '';
+    const p2 = existing?.pen2 ?? '';
+    const isFinalish = round === 'Final';
+    const isThird = round === 'Third place';
+    const slotLabel = isFinalish ? 'Final' : isThird ? '3rd-place match' : `${round} · slot ${i + 1}`;
+
+    return `
+      <div class="admin-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <span style="font-size:11px;color:var(--muted)">${slotLabel} · row ${sr}</span>
+          ${statusPillFor(existing)}
+        </div>
+        <div class="input-row">
+          <label>Home</label>
+          <input type="text" list="team-list" id="t1-${sr}" value="${t1}" placeholder="team" style="width:130px">
+          <input type="number" id="s1-${sr}" min="0" max="30" value="${s1}" placeholder="–" style="width:52px">
+        </div>
+        <div class="input-row">
+          <label>Away</label>
+          <input type="text" list="team-list" id="t2-${sr}" value="${t2}" placeholder="team" style="width:130px">
+          <input type="number" id="s2-${sr}" min="0" max="30" value="${s2}" placeholder="–" style="width:52px">
+        </div>
+        <div class="input-row">
+          <label>Pens</label>
+          <input type="number" id="p1-${sr}" min="0" max="30" value="${p1}" placeholder="–" style="width:52px">
+          <span style="color:var(--muted)">–</span>
+          <input type="number" id="p2-${sr}" min="0" max="30" value="${p2}" placeholder="–" style="width:52px">
+          <span style="font-size:11px;color:var(--muted)">(if drawn)</span>
+        </div>
+        <div class="input-row"><label>Status</label>${statusSelect(sr, existing)}</div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="save-btn" onclick="saveKOResult(${sr})">Save</button>
+          <button class="clear-btn" onclick="clearResult(${sr})">Clear</button>
+        </div>
+      </div>`;
+  }).join('');
+  return `<div class="admin-grid">${cards}</div>`;
+}
+
+function val(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+function numOrNull(id) { const v = val(id); return v === '' ? null : parseInt(v); }
+
+window.saveGroupResult = async function(srcRow, team1, team2) {
+  const s1 = numOrNull(`s1-${srcRow}`), s2 = numOrNull(`s2-${srcRow}`);
+  const st = val(`st-${srcRow}`);
+  if (s1 === null || s2 === null) { alert('Enter valid scores.'); return; }
+  const winner = s1 > s2 ? team1 : s2 > s1 ? team2 : 'Draw';
+  DATA.results[String(srcRow)] = {
+    team1, team2, score1: s1, score2: s2,
+    final: st === 'final',
+    ...(st === 'in_progress' ? { status: 'in_progress' } : {})
+  };
+  await saveResults();
+  render();
+};
+
+window.saveKOResult = async function(srcRow) {
+  const team1 = val(`t1-${srcRow}`), team2 = val(`t2-${srcRow}`);
+  const s1 = numOrNull(`s1-${srcRow}`), s2 = numOrNull(`s2-${srcRow}`);
+  const p1 = numOrNull(`p1-${srcRow}`), p2 = numOrNull(`p2-${srcRow}`);
+  const st = val(`st-${srcRow}`);
+  if (!team1 || !team2) { alert('Enter both teams.'); return; }
+  if (s1 === null || s2 === null) { alert('Enter valid scores.'); return; }
+
+  // winner uses the full result including penalties
+  let winner;
+  if (s1 > s2) winner = team1;
+  else if (s2 > s1) winner = team2;
+  else if (p1 != null && p2 != null && p1 !== p2) winner = p1 > p2 ? team1 : team2;
+  else winner = null; // drawn with no shootout entered yet
+
+  DATA.results[String(srcRow)] = {
+    team1, team2, score1: s1, score2: s2,
+    ...(p1 != null ? { pen1: p1 } : {}),
+    ...(p2 != null ? { pen2: p2 } : {}),
+    winner,
+    final: st === 'final',
+    ...(st === 'in_progress' ? { status: 'in_progress' } : {})
+  };
+  recomputeReached();
+  await saveResults();
+  render();
+};
+
+window.clearResult = async function(srcRow) {
+  delete DATA.results[String(srcRow)];
+  recomputeReached();
+  await saveResults();
+  render();
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// event delegation
+// ═══════════════════════════════════════════════════════════════════════════
+function attachEvents() {
+  // nothing extra needed — all events via onclick= on elements
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// boot — fetch the data file from the same directory (works on Netlify / any host)
+// ═══════════════════════════════════════════════════════════════════════════
+function showLoadError(msg) {
+  document.getElementById('app').innerHTML = `
+    <div style="padding:60px 40px; text-align:center">
+      <div style="font-size:40px; margin-bottom:16px">⚽</div>
+      <div style="font-size:20px; font-weight:800; margin-bottom:8px">Couldn’t load the pool data</div>
+      <p style="color:var(--muted); max-width:460px; margin:0 auto">
+        The site expects <strong>quiniela_brackets_v4.json</strong> to sit next to
+        <strong>index.html</strong> and be served over http(s).
+      </p>
+      <p style="color:var(--muted); font-size:12px; margin-top:14px">${msg || ''}</p>
+    </div>`;
+}
+
+async function boot() {
+  try {
+    const res = await fetch('quiniela_brackets_v4.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    DATA = await res.json();
+    breakdownSrcRow = DATA.entrants[0].picks[0].src_row;
+    breakdownRound = DATA.entrants[0].picks[0].round;
+    render();
+  } catch (err) {
+    showLoadError(err.message);
+  }
+}
+
+// hide the manual "Enter Results" tab for normal visitors
+if (!ADMIN_MODE) {
+  const adminBtn = document.getElementById('nav-admin');
+  if (adminBtn) adminBtn.style.display = 'none';
+}
+
+boot();
+</script>
+</body>
+</html>
