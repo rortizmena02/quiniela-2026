@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Quiniela — Insights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#f4f2fb; --surface:#fff; --surface2:#f3f0fc; --border:#e7e2f5; --border2:#d5cdf0;
+    --text:#1d1633; --muted:#726b8c; --primary:#6d28d9; --primary-soft:#8b5cf6; --primary-deep:#4c1d95;
+    --accent:#ff5b2e; --gold:#f59e0b; --teal:#0fb893; --mid:#5046e4; --red:#e5484d; --green:#2b9d5e;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    background:
+      radial-gradient(1100px 560px at 88% -12%, rgba(109,40,217,.10), transparent 60%),
+      radial-gradient(820px 460px at -5% 0%, rgba(255,91,46,.07), transparent 55%),
+      var(--bg);
+    color:var(--text); font-family:'Plus Jakarta Sans',system-ui,sans-serif; padding:24px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .num { font-variant-numeric:tabular-nums; }
+  .poster {
+    background:var(--surface); border:1px solid var(--border); border-radius:22px;
+    padding:26px 30px; margin:0 auto 28px; max-width:920px;
+    box-shadow:0 16px 44px rgba(109,40,217,.12);
+  }
+  .poster-head { display:flex; align-items:baseline; gap:12px; margin-bottom:4px; }
+  .poster-head .eyebrow { font-size:11px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:var(--primary); }
+  h1 { font-size:27px; font-weight:800; letter-spacing:-.7px; margin-bottom:4px; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:20px; }
+  .brand { display:flex; align-items:center; gap:8px; margin-left:auto; font-weight:800; color:var(--muted); font-size:13px; }
+
+  /* standings */
+  .stand-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px 26px; }
+  .srow { display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid var(--border); }
+  .srow .r { width:26px; text-align:center; font-weight:800; color:var(--muted); font-size:14px; }
+  .srow .medal { font-size:18px; }
+  .srow .who { flex:1; min-width:0; }
+  .srow .who .a { font-weight:700; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .srow .who .c { font-size:11px; color:var(--muted); }
+  .srow .who .c b { color:var(--primary); font-weight:700; }
+  .srow .pts { font-weight:800; font-size:18px; color:var(--primary); letter-spacing:-.5px; }
+  .srow.lead { background:linear-gradient(90deg, rgba(109,40,217,.07), transparent); border-radius:8px; padding-left:6px; margin-left:-6px; }
+
+  /* match breakdown */
+  .mb-head {
+    display:flex; align-items:center; gap:18px; background:linear-gradient(135deg,var(--primary),var(--primary-deep) 75%);
+    color:#fff; border-radius:16px; padding:16px 22px; margin-bottom:18px; position:relative; overflow:hidden;
+  }
+  .mb-head::after { content:''; position:absolute; right:-30px; top:-50px; width:170px; height:170px; background:radial-gradient(circle,rgba(255,91,46,.5),transparent 70%); }
+  .mb-head .t { font-size:23px; font-weight:800; letter-spacing:-.5px; }
+  .mb-head .r { font-size:11px; text-transform:uppercase; letter-spacing:1.2px; color:rgba(255,255,255,.82); font-weight:700; }
+  .mb-head .tag { margin-left:auto; background:rgba(255,255,255,.16); padding:5px 12px; border-radius:20px; font-size:12px; font-weight:700; position:relative; z-index:1; }
+
+  .split { display:flex; gap:8px; margin-bottom:18px; }
+  .split .seg { padding:12px 14px; border-radius:12px; color:#fff; text-align:center; }
+  .split .seg .n { font-size:24px; font-weight:800; line-height:1; }
+  .split .seg .l { font-size:11px; opacity:.9; margin-top:3px; }
+  .seg.s-brz { background:linear-gradient(180deg,#16a34a,#15803d); }
+  .seg.s-draw { background:linear-gradient(180deg,#94a3b8,#64748b); }
+  .seg.s-mor { background:linear-gradient(180deg,#e11d48,#be123c); }
+
+  .scorelines { display:flex; flex-wrap:wrap; gap:7px; }
+  .sl { border:1px solid var(--border); border-radius:10px; padding:6px 11px; font-size:13px; font-weight:700; background:var(--surface2); }
+  .sl b { color:var(--primary); }
+  .sl .cnt { color:var(--muted); font-weight:700; margin-left:5px; font-size:12px; }
+
+  .scen-eyebrow { font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--primary); margin:24px 0 12px; display:flex; align-items:center; gap:10px; }
+  .scen-eyebrow::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--border2),transparent); }
+  .scenarios { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .scen { border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  .scen-h { padding:10px 12px; color:#fff; font-weight:800; font-size:13px; display:flex; justify-content:space-between; align-items:center; }
+  .scen-h .pct { font-size:11px; opacity:.9; font-weight:700; }
+  .scen.brz .scen-h { background:linear-gradient(180deg,#16a34a,#15803d); }
+  .scen.draw .scen-h { background:linear-gradient(180deg,#94a3b8,#64748b); }
+  .scen.mor .scen-h { background:linear-gradient(180deg,#e11d48,#be123c); }
+  .scen-body { padding:8px 10px; }
+  .lrow { display:flex; align-items:center; gap:7px; padding:5px 0; border-bottom:1px solid var(--border); font-size:13px; }
+  .lrow:last-child { border:none; }
+  .lrow .lr { width:16px; color:var(--muted); font-weight:800; font-size:12px; }
+  .lrow .la { flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:600; }
+  .lrow .lp { font-weight:800; color:var(--primary); }
+  .lrow.top1 .la { font-weight:800; }
+  .lrow.jump .la::after { content:' ▲'; color:var(--green); font-size:11px; }
+  .foot { font-size:11px; color:var(--muted); margin-top:14px; }
+
+  #loader { text-align:center; padding:50px; }
+  .btn { padding:12px 26px; border:none; border-radius:10px; background:linear-gradient(180deg,var(--primary-soft),var(--primary)); color:#fff; font-weight:800; font-size:15px; cursor:pointer; font-family:inherit; box-shadow:0 4px 14px rgba(109,40,217,.3); }
+</style>
+</head>
+<body>
+<div id="root"><div id="loader"><p style="color:var(--muted);margin-bottom:18px">Load the pool data to build the visuals.</p><button class="btn" onclick="pick()">Load data</button></div></div>
+
+<script type="module">
+const BRZ_MOR_ROW = 20;
+
+function resultOf(m){ if(m.score1>m.score2) return 'team1'; if(m.score2>m.score1) return 'team2'; return 'draw'; }
+function pointsGroup(pick, actual, scoring){
+  if(!actual||pick.score1==null||pick.winner==null) return 0;
+  if(resultOf(pick)!==resultOf(actual)) return 0;
+  const exact = pick.score1===actual.score1 && pick.score2===actual.score2;
+  return scoring.group.correct_result + (exact?scoring.group.exact_score:0);
+}
+// full group/ko points (only group needed for current matches, but keep general)
+function totalPoints(e, results, scoring){
+  let t=0;
+  for(const p of e.picks){
+    const a=results[String(p.src_row)];
+    if(a&&a.final&&p.round.startsWith('Group ')) t+=pointsGroup(p,a,scoring);
+  }
+  return t;
+}
+
+let DATA=null;
+
+// reuse the handle the main app stored, else file picker
+function openIDB(){ return new Promise((res,rej)=>{const q=indexedDB.open('quiniela',1);q.onupgradeneeded=e=>e.target.result.createObjectStore('handles');q.onsuccess=e=>res(e.target.result);q.onerror=e=>rej(e.target.error);}); }
+async function storedHandle(){ try{const db=await openIDB();return await new Promise((res,rej)=>{const tx=db.transaction('handles','readonly');const r=tx.objectStore('handles').get('dataFile');r.onsuccess=e=>res(e.target.result||null);r.onerror=e=>rej(e.target.error);});}catch{return null;} }
+
+window.pick = async function(){
+  try{
+    let text;
+    try{ const res=await fetch('./quiniela_brackets_v4.json'); if(res.ok){ text=await res.text(); } }catch{}
+    if(!text){
+      const h = await storedHandle();
+      if(h && (await h.requestPermission({mode:'read'}))==='granted'){
+        text = await (await h.getFile()).text();
+      } else {
+        const [fh] = await window.showOpenFilePicker({types:[{description:'JSON',accept:{'application/json':['.json']}}]});
+        text = await (await fh.getFile()).text();
+      }
+    }
+    DATA = JSON.parse(text);
+    build();
+  }catch(err){ if(err.name!=='AbortError') alert('Could not load: '+err.message); }
+};
+
+function aliasOf(e){ return e.alias || e.name.split(' ')[0]; }
+
+function build(){
+  const sc = DATA.scoring, results = DATA.results;
+  const scored = DATA.entrants.map(e=>({e,pts:totalPoints(e,results,sc)}))
+    .sort((a,b)=>b.pts-a.pts || aliasOf(a.e).localeCompare(aliasOf(b.e)));
+  const played = Object.values(results).filter(v=>v.final).length;
+
+  // ---- Visual 1: standings ----
+  const medals=['🥇','🥈','🥉'];
+  const rows = scored.map((s,i)=>{
+    const lead = s.pts===scored[0].pts && s.pts>0;
+    const rankCell = (i<3 && s.pts>0)?`<span class="medal">${medals[i]}</span>`:`<span class="r num">${i+1}</span>`;
+    return `<div class="srow ${lead?'lead':''}">
+      <span class="r">${rankCell}</span>
+      <span class="who"><div class="a">${aliasOf(s.e)}</div><div class="c">🏆 <b>${s.e.champion}</b></div></span>
+      <span class="pts num">${s.pts}</span>
+    </div>`;
+  });
+  const half = Math.ceil(rows.length/2);
+  const standHTML = `
+    <div class="poster">
+      <div class="poster-head">
+        <span class="eyebrow">La Quiniela · World Cup 2026</span>
+        <span class="brand">⚽ Live Standings</span>
+      </div>
+      <h1>Standings</h1>
+      <p class="sub">After ${played} completed match${played!==1?'es':''} · ${DATA.entrants.length} entrants</p>
+      <div class="stand-grid">
+        <div>${rows.slice(0,half).join('')}</div>
+        <div>${rows.slice(half).join('')}</div>
+      </div>
+    </div>`;
+
+  // ---- Visual 2: Brazil vs Morocco ----
+  const picks = DATA.entrants.map(e=>{
+    const p=e.picks.find(x=>x.src_row===BRZ_MOR_ROW);
+    return p?{...p,e}:null;
+  }).filter(Boolean);
+
+  const backBrz = picks.filter(p=>p.winner==='Brazil').length;
+  const backDraw= picks.filter(p=>p.winner==='Draw').length;
+  const backMor = picks.filter(p=>p.winner==='Morocco').length;
+
+  // scorelines grouped
+  const slMap={};
+  picks.forEach(p=>{ if(p.score1==null) return; const k=`${p.score1}-${p.score2}`; slMap[k]=(slMap[k]||0)+1; });
+  const slSorted = Object.entries(slMap).sort((a,b)=>b[1]-a[1]);
+
+  // scenario engine: add +1 to entrants whose predicted winner matches outcome side
+  // (correct-result point; exact-score bonus excluded since exact score unknown)
+  function projit(outcome){ // 'Brazil' | 'Draw' | 'Morocco'
+    const proj = scored.map(s=>{
+      const p = picks.find(x=>x.e===s.e);
+      const gain = (p && p.winner===outcome)?sc.group.correct_result:0;
+      return {e:s.e, pts:s.pts+gain, was:s.pts, gain};
+    }).sort((a,b)=>b.pts-a.pts || aliasOf(a.e).localeCompare(aliasOf(b.e)));
+    return proj;
+  }
+  const curLeadPts = scored[0].pts;
+  function scenCol(outcome,label,cls,n){
+    const proj = projit(outcome);
+    const top = proj.slice(0,5);
+    const topPts = proj[0].pts;
+    const pct = Math.round(n/picks.length*100);
+    const body = top.map((t,i)=>{
+      const isTop = t.pts===topPts;
+      // "jump" = climbed into the lead from below the current lead
+      const jumped = isTop && t.was < curLeadPts;
+      return `<div class="lrow ${isTop?'top1':''} ${jumped?'jump':''}">
+        <span class="lr">${i+1}</span>
+        <span class="la">${aliasOf(t.e)}</span>
+        <span class="lp num">${t.pts}</span>
+      </div>`;
+    }).join('');
+    return `<div class="scen ${cls}">
+      <div class="scen-h"><span>${label}</span><span class="pct">${n} picked · ${pct}%</span></div>
+      <div class="scen-body">${body}</div>
+    </div>`;
+  }
+
+  const mbHTML = `
+    <div class="poster">
+      <div class="poster-head">
+        <span class="eyebrow">La Quiniela · World Cup 2026</span>
+        <span class="brand">⚽ Match Spotlight</span>
+      </div>
+      <div class="mb-head">
+        <div><div class="r">Group C · Match-day fixture</div><div class="t">Brazil 🇧🇷 vs 🇲🇦 Morocco</div></div>
+        <span class="tag">Not yet played</span>
+      </div>
+
+      <div class="split">
+        <div class="seg s-brz" style="flex:${Math.max(backBrz,1)}"><div class="n num">${backBrz}</div><div class="l">Brazil win</div></div>
+        <div class="seg s-draw" style="flex:${Math.max(backDraw,1)}"><div class="n num">${backDraw}</div><div class="l">Draw</div></div>
+        <div class="seg s-mor" style="flex:${Math.max(backMor,1)}"><div class="n num">${backMor}</div><div class="l">Morocco win</div></div>
+      </div>
+
+      <div class="scorelines">
+        ${slSorted.map(([k,c])=>`<span class="sl"><b>${k}</b><span class="cnt">×${c}</span></span>`).join('')}
+      </div>
+
+      <div class="scen-eyebrow">Who reaches the top — by result</div>
+      <div class="scenarios">
+        ${scenCol('Brazil','Brazil win','brz',backBrz)}
+        ${scenCol('Draw','Draw','draw',backDraw)}
+        ${scenCol('Morocco','Morocco win','mor',backMor)}
+      </div>
+      <p class="foot">Projection adds the +1 correct-result point to each matching prediction on top of current standings. Exact-score bonus excluded (final score unknown). ▲ = climbs into the lead.</p>
+    </div>`;
+
+  document.getElementById('root').innerHTML = standHTML + mbHTML;
+}
+
+// auto-attempt fetch on load (works when served over http, e.g. preview panel)
+pick();
+</script>
+</body>
+</html>
