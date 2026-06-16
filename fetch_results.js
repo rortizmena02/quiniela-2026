@@ -28,9 +28,8 @@
  *   (plus `final: true`, which the dashboard's totalPoints() requires.)
  */
 
-'use strict';
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
 
 // ── config ───────────────────────────────────────────────────────────────────
 const SOURCE_URL = process.env.OPENFOOTBALL_URL ||
