@@ -195,6 +195,38 @@
    "score2": 1,
    "winner": "Draw",
    "final": true
+  },
+  "62": {
+   "team1": "France",
+   "team2": "Senegal",
+   "score1": 3,
+   "score2": 1,
+   "winner": "France",
+   "final": true
+  },
+  "63": {
+   "team1": "Iraq",
+   "team2": "Norway",
+   "score1": 1,
+   "score2": 4,
+   "winner": "Norway",
+   "final": true
+  },
+  "69": {
+   "team1": "Argentina",
+   "team2": "Algeria",
+   "score1": 3,
+   "score2": 0,
+   "winner": "Argentina",
+   "final": true
+  },
+  "70": {
+   "team1": "Austria",
+   "team2": "Jordan",
+   "score1": 3,
+   "score2": 1,
+   "winner": "Austria",
+   "final": true
   }
  },
  "entrants": [
