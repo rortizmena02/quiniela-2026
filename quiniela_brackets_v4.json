@@ -227,6 +227,22 @@
    "score2": 1,
    "winner": "Austria",
    "final": true
+  },
+  "76": {
+   "team1": "Portugal",
+   "team2": "DR Congo",
+   "score1": 1,
+   "score2": 1,
+   "winner": "Draw",
+   "final": true
+  },
+  "83": {
+   "team1": "England",
+   "team2": "Croatia",
+   "score1": 4,
+   "score2": 2,
+   "winner": "England",
+   "final": true
   }
  },
  "entrants": [
