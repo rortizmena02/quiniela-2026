@@ -84,6 +84,14 @@
    "winner": "Rep. of Korea",
    "final": true
   },
+  "8": {
+   "team1": "Czech Rep.",
+   "team2": "South Africa",
+   "score1": 1,
+   "score2": 1,
+   "winner": "Draw",
+   "final": true
+  },
   "13": {
    "team1": "Canada",
    "team2": "Bosnia/Herzeg.",
@@ -98,6 +106,14 @@
    "score1": 1,
    "score2": 1,
    "winner": "Draw",
+   "final": true
+  },
+  "15": {
+   "team1": "Switzerland",
+   "team2": "Bosnia/Herzeg.",
+   "score1": 4,
+   "score2": 1,
+   "winner": "Switzerland",
    "final": true
   },
   "20": {
