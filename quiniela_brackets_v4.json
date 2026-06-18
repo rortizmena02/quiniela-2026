@@ -236,12 +236,28 @@
    "winner": "Draw",
    "final": true
   },
+  "77": {
+   "team1": "Uzbekistan",
+   "team2": "Colombia",
+   "score1": 1,
+   "score2": 3,
+   "winner": "Colombia",
+   "final": true
+  },
   "83": {
    "team1": "England",
    "team2": "Croatia",
    "score1": 4,
    "score2": 2,
    "winner": "England",
+   "final": true
+  },
+  "84": {
+   "team1": "Ghana",
+   "team2": "Panama",
+   "score1": 1,
+   "score2": 0,
+   "winner": "Ghana",
    "final": true
   }
  },
