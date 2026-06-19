@@ -92,6 +92,14 @@
    "winner": "Draw",
    "final": true
   },
+  "9": {
+   "team1": "Mexico",
+   "team2": "Rep. of Korea",
+   "score1": 1,
+   "score2": 0,
+   "winner": "Mexico",
+   "final": true
+  },
   "13": {
    "team1": "Canada",
    "team2": "Bosnia/Herzeg.",
@@ -114,6 +122,14 @@
    "score1": 4,
    "score2": 1,
    "winner": "Switzerland",
+   "final": true
+  },
+  "16": {
+   "team1": "Canada",
+   "team2": "Qatar",
+   "score1": 6,
+   "score2": 0,
+   "winner": "Canada",
    "final": true
   },
   "20": {
