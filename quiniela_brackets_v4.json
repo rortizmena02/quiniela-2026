@@ -148,6 +148,22 @@
    "winner": "Scotland",
    "final": true
   },
+  "22": {
+   "team1": "Scotland",
+   "team2": "Morocco",
+   "score1": 0,
+   "score2": 1,
+   "winner": "Morocco",
+   "final": true
+  },
+  "23": {
+   "team1": "Brazil",
+   "team2": "Haiti",
+   "score1": 3,
+   "score2": 0,
+   "winner": "Brazil",
+   "final": true
+  },
   "27": {
    "team1": "USA",
    "team2": "Paraguay",
@@ -162,6 +178,22 @@
    "score1": 2,
    "score2": 0,
    "winner": "Australia",
+   "final": true
+  },
+  "29": {
+   "team1": "USA",
+   "team2": "Australia",
+   "score1": 2,
+   "score2": 0,
+   "winner": "USA",
+   "final": true
+  },
+  "30": {
+   "team1": "Turkey",
+   "team2": "Paraguay",
+   "score1": 0,
+   "score2": 1,
+   "winner": "Paraguay",
    "final": true
   },
   "34": {
