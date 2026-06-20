@@ -228,6 +228,14 @@
    "winner": "Sweden",
    "final": true
   },
+  "43": {
+   "team1": "Netherlands",
+   "team2": "Sweden",
+   "score1": 5,
+   "score2": 1,
+   "winner": "Netherlands",
+   "final": true
+  },
   "48": {
    "team1": "Belgium",
    "team2": "Egypt",
