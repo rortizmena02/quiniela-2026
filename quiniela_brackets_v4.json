@@ -276,6 +276,14 @@
    "winner": "Draw",
    "final": true
   },
+  "50": {
+   "team1": "Belgium",
+   "team2": "IR Iran",
+   "score1": 0,
+   "score2": 0,
+   "winner": "Draw",
+   "final": true
+  },
   "55": {
    "team1": "Spain",
    "team2": "Cape Verde",
@@ -290,6 +298,14 @@
    "score1": 1,
    "score2": 1,
    "winner": "Draw",
+   "final": true
+  },
+  "57": {
+   "team1": "Spain",
+   "team2": "Saudi Arabia",
+   "score1": 4,
+   "score2": 0,
+   "winner": "Spain",
    "final": true
   },
   "62": {
