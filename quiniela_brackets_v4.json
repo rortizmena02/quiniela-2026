@@ -212,6 +212,22 @@
    "winner": "Ivory Coast",
    "final": true
   },
+  "36": {
+   "team1": "Germany",
+   "team2": "Ivory Coast",
+   "score1": 2,
+   "score2": 1,
+   "winner": "Germany",
+   "final": true
+  },
+  "37": {
+   "team1": "Ecuador",
+   "team2": "Curaçao",
+   "score1": 0,
+   "score2": 0,
+   "winner": "Draw",
+   "final": true
+  },
   "41": {
    "team1": "Netherlands",
    "team2": "Japan",
@@ -234,6 +250,14 @@
    "score1": 5,
    "score2": 1,
    "winner": "Netherlands",
+   "final": true
+  },
+  "44": {
+   "team1": "Tunisia",
+   "team2": "Japan",
+   "score1": 0,
+   "score2": 4,
+   "winner": "Japan",
    "final": true
   },
   "48": {
