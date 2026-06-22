@@ -356,6 +356,14 @@
    "winner": "Austria",
    "final": true
   },
+  "71": {
+   "team1": "Argentina",
+   "team2": "Austria",
+   "score1": 2,
+   "score2": 0,
+   "winner": "Argentina",
+   "final": true
+  },
   "76": {
    "team1": "Portugal",
    "team2": "DR Congo",
