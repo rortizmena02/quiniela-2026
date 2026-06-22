@@ -284,6 +284,14 @@
    "winner": "Draw",
    "final": true
   },
+  "51": {
+   "team1": "New Zealand",
+   "team2": "Egypt",
+   "score1": 1,
+   "score2": 3,
+   "winner": "Egypt",
+   "final": true
+  },
   "55": {
    "team1": "Spain",
    "team2": "Cape Verde",
@@ -306,6 +314,14 @@
    "score1": 4,
    "score2": 0,
    "winner": "Spain",
+   "final": true
+  },
+  "58": {
+   "team1": "Uruguay",
+   "team2": "Cape Verde",
+   "score1": 2,
+   "score2": 2,
+   "winner": "Draw",
    "final": true
   },
   "62": {
