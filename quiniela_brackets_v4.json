@@ -340,6 +340,22 @@
    "winner": "Norway",
    "final": true
   },
+  "64": {
+   "team1": "France",
+   "team2": "Iraq",
+   "score1": 3,
+   "score2": 0,
+   "winner": "France",
+   "final": true
+  },
+  "65": {
+   "team1": "Norway",
+   "team2": "Senegal",
+   "score1": 3,
+   "score2": 2,
+   "winner": "Norway",
+   "final": true
+  },
   "69": {
    "team1": "Argentina",
    "team2": "Algeria",
@@ -362,6 +378,14 @@
    "score1": 2,
    "score2": 0,
    "winner": "Argentina",
+   "final": true
+  },
+  "72": {
+   "team1": "Jordan",
+   "team2": "Algeria",
+   "score1": 1,
+   "score2": 2,
+   "winner": "Algeria",
    "final": true
   },
   "76": {
