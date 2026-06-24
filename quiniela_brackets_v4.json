@@ -412,6 +412,14 @@
    "winner": "Portugal",
    "final": true
   },
+  "79": {
+   "team1": "Colombia",
+   "team2": "DR Congo",
+   "score1": 1,
+   "score2": 0,
+   "winner": "Colombia",
+   "final": true
+  },
   "83": {
    "team1": "England",
    "team2": "Croatia",
@@ -434,6 +442,14 @@
    "score1": 0,
    "score2": 0,
    "winner": "Draw",
+   "final": true
+  },
+  "86": {
+   "team1": "Panama",
+   "team2": "Croatia",
+   "score1": 0,
+   "score2": 1,
+   "winner": "Croatia",
    "final": true
   }
  },
