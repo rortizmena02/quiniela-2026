@@ -132,6 +132,22 @@
    "winner": "Canada",
    "final": true
   },
+  "17": {
+   "team1": "Switzerland",
+   "team2": "Canada",
+   "score1": 2,
+   "score2": 1,
+   "winner": "Switzerland",
+   "final": true
+  },
+  "18": {
+   "team1": "Bosnia/Herzeg.",
+   "team2": "Qatar",
+   "score1": 3,
+   "score2": 1,
+   "winner": "Bosnia/Herzeg.",
+   "final": true
+  },
   "20": {
    "team1": "Brazil",
    "team2": "Morocco",
