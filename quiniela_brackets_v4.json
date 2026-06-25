@@ -100,6 +100,22 @@
    "winner": "Mexico",
    "final": true
   },
+  "10": {
+   "team1": "Czech Rep.",
+   "team2": "Mexico",
+   "score1": 0,
+   "score2": 3,
+   "winner": "Mexico",
+   "final": true
+  },
+  "11": {
+   "team1": "South Africa",
+   "team2": "Rep. of Korea",
+   "score1": 1,
+   "score2": 0,
+   "winner": "South Africa",
+   "final": true
+  },
   "13": {
    "team1": "Canada",
    "team2": "Bosnia/Herzeg.",
@@ -178,6 +194,22 @@
    "score1": 3,
    "score2": 0,
    "winner": "Brazil",
+   "final": true
+  },
+  "24": {
+   "team1": "Scotland",
+   "team2": "Brazil",
+   "score1": 0,
+   "score2": 3,
+   "winner": "Brazil",
+   "final": true
+  },
+  "25": {
+   "team1": "Morocco",
+   "team2": "Haiti",
+   "score1": 4,
+   "score2": 2,
+   "winner": "Morocco",
    "final": true
   },
   "27": {
