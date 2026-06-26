@@ -244,6 +244,22 @@
    "winner": "Paraguay",
    "final": true
   },
+  "31": {
+   "team1": "Turkey",
+   "team2": "USA",
+   "score1": 3,
+   "score2": 2,
+   "winner": "Turkey",
+   "final": true
+  },
+  "32": {
+   "team1": "Paraguay",
+   "team2": "Australia",
+   "score1": 0,
+   "score2": 0,
+   "winner": "Draw",
+   "final": true
+  },
   "34": {
    "team1": "Germany",
    "team2": "Curaçao",
@@ -276,6 +292,22 @@
    "winner": "Draw",
    "final": true
   },
+  "38": {
+   "team1": "Curaçao",
+   "team2": "Ivory Coast",
+   "score1": 0,
+   "score2": 2,
+   "winner": "Ivory Coast",
+   "final": true
+  },
+  "39": {
+   "team1": "Ecuador",
+   "team2": "Germany",
+   "score1": 2,
+   "score2": 1,
+   "winner": "Ecuador",
+   "final": true
+  },
   "41": {
    "team1": "Netherlands",
    "team2": "Japan",
@@ -306,6 +338,22 @@
    "score1": 0,
    "score2": 4,
    "winner": "Japan",
+   "final": true
+  },
+  "45": {
+   "team1": "Japan",
+   "team2": "Sweden",
+   "score1": 1,
+   "score2": 1,
+   "winner": "Draw",
+   "final": true
+  },
+  "46": {
+   "team1": "Tunisia",
+   "team2": "Netherlands",
+   "score1": 1,
+   "score2": 3,
+   "winner": "Netherlands",
    "final": true
   },
   "48": {
