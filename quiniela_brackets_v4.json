@@ -452,6 +452,22 @@
    "winner": "Norway",
    "final": true
   },
+  "66": {
+   "team1": "Norway",
+   "team2": "France",
+   "score1": 1,
+   "score2": 4,
+   "winner": "France",
+   "final": true
+  },
+  "67": {
+   "team1": "Senegal",
+   "team2": "Iraq",
+   "score1": 5,
+   "score2": 0,
+   "winner": "Senegal",
+   "final": true
+  },
   "69": {
    "team1": "Argentina",
    "team2": "Algeria",
