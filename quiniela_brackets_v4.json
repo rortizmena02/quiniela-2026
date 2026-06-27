@@ -388,6 +388,22 @@
    "winner": "Egypt",
    "final": true
   },
+  "52": {
+   "team1": "Egypt",
+   "team2": "IR Iran",
+   "score1": 1,
+   "score2": 1,
+   "winner": "Draw",
+   "final": true
+  },
+  "53": {
+   "team1": "New Zealand",
+   "team2": "Belgium",
+   "score1": 1,
+   "score2": 5,
+   "winner": "Belgium",
+   "final": true
+  },
   "55": {
    "team1": "Spain",
    "team2": "Cape Verde",
@@ -418,6 +434,22 @@
    "score1": 2,
    "score2": 2,
    "winner": "Draw",
+   "final": true
+  },
+  "59": {
+   "team1": "Cape Verde",
+   "team2": "Saudi Arabia",
+   "score1": 0,
+   "score2": 0,
+   "winner": "Draw",
+   "final": true
+  },
+  "60": {
+   "team1": "Uruguay",
+   "team2": "Spain",
+   "score1": 0,
+   "score2": 1,
+   "winner": "Spain",
    "final": true
   },
   "62": {
