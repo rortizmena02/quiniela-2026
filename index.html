@@ -353,9 +353,10 @@
 
 <script type="module">
 import { scoreCard } from './scorecard.js';
-import { hypotheticalActual, projectTotals } from './whatif.js';
+import { hypotheticalActual } from './whatif.js';
 import { eliminatedTeams } from './elimination.js';
-import { maxPossible } from './maxpoints.js';
+import { maxForPick } from './maxpoints.js';
+import { reachedByRound, liveTotal } from './standings.js';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // scoring engine (mirrors scoring.js)
@@ -521,8 +522,9 @@ function render() {
 // ═══════════════════════════════════════════════════════════════════════════
 function renderStandings() {
   const r = getResults();
+  const reached = reachedByRound(DATA);
   const scored = DATA.entrants.map(e => ({
-    e, pts: totalPoints(e, r, DATA.scoring)
+    e, pts: liveTotal(e, DATA, DATA.scoring, reached)
   })).sort((a, b) => b.pts - a.pts || a.e.alias.localeCompare(b.e.alias));
 
   const maxPts = scored[0]?.pts ?? 0;
@@ -801,7 +803,7 @@ function renderBracket(idx) {
     (byRound[p.round] ||= []).push(p);
   }
 
-  const totalPts = totalPoints(e, r, DATA.scoring);
+  const totalPts = liveTotal(e, DATA, DATA.scoring);
 
   // ── Group stage grid ──
   const groupRounds = DATA.round_order.filter(rd => rd.startsWith('Group ') && byRound[rd]);
@@ -968,14 +970,35 @@ function renderAlive() {
 
 window.setMaxSort = function(s) { maxSort = s; render(); };
 
+// reach-aware ceiling: final slots scored on their real result (with the global
+// reached set); not-yet-final slots take their best case via maxForPick.
+function entrantCeiling(e, scoring, elim, reached) {
+  const results = getResults();
+  let total = 0;
+  for (const pick of e.picks) {
+    const round = pick.round;
+    const result = results[String(pick.src_row)];
+    if (result && result.final === true) {
+      const actual = (typeof round === 'string' && (round.startsWith('Group ') || round === 'Third place'))
+        ? result
+        : { ...result, reached: [...(reached[round] || [])] };
+      total += pointsForPick(pick, actual, scoring);
+    } else {
+      total += maxForPick(pick, elim, scoring);
+    }
+  }
+  return total;
+}
+
 function renderMaxPts() {
   const elim = eliminatedTeams(DATA);
   const scoring = DATA.scoring;
-  const r = getResults();
+  const reached = reachedByRound(DATA);
 
   const rows = DATA.entrants.map(e => {
-    const m = maxPossible(e, r, scoring, elim);
-    return { e, ...m };
+    const lockedIn = liveTotal(e, DATA, scoring, reached);
+    const ceiling = entrantCeiling(e, scoring, elim, reached);
+    return { e, lockedIn, maxPossible: ceiling };
   });
 
   const leaderLocked = rows.reduce((mx, x) => Math.max(mx, x.lockedIn), 0);
@@ -1056,12 +1079,13 @@ function renderWhatIf() {
     if (match) hypActuals[sr] = hypotheticalActual(match, outcome);
   }
   const merged = { ...r, ...hypActuals };
+  const mergedDATA = { entrants: DATA.entrants, results: merged };
 
-  // current vs projected standings (totalPoints from scoring.js, via projectTotals)
-  const cur = projectTotals(DATA.entrants, r, scoring)
-    .sort((a, b) => b.points - a.points || (a.entrant.alias || a.entrant.name).localeCompare(b.entrant.alias || b.entrant.name));
-  const proj = projectTotals(DATA.entrants, merged, scoring)
-    .sort((a, b) => b.points - a.points || (a.entrant.alias || a.entrant.name).localeCompare(b.entrant.alias || b.entrant.name));
+  // current vs projected standings — reach-aware (liveTotal), matching the
+  // Standings view. Hypothetical group results can change R32 qualification.
+  const sortByPts = (a, b) => b.points - a.points || (a.entrant.alias || a.entrant.name).localeCompare(b.entrant.alias || b.entrant.name);
+  const cur = DATA.entrants.map(e => ({ entrant: e, points: liveTotal(e, DATA, scoring) })).sort(sortByPts);
+  const proj = DATA.entrants.map(e => ({ entrant: e, points: liveTotal(e, mergedDATA, scoring) })).sort(sortByPts);
 
   const curRank = new Map(cur.map((x, i) => [x.entrant, i]));
   const curPts = new Map(cur.map(x => [x.entrant, x.points]));
