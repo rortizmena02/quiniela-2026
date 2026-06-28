@@ -73,6 +73,7 @@
    "team2": "South Africa",
    "score1": 2,
    "score2": 0,
+   "winner": "Mexico",
    "final": true
   },
   "7": {
@@ -80,6 +81,39 @@
    "team2": "Czech Rep.",
    "score1": 2,
    "score2": 1,
+   "winner": "Rep. of Korea",
+   "final": true
+  },
+  "8": {
+   "team1": "Czech Rep.",
+   "team2": "South Africa",
+   "score1": 1,
+   "score2": 1,
+   "winner": "Draw",
+   "final": true
+  },
+  "9": {
+   "team1": "Mexico",
+   "team2": "Rep. of Korea",
+   "score1": 1,
+   "score2": 0,
+   "winner": "Mexico",
+   "final": true
+  },
+  "10": {
+   "team1": "Czech Rep.",
+   "team2": "Mexico",
+   "score1": 0,
+   "score2": 3,
+   "winner": "Mexico",
+   "final": true
+  },
+  "11": {
+   "team1": "South Africa",
+   "team2": "Rep. of Korea",
+   "score1": 1,
+   "score2": 0,
+   "winner": "South Africa",
    "final": true
   },
   "13": {
@@ -87,6 +121,7 @@
    "team2": "Bosnia/Herzeg.",
    "score1": 1,
    "score2": 1,
+   "winner": "Draw",
    "final": true
   },
   "14": {
@@ -94,6 +129,39 @@
    "team2": "Switzerland",
    "score1": 1,
    "score2": 1,
+   "winner": "Draw",
+   "final": true
+  },
+  "15": {
+   "team1": "Switzerland",
+   "team2": "Bosnia/Herzeg.",
+   "score1": 4,
+   "score2": 1,
+   "winner": "Switzerland",
+   "final": true
+  },
+  "16": {
+   "team1": "Canada",
+   "team2": "Qatar",
+   "score1": 6,
+   "score2": 0,
+   "winner": "Canada",
+   "final": true
+  },
+  "17": {
+   "team1": "Switzerland",
+   "team2": "Canada",
+   "score1": 2,
+   "score2": 1,
+   "winner": "Switzerland",
+   "final": true
+  },
+  "18": {
+   "team1": "Bosnia/Herzeg.",
+   "team2": "Qatar",
+   "score1": 3,
+   "score2": 1,
+   "winner": "Bosnia/Herzeg.",
    "final": true
   },
   "20": {
@@ -101,6 +169,7 @@
    "team2": "Morocco",
    "score1": 1,
    "score2": 1,
+   "winner": "Draw",
    "final": true
   },
   "21": {
@@ -108,6 +177,39 @@
    "team2": "Scotland",
    "score1": 0,
    "score2": 1,
+   "winner": "Scotland",
+   "final": true
+  },
+  "22": {
+   "team1": "Scotland",
+   "team2": "Morocco",
+   "score1": 0,
+   "score2": 1,
+   "winner": "Morocco",
+   "final": true
+  },
+  "23": {
+   "team1": "Brazil",
+   "team2": "Haiti",
+   "score1": 3,
+   "score2": 0,
+   "winner": "Brazil",
+   "final": true
+  },
+  "24": {
+   "team1": "Scotland",
+   "team2": "Brazil",
+   "score1": 0,
+   "score2": 3,
+   "winner": "Brazil",
+   "final": true
+  },
+  "25": {
+   "team1": "Morocco",
+   "team2": "Haiti",
+   "score1": 4,
+   "score2": 2,
+   "winner": "Morocco",
    "final": true
   },
   "27": {
@@ -115,6 +217,7 @@
    "team2": "Paraguay",
    "score1": 4,
    "score2": 1,
+   "winner": "USA",
    "final": true
   },
   "28": {
@@ -122,6 +225,39 @@
    "team2": "Turkey",
    "score1": 2,
    "score2": 0,
+   "winner": "Australia",
+   "final": true
+  },
+  "29": {
+   "team1": "USA",
+   "team2": "Australia",
+   "score1": 2,
+   "score2": 0,
+   "winner": "USA",
+   "final": true
+  },
+  "30": {
+   "team1": "Turkey",
+   "team2": "Paraguay",
+   "score1": 0,
+   "score2": 1,
+   "winner": "Paraguay",
+   "final": true
+  },
+  "31": {
+   "team1": "Turkey",
+   "team2": "USA",
+   "score1": 3,
+   "score2": 2,
+   "winner": "Turkey",
+   "final": true
+  },
+  "32": {
+   "team1": "Paraguay",
+   "team2": "Australia",
+   "score1": 0,
+   "score2": 0,
+   "winner": "Draw",
    "final": true
   },
   "34": {
@@ -129,6 +265,7 @@
    "team2": "Curaçao",
    "score1": 7,
    "score2": 1,
+   "winner": "Germany",
    "final": true
   },
   "35": {
@@ -136,6 +273,39 @@
    "team2": "Ecuador",
    "score1": 1,
    "score2": 0,
+   "winner": "Ivory Coast",
+   "final": true
+  },
+  "36": {
+   "team1": "Germany",
+   "team2": "Ivory Coast",
+   "score1": 2,
+   "score2": 1,
+   "winner": "Germany",
+   "final": true
+  },
+  "37": {
+   "team1": "Ecuador",
+   "team2": "Curaçao",
+   "score1": 0,
+   "score2": 0,
+   "winner": "Draw",
+   "final": true
+  },
+  "38": {
+   "team1": "Curaçao",
+   "team2": "Ivory Coast",
+   "score1": 0,
+   "score2": 2,
+   "winner": "Ivory Coast",
+   "final": true
+  },
+  "39": {
+   "team1": "Ecuador",
+   "team2": "Germany",
+   "score1": 2,
+   "score2": 1,
+   "winner": "Ecuador",
    "final": true
   },
   "41": {
@@ -143,6 +313,47 @@
    "team2": "Japan",
    "score1": 2,
    "score2": 2,
+   "winner": "Draw",
+   "final": true
+  },
+  "42": {
+   "team1": "Sweden",
+   "team2": "Tunisia",
+   "score1": 5,
+   "score2": 1,
+   "winner": "Sweden",
+   "final": true
+  },
+  "43": {
+   "team1": "Netherlands",
+   "team2": "Sweden",
+   "score1": 5,
+   "score2": 1,
+   "winner": "Netherlands",
+   "final": true
+  },
+  "44": {
+   "team1": "Tunisia",
+   "team2": "Japan",
+   "score1": 0,
+   "score2": 4,
+   "winner": "Japan",
+   "final": true
+  },
+  "45": {
+   "team1": "Japan",
+   "team2": "Sweden",
+   "score1": 1,
+   "score2": 1,
+   "winner": "Draw",
+   "final": true
+  },
+  "46": {
+   "team1": "Tunisia",
+   "team2": "Netherlands",
+   "score1": 1,
+   "score2": 3,
+   "winner": "Netherlands",
    "final": true
   },
   "48": {
@@ -150,6 +361,47 @@
    "team2": "Egypt",
    "score1": 1,
    "score2": 1,
+   "winner": "Draw",
+   "final": true
+  },
+  "49": {
+   "team1": "IR Iran",
+   "team2": "New Zealand",
+   "score1": 2,
+   "score2": 2,
+   "winner": "Draw",
+   "final": true
+  },
+  "50": {
+   "team1": "Belgium",
+   "team2": "IR Iran",
+   "score1": 0,
+   "score2": 0,
+   "winner": "Draw",
+   "final": true
+  },
+  "51": {
+   "team1": "New Zealand",
+   "team2": "Egypt",
+   "score1": 1,
+   "score2": 3,
+   "winner": "Egypt",
+   "final": true
+  },
+  "52": {
+   "team1": "Egypt",
+   "team2": "IR Iran",
+   "score1": 1,
+   "score2": 1,
+   "winner": "Draw",
+   "final": true
+  },
+  "53": {
+   "team1": "New Zealand",
+   "team2": "Belgium",
+   "score1": 1,
+   "score2": 5,
+   "winner": "Belgium",
    "final": true
   },
   "55": {
@@ -157,6 +409,239 @@
    "team2": "Cape Verde",
    "score1": 0,
    "score2": 0,
+   "winner": "Draw",
+   "final": true
+  },
+  "56": {
+   "team1": "Saudi Arabia",
+   "team2": "Uruguay",
+   "score1": 1,
+   "score2": 1,
+   "winner": "Draw",
+   "final": true
+  },
+  "57": {
+   "team1": "Spain",
+   "team2": "Saudi Arabia",
+   "score1": 4,
+   "score2": 0,
+   "winner": "Spain",
+   "final": true
+  },
+  "58": {
+   "team1": "Uruguay",
+   "team2": "Cape Verde",
+   "score1": 2,
+   "score2": 2,
+   "winner": "Draw",
+   "final": true
+  },
+  "59": {
+   "team1": "Cape Verde",
+   "team2": "Saudi Arabia",
+   "score1": 0,
+   "score2": 0,
+   "winner": "Draw",
+   "final": true
+  },
+  "60": {
+   "team1": "Uruguay",
+   "team2": "Spain",
+   "score1": 0,
+   "score2": 1,
+   "winner": "Spain",
+   "final": true
+  },
+  "62": {
+   "team1": "France",
+   "team2": "Senegal",
+   "score1": 3,
+   "score2": 1,
+   "winner": "France",
+   "final": true
+  },
+  "63": {
+   "team1": "Iraq",
+   "team2": "Norway",
+   "score1": 1,
+   "score2": 4,
+   "winner": "Norway",
+   "final": true
+  },
+  "64": {
+   "team1": "France",
+   "team2": "Iraq",
+   "score1": 3,
+   "score2": 0,
+   "winner": "France",
+   "final": true
+  },
+  "65": {
+   "team1": "Norway",
+   "team2": "Senegal",
+   "score1": 3,
+   "score2": 2,
+   "winner": "Norway",
+   "final": true
+  },
+  "66": {
+   "team1": "Norway",
+   "team2": "France",
+   "score1": 1,
+   "score2": 4,
+   "winner": "France",
+   "final": true
+  },
+  "67": {
+   "team1": "Senegal",
+   "team2": "Iraq",
+   "score1": 5,
+   "score2": 0,
+   "winner": "Senegal",
+   "final": true
+  },
+  "69": {
+   "team1": "Argentina",
+   "team2": "Algeria",
+   "score1": 3,
+   "score2": 0,
+   "winner": "Argentina",
+   "final": true
+  },
+  "70": {
+   "team1": "Austria",
+   "team2": "Jordan",
+   "score1": 3,
+   "score2": 1,
+   "winner": "Austria",
+   "final": true
+  },
+  "71": {
+   "team1": "Argentina",
+   "team2": "Austria",
+   "score1": 2,
+   "score2": 0,
+   "winner": "Argentina",
+   "final": true
+  },
+  "72": {
+   "team1": "Jordan",
+   "team2": "Algeria",
+   "score1": 1,
+   "score2": 2,
+   "winner": "Algeria",
+   "final": true
+  },
+  "73": {
+   "team1": "Algeria",
+   "team2": "Austria",
+   "score1": 3,
+   "score2": 3,
+   "winner": "Draw",
+   "final": true
+  },
+  "74": {
+   "team1": "Jordan",
+   "team2": "Argentina",
+   "score1": 1,
+   "score2": 3,
+   "winner": "Argentina",
+   "final": true
+  },
+  "76": {
+   "team1": "Portugal",
+   "team2": "DR Congo",
+   "score1": 1,
+   "score2": 1,
+   "winner": "Draw",
+   "final": true
+  },
+  "77": {
+   "team1": "Uzbekistan",
+   "team2": "Colombia",
+   "score1": 1,
+   "score2": 3,
+   "winner": "Colombia",
+   "final": true
+  },
+  "78": {
+   "team1": "Portugal",
+   "team2": "Uzbekistan",
+   "score1": 5,
+   "score2": 0,
+   "winner": "Portugal",
+   "final": true
+  },
+  "79": {
+   "team1": "Colombia",
+   "team2": "DR Congo",
+   "score1": 1,
+   "score2": 0,
+   "winner": "Colombia",
+   "final": true
+  },
+  "80": {
+   "team1": "Colombia",
+   "team2": "Portugal",
+   "score1": 0,
+   "score2": 0,
+   "winner": "Draw",
+   "final": true
+  },
+  "81": {
+   "team1": "DR Congo",
+   "team2": "Uzbekistan",
+   "score1": 3,
+   "score2": 1,
+   "winner": "DR Congo",
+   "final": true
+  },
+  "83": {
+   "team1": "England",
+   "team2": "Croatia",
+   "score1": 4,
+   "score2": 2,
+   "winner": "England",
+   "final": true
+  },
+  "84": {
+   "team1": "Ghana",
+   "team2": "Panama",
+   "score1": 1,
+   "score2": 0,
+   "winner": "Ghana",
+   "final": true
+  },
+  "85": {
+   "team1": "England",
+   "team2": "Ghana",
+   "score1": 0,
+   "score2": 0,
+   "winner": "Draw",
+   "final": true
+  },
+  "86": {
+   "team1": "Panama",
+   "team2": "Croatia",
+   "score1": 0,
+   "score2": 1,
+   "winner": "Croatia",
+   "final": true
+  },
+  "87": {
+   "team1": "Panama",
+   "team2": "England",
+   "score1": 0,
+   "score2": 2,
+   "winner": "England",
+   "final": true
+  },
+  "88": {
+   "team1": "Croatia",
+   "team2": "Ghana",
+   "score1": 2,
+   "score2": 1,
+   "winner": "Croatia",
    "final": true
   }
  },
