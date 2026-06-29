@@ -652,7 +652,23 @@
    "winner": "Canada",
    "reached": [
     "South Africa",
-    "Canada"
+    "Canada",
+    "Brazil",
+    "Japan"
+   ],
+   "final": true
+  },
+  "91": {
+   "team1": "Brazil",
+   "team2": "Japan",
+   "score1": 2,
+   "score2": 1,
+   "winner": "Brazil",
+   "reached": [
+    "South Africa",
+    "Canada",
+    "Brazil",
+    "Japan"
    ],
    "final": true
   }
