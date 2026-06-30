@@ -34463,10 +34463,10 @@
      "fifa_rank1": 13,
      "team2": "Croatia",
      "fifa_rank2": 11,
-     "score1": 4,
-     "score2": 6,
-     "pen1": null,
-     "pen2": null,
+     "score1": 1,
+     "score2": 1,
+     "pen1": 3,
+     "pen2": 5,
      "winner": "Croatia"
     },
     {
@@ -34528,10 +34528,10 @@
      "fifa_rank1": 34,
      "team2": "Senegal",
      "fifa_rank2": 14,
-     "score1": 5,
-     "score2": 6,
-     "pen1": null,
-     "pen2": null,
+     "score1": 2,
+     "score2": 2,
+     "pen1": 3,
+     "pen2": 4,
      "winner": "Senegal"
     },
     {
@@ -34554,10 +34554,10 @@
      "fifa_rank1": 4,
      "team2": "Norway",
      "fifa_rank2": 31,
-     "score1": 6,
-     "score2": 4,
-     "pen1": null,
-     "pen2": null,
+     "score1": 2,
+     "score2": 2,
+     "pen1": 4,
+     "pen2": 2,
      "winner": "England"
     },
     {
@@ -34593,10 +34593,10 @@
      "fifa_rank1": 30,
      "team2": "IR Iran",
      "fifa_rank2": 21,
-     "score1": 6,
-     "score2": 4,
-     "pen1": null,
-     "pen2": null,
+     "score1": 1,
+     "score2": 1,
+     "pen1": 5,
+     "pen2": 3,
      "winner": "Canada"
     },
     {
@@ -34684,10 +34684,10 @@
      "fifa_rank1": 15,
      "team2": "England",
      "fifa_rank2": 4,
-     "score1": 4,
-     "score2": 5,
-     "pen1": null,
-     "pen2": null,
+     "score1": 1,
+     "score2": 1,
+     "pen1": 3,
+     "pen2": 4,
      "winner": "England"
     },
     {
@@ -34697,10 +34697,10 @@
      "fifa_rank1": 17,
      "team2": "Turkey",
      "fifa_rank2": 22,
-     "score1": 6,
-     "score2": 4,
-     "pen1": null,
-     "pen2": null,
+     "score1": 2,
+     "score2": 2,
+     "pen1": 4,
+     "pen2": 2,
      "winner": "Uruguay"
     },
     {
@@ -34788,10 +34788,10 @@
      "fifa_rank1": 6,
      "team2": "Portugal",
      "fifa_rank2": 5,
-     "score1": 6,
-     "score2": 7,
-     "pen1": null,
-     "pen2": null,
+     "score1": 2,
+     "score2": 2,
+     "pen1": 4,
+     "pen2": 5,
      "winner": "Portugal"
     },
     {
@@ -39906,10 +39906,10 @@
      "fifa_rank1": 18,
      "team2": "Morocco",
      "fifa_rank2": 8,
-     "score1": 4,
-     "score2": 5,
-     "pen1": null,
-     "pen2": null,
+     "score1": 1,
+     "score2": 1,
+     "pen1": 3,
+     "pen2": 4,
      "winner": "Morocco"
     },
     {
@@ -39984,10 +39984,10 @@
      "fifa_rank1": 34,
      "team2": "Senegal",
      "fifa_rank2": 14,
-     "score1": 2,
-     "score2": 4,
-     "pen1": null,
-     "pen2": null,
+     "score1": 1,
+     "score2": 1,
+     "pen1": 1,
+     "pen2": 3,
      "winner": "Senegal"
     },
     {
@@ -39997,10 +39997,10 @@
      "fifa_rank1": 25,
      "team2": "Ecuador",
      "fifa_rank2": 23,
-     "score1": 5,
-     "score2": 6,
-     "pen1": null,
-     "pen2": null,
+     "score1": 1,
+     "score2": 1,
+     "pen1": 4,
+     "pen2": 5,
      "winner": "Ecuador"
     },
     {
@@ -40114,10 +40114,10 @@
      "fifa_rank1": 22,
      "team2": "Belgium",
      "fifa_rank2": 9,
-     "score1": 4,
-     "score2": 5,
-     "pen1": null,
-     "pen2": null,
+     "score1": 1,
+     "score2": 1,
+     "pen1": 3,
+     "pen2": 4,
      "winner": "Belgium"
     },
     {
@@ -40205,10 +40205,10 @@
      "fifa_rank1": 6,
      "team2": "England",
      "fifa_rank2": 4,
-     "score1": 5,
-     "score2": 6,
-     "pen1": null,
-     "pen2": null,
+     "score1": 2,
+     "score2": 2,
+     "pen1": 3,
+     "pen2": 4,
      "winner": "England"
     },
     {
@@ -41642,5 +41642,236 @@
     }
    ]
   }
- ]
+ ],
+ "bracket": {
+  "note": "Official 2026 WC knockout fixture tree. R32 teams are real; later rounds reference feeder game ids (winner of). Results are matched to fixtures by team identity, not by results slot/src_row.",
+  "rounds": {
+   "Round of 32": [
+    {
+     "id": "M73",
+     "round": "Round of 32",
+     "team1": "South Africa",
+     "team2": "Canada"
+    },
+    {
+     "id": "M74",
+     "round": "Round of 32",
+     "team1": "Germany",
+     "team2": "Paraguay"
+    },
+    {
+     "id": "M75",
+     "round": "Round of 32",
+     "team1": "Netherlands",
+     "team2": "Morocco"
+    },
+    {
+     "id": "M76",
+     "round": "Round of 32",
+     "team1": "Brazil",
+     "team2": "Japan"
+    },
+    {
+     "id": "M77",
+     "round": "Round of 32",
+     "team1": "France",
+     "team2": "Sweden"
+    },
+    {
+     "id": "M78",
+     "round": "Round of 32",
+     "team1": "Ivory Coast",
+     "team2": "Norway"
+    },
+    {
+     "id": "M79",
+     "round": "Round of 32",
+     "team1": "Mexico",
+     "team2": "Ecuador"
+    },
+    {
+     "id": "M80",
+     "round": "Round of 32",
+     "team1": "England",
+     "team2": "DR Congo"
+    },
+    {
+     "id": "M81",
+     "round": "Round of 32",
+     "team1": "USA",
+     "team2": "Bosnia/Herzeg."
+    },
+    {
+     "id": "M82",
+     "round": "Round of 32",
+     "team1": "Belgium",
+     "team2": "Senegal"
+    },
+    {
+     "id": "M83",
+     "round": "Round of 32",
+     "team1": "Portugal",
+     "team2": "Croatia"
+    },
+    {
+     "id": "M84",
+     "round": "Round of 32",
+     "team1": "Spain",
+     "team2": "Austria"
+    },
+    {
+     "id": "M85",
+     "round": "Round of 32",
+     "team1": "Switzerland",
+     "team2": "Algeria"
+    },
+    {
+     "id": "M86",
+     "round": "Round of 32",
+     "team1": "Argentina",
+     "team2": "Cape Verde"
+    },
+    {
+     "id": "M87",
+     "round": "Round of 32",
+     "team1": "Colombia",
+     "team2": "Ghana"
+    },
+    {
+     "id": "M88",
+     "round": "Round of 32",
+     "team1": "Australia",
+     "team2": "Egypt"
+    }
+   ],
+   "Round of 16": [
+    {
+     "id": "R16-1",
+     "round": "Round of 16",
+     "feeders": [
+      "M73",
+      "M74"
+     ]
+    },
+    {
+     "id": "R16-2",
+     "round": "Round of 16",
+     "feeders": [
+      "M75",
+      "M76"
+     ]
+    },
+    {
+     "id": "R16-3",
+     "round": "Round of 16",
+     "feeders": [
+      "M77",
+      "M78"
+     ]
+    },
+    {
+     "id": "R16-4",
+     "round": "Round of 16",
+     "feeders": [
+      "M79",
+      "M80"
+     ]
+    },
+    {
+     "id": "R16-5",
+     "round": "Round of 16",
+     "feeders": [
+      "M81",
+      "M82"
+     ]
+    },
+    {
+     "id": "R16-6",
+     "round": "Round of 16",
+     "feeders": [
+      "M83",
+      "M84"
+     ]
+    },
+    {
+     "id": "R16-7",
+     "round": "Round of 16",
+     "feeders": [
+      "M85",
+      "M86"
+     ]
+    },
+    {
+     "id": "R16-8",
+     "round": "Round of 16",
+     "feeders": [
+      "M87",
+      "M88"
+     ]
+    }
+   ],
+   "Quarter-final": [
+    {
+     "id": "QF-1",
+     "round": "Quarter-final",
+     "feeders": [
+      "R16-1",
+      "R16-2"
+     ]
+    },
+    {
+     "id": "QF-2",
+     "round": "Quarter-final",
+     "feeders": [
+      "R16-3",
+      "R16-4"
+     ]
+    },
+    {
+     "id": "QF-3",
+     "round": "Quarter-final",
+     "feeders": [
+      "R16-5",
+      "R16-6"
+     ]
+    },
+    {
+     "id": "QF-4",
+     "round": "Quarter-final",
+     "feeders": [
+      "R16-7",
+      "R16-8"
+     ]
+    }
+   ],
+   "Semi-final": [
+    {
+     "id": "SF-1",
+     "round": "Semi-final",
+     "feeders": [
+      "QF-1",
+      "QF-2"
+     ]
+    },
+    {
+     "id": "SF-2",
+     "round": "Semi-final",
+     "feeders": [
+      "QF-3",
+      "QF-4"
+     ]
+    }
+   ],
+   "Final": [
+    {
+     "id": "FINAL",
+     "round": "Final",
+     "feeders": [
+      "SF-1",
+      "SF-2"
+     ]
+    }
+   ]
+  }
+ }
 }
