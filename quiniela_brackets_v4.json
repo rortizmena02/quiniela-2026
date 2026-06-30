@@ -653,12 +653,56 @@
    "reached": [
     "South Africa",
     "Canada",
+    "Germany",
+    "Paraguay",
+    "Netherlands",
+    "Morocco",
     "Brazil",
     "Japan"
    ],
    "final": true
   },
   "91": {
+   "team1": "Germany",
+   "team2": "Paraguay",
+   "score1": 1,
+   "score2": 1,
+   "pen1": 3,
+   "pen2": 4,
+   "winner": "Paraguay",
+   "reached": [
+    "South Africa",
+    "Canada",
+    "Germany",
+    "Paraguay",
+    "Netherlands",
+    "Morocco",
+    "Brazil",
+    "Japan"
+   ],
+   "final": true
+  },
+  "92": {
+   "team1": "Netherlands",
+   "team2": "Morocco",
+   "score1": 1,
+   "score2": 1,
+   "pen1": 2,
+   "pen2": 3,
+   "winner": "Morocco",
+   "reached": [
+    "South Africa",
+    "Canada",
+    "Germany",
+    "Paraguay",
+    "Netherlands",
+    "Morocco",
+    "Brazil",
+    "Japan"
+   ],
+   "final": true
+  },
+  "93": {
    "team1": "Brazil",
    "team2": "Japan",
    "score1": 2,
@@ -667,6 +711,10 @@
    "reached": [
     "South Africa",
     "Canada",
+    "Germany",
+    "Paraguay",
+    "Netherlands",
+    "Morocco",
     "Brazil",
     "Japan"
    ],
