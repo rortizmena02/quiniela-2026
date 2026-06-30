@@ -251,42 +251,76 @@
   .trophy-card .tc-champ { font-size: 26px; font-weight: 800; letter-spacing: -.5px; margin: 8px 0 2px; }
   .trophy-card .tc-icon { font-size: 34px; }
 
+  /* ── shared sort bar ── */
+  .sort-bar { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; align-items: center; }
+  .sort-lbl { font-size: 12px; color: var(--muted); }
+
   /* ── STILL ALIVE ── */
-  .alive-list { display: flex; flex-direction: column; gap: 8px; }
-  .alive-row { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 1px 2px rgba(29,22,51,.04); overflow: hidden; }
-  .alive-row.champ-busted { border-color: var(--red); box-shadow: 0 0 0 1px rgba(229,72,77,.35); }
-  .alive-row > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 14px 16px; }
-  .alive-row > summary::-webkit-details-marker { display: none; }
-  .alive-row > summary::after { content: '▾'; color: var(--muted); transition: transform .15s; }
-  .alive-row[open] > summary::after { transform: rotate(180deg); }
-  .ar-name { font-weight: 800; font-size: 15px; min-width: 150px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .ar-big { font-size: 24px; font-weight: 800; color: var(--primary); letter-spacing: -1px; min-width: 64px; }
-  .ar-of { font-size: 13px; color: var(--muted); font-weight: 700; letter-spacing: 0; }
-  .ar-bar { flex: 1; height: 10px; background: var(--surface2); border-radius: 6px; overflow: hidden; }
-  .ar-fill { display: block; height: 100%; background: linear-gradient(90deg, var(--primary-soft), var(--primary)); border-radius: 6px; }
-  .deep-strip { padding: 4px 16px 16px; border-top: 1px solid var(--border); }
-  .deep-headline { font-weight: 700; font-size: 14px; margin: 12px 0; }
-  .deep-headline.busted { color: var(--red); }
-  .deep-badges { display: flex; flex-wrap: wrap; gap: 16px; }
-  .deep-group { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-  .deep-lbl { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--muted); margin-right: 2px; }
-  .badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; background: var(--surface2); border: 1px solid var(--border); white-space: nowrap; }
-  .badge.ok { color: var(--green); border-color: rgba(43,157,94,.35); }
-  .badge.out { color: var(--red); border-color: rgba(229,72,77,.35); text-decoration: line-through; }
-  .badge.big { font-size: 14px; padding: 6px 14px; }
-  .badge.big.out { background: rgba(229,72,77,.12); border-color: var(--red); text-decoration: none; box-shadow: 0 0 0 1px var(--red); }
+  .sa-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px; }
+  .sa-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 1px 2px rgba(29,22,51,.05); display: flex; flex-direction: column; }
+  .sa-card.busted { border-color: var(--red); box-shadow: 0 0 0 1px rgba(229,72,77,.4); }
+  .sa-card.busted .sa-top { background: linear-gradient(180deg, rgba(229,72,77,.10), transparent 65%); }
+  .sa-top { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .sa-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .sa-alias { font-weight: 800; font-size: 16px; letter-spacing: -.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sa-skull { font-size: 11px; font-weight: 800; color: #fff; background: var(--red); padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+  .sa-champ { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; background: var(--surface2); }
+  .sa-champ.out { background: rgba(229,72,77,.10); }
+  .sa-cf-lg { font-size: 30px; line-height: 1; }
+  .sa-champ.out .sa-cf-lg { filter: grayscale(1); opacity: .5; }
+  .sa-champ-mid { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+  .sa-tier { font-size: 10px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: var(--muted); }
+  .sa-champ-name { font-size: 18px; font-weight: 800; letter-spacing: -.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sa-champ.out .sa-champ-name { color: var(--muted); text-decoration: line-through; }
+  .sa-champ-state { font-size: 12px; font-weight: 800; white-space: nowrap; }
+  .sa-champ.alive .sa-champ-state { color: var(--green); }
+  .sa-champ.out .sa-champ-state { color: var(--red); }
+  .sa-tierrow { display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+  .sa-tierrow .sa-tier { min-width: 86px; padding-top: 6px; }
+  .sa-chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+  .sa-none { color: var(--muted); font-size: 12px; }
+  .sa-chip { display: inline-flex; align-items: center; gap: 5px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface); padding: 4px 10px; font-size: 12px; font-weight: 700; min-height: 28px; }
+  .sa-chip.md { font-size: 13px; }
+  .sa-chip .sa-cf { font-size: 15px; }
+  .sa-chip .sa-cn { white-space: nowrap; }
+  .sa-chip.alive { color: var(--text); border-color: rgba(43,157,94,.4); }
+  .sa-chip.alive .sa-cs { color: var(--green); }
+  .sa-chip.out { color: var(--muted); opacity: .6; }
+  .sa-chip.out .sa-cn { text-decoration: line-through; }
+  .sa-chip.out .sa-cf { filter: grayscale(1); }
+  .sa-chip.out .sa-cs { color: var(--red); }
+  .sa-wall { padding: 12px 16px; border-top: 1px solid var(--border); background: var(--bg2); }
+  .sa-wall-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 8px; }
+  .sa-count { font-size: 12px; font-weight: 800; color: var(--primary); white-space: nowrap; }
+  .sa-count.low { color: var(--red); }
+  .sa-flags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sa-fc { font-size: 20px; line-height: 1; min-width: 28px; min-height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; }
+  .sa-fc.alive { background: rgba(43,157,94,.10); }
+  .sa-fc.out { filter: grayscale(1); opacity: .3; }
 
   /* ── MAX POINTS ── */
   .max-list { display: flex; flex-direction: column; gap: 8px; }
   .max-row { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 1px 2px rgba(29,22,51,.04); }
-  .max-row.cant-catch { opacity: .72; }
+  .max-row.cant-catch { opacity: .72; background: var(--surface2); }
   .mr-name { font-weight: 800; font-size: 14px; min-width: 170px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .cant-tag { font-size: 10px; font-weight: 700; color: var(--muted); background: var(--surface2); border: 1px solid var(--border); padding: 1px 7px; border-radius: 20px; }
-  .mr-bar { flex: 1; height: 16px; background: var(--surface2); border-radius: 8px; position: relative; overflow: hidden; min-width: 80px; }
+  .cant-tag { font-size: 10px; font-weight: 800; color: #fff; background: var(--muted); padding: 2px 8px; border-radius: 20px; }
+  .mr-bar { flex: 1; height: 18px; background: var(--surface2); border-radius: 8px; position: relative; overflow: hidden; min-width: 80px; }
   .mr-ceil { position: absolute; left: 0; top: 0; height: 100%; background: rgba(109,40,217,.22); border-radius: 8px; }
   .mr-locked { position: absolute; left: 0; top: 0; height: 100%; background: linear-gradient(90deg, var(--primary-soft), var(--primary)); border-radius: 8px; }
+  .mr-floor { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--text); opacity: .85; z-index: 2; }
   .mr-nums { font-size: 13px; color: var(--muted); white-space: nowrap; }
   .mr-nums b { color: var(--primary); font-size: 16px; }
+
+  /* ── MOBILE (≤600px) ── */
+  @media (max-width: 600px) {
+    main { padding: 18px 14px 50px; }
+    .sa-list { grid-template-columns: 1fr; }
+    .sa-tierrow .sa-tier { min-width: 100%; padding-top: 0; }
+    .max-row { flex-wrap: wrap; }
+    .mr-name { min-width: 100%; }
+    .mr-bar { order: 3; flex-basis: 100%; }
+    .mr-nums { margin-left: auto; }
+  }
 
   /* ── WHAT-IF ── */
   .wi-standings { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
@@ -345,10 +379,10 @@
     <span class="nav-sub">World Cup 2026</span>
   </div>
   <button class="nav-btn active" onclick="showView('standings')">Standings</button>
-  <button class="nav-btn" onclick="showView('breakdown')">Match Breakdown</button>
-  <button class="nav-btn" onclick="showView('bracket')">Brackets</button>
   <button class="nav-btn" onclick="showView('alive')">Still Alive</button>
   <button class="nav-btn" onclick="showView('maxpts')">Max Points</button>
+  <button class="nav-btn" onclick="showView('bracket')">Brackets</button>
+  <button class="nav-btn" onclick="showView('breakdown')">Group Stage</button>
   <button class="nav-btn" onclick="showView('whatif')">What-If</button>
   <button id="nav-admin" class="nav-btn" onclick="showView('admin')">Enter Results</button>
 </nav>
@@ -447,8 +481,22 @@ let breakdownRound = 'Group A';
 let bracketEntrant = 0;
 let adminRound = 'Group Stage';
 let whatIf = {};   // src_row -> hypothetical outcome ({winner} or {score1,score2}); in memory only
-let aliveSort = 'r32';     // 'r32' | 'deep'
+let aliveSort = 'deep';    // 'deep' | 'r32'
 let maxSort = 'ceiling';   // 'ceiling' | 'now'
+
+// ── flags (Unicode regional-indicator emoji; render inline, screenshot-safe) ──
+const TEAM_FLAG = {
+  'Algeria': '🇩🇿', 'Argentina': '🇦🇷', 'Australia': '🇦🇺', 'Austria': '🇦🇹', 'Belgium': '🇧🇪',
+  'Bosnia/Herzeg.': '🇧🇦', 'Brazil': '🇧🇷', 'Canada': '🇨🇦', 'Cape Verde': '🇨🇻', 'Colombia': '🇨🇴',
+  'Croatia': '🇭🇷', 'Curaçao': '🇨🇼', 'Czech Rep.': '🇨🇿', 'DR Congo': '🇨🇩', 'Ecuador': '🇪🇨', 'Egypt': '🇪🇬',
+  'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'France': '🇫🇷', 'Germany': '🇩🇪', 'Ghana': '🇬🇭', 'Haiti': '🇭🇹', 'IR Iran': '🇮🇷',
+  'Iraq': '🇮🇶', 'Ivory Coast': '🇨🇮', 'Japan': '🇯🇵', 'Jordan': '🇯🇴', 'Mexico': '🇲🇽', 'Morocco': '🇲🇦',
+  'Netherlands': '🇳🇱', 'New Zealand': '🇳🇿', 'Norway': '🇳🇴', 'Panama': '🇵🇦', 'Paraguay': '🇵🇾',
+  'Portugal': '🇵🇹', 'Qatar': '🇶🇦', 'Rep. of Korea': '🇰🇷', 'Saudi Arabia': '🇸🇦', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+  'Senegal': '🇸🇳', 'South Africa': '🇿🇦', 'Spain': '🇪🇸', 'Sweden': '🇸🇪', 'Switzerland': '🇨🇭',
+  'Tunisia': '🇹🇳', 'Turkey': '🇹🇷', 'USA': '🇺🇸', 'Uruguay': '🇺🇾', 'Uzbekistan': '🇺🇿',
+};
+function flag(team) { return TEAM_FLAG[team] || ''; }
 
 // hidden admin mode — manual results entry only shows with ?admin=1 in the URL
 const ADMIN_MODE = new URLSearchParams(location.search).get('admin') === '1';
@@ -603,7 +651,7 @@ window.drillDown = function(srcRow, alias) {
 function showViewDirect(v) {
   currentView = v;
   document.querySelectorAll('.nav-btn').forEach((b,i) => {
-    const views = ['standings','breakdown','bracket','alive','maxpts','whatif','admin'];
+    const views = ['standings','alive','maxpts','bracket','breakdown','whatif','admin'];
     b.classList.toggle('active', views[i] === v);
   });
   render();
@@ -645,7 +693,7 @@ function renderBreakdownShell() {
   }).join('');
 
   return `
-    <h2>Match Breakdown</h2>
+    <h2>Group Stage</h2>
     <div class="match-selector">
       <div class="round-tabs">${roundTabs}</div>
       <div class="match-list">${matchPills}</div>
@@ -997,40 +1045,60 @@ function renderAlive() {
     const r32 = r32Teams(e);
     const r32Alive = r32.filter(alive).length;
     const d = deepTeams(e);
-    const deepList = [d.champ, ...d.finalists, ...d.sf];
-    const deepAlive = deepList.filter(alive).length;
-    return { e, r32, r32Alive, r32Total: r32.length, d, deepList, deepAlive, deepTotal: deepList.length };
+    const deepAlive = [d.champ, ...d.finalists, ...d.sf].filter(alive).length;
+    return { e, r32, r32Alive, r32Total: r32.length, d, deepAlive };
   });
 
-  rows.sort((a, b) => aliveSort === 'deep'
-    ? (b.deepAlive - a.deepAlive) || (b.r32Alive - a.r32Alive)
-    : (b.r32Alive - a.r32Alive) || (b.deepAlive - a.deepAlive));
+  rows.sort((a, b) => aliveSort === 'r32'
+    ? (b.r32Alive - a.r32Alive) || (b.deepAlive - a.deepAlive)
+    : (b.deepAlive - a.deepAlive) || (b.r32Alive - a.r32Alive));
 
-  function badge(team, big) {
+  const chip = (team, size) => {
     const ok = alive(team);
-    return `<span class="badge ${ok ? 'ok' : 'out'} ${big ? 'big' : ''}">${ok ? '✅' : '❌'} ${team || '—'}</span>`;
-  }
+    return `<span class="sa-chip ${size} ${ok ? 'alive' : 'out'}">
+      <span class="sa-cf">${flag(team)}</span><span class="sa-cn">${team || '—'}</span><span class="sa-cs">${ok ? '✓' : '✗'}</span>
+    </span>`;
+  };
 
-  const cards = rows.map(({ e, r32, r32Alive, r32Total, d, deepList, deepAlive }) => {
-    const pct = r32Total ? Math.round(r32Alive / r32Total * 100) : 0;
-    const champOut = !alive(d.champ);
-    const headline = `${champOut ? '💀' : '👑'} ${d.champ} ${alive(d.champ) ? '✅' : '❌'} · ${deepAlive} of ${deepList.length} deep picks alive`;
+  const cards = rows.map(({ e, r32, r32Alive, r32Total, d }) => {
+    const champ = d.champ;
+    const champAlive = alive(champ);
+    const wall = r32.map(t => {
+      const ok = alive(t);
+      return `<span class="sa-fc ${ok ? 'alive' : 'out'}" title="${t}${ok ? '' : ' — eliminated'}">${flag(t) || '·'}</span>`;
+    }).join('');
     return `
-      <details class="alive-row ${champOut ? 'champ-busted' : ''}">
-        <summary>
-          <span class="ar-name">${entrantAlias(e)}</span>
-          <span class="ar-big num">${r32Alive}<span class="ar-of">/${r32Total}</span></span>
-          <span class="ar-bar"><span class="ar-fill" style="width:${pct}%"></span></span>
-        </summary>
-        <div class="deep-strip">
-          <div class="deep-headline ${champOut ? 'busted' : ''}">${headline}</div>
-          <div class="deep-badges">
-            <span class="deep-group"><span class="deep-lbl">Champion</span>${badge(d.champ, true)}</span>
-            <span class="deep-group"><span class="deep-lbl">Finalists</span>${d.finalists.map(t => badge(t)).join('')}</span>
-            <span class="deep-group"><span class="deep-lbl">Semi-finalists</span>${d.sf.map(t => badge(t)).join('')}</span>
+      <div class="sa-card ${champAlive ? '' : 'busted'}">
+        <div class="sa-top">
+          <div class="sa-head">
+            <span class="sa-alias">${entrantAlias(e)}</span>
+            ${champAlive ? '' : '<span class="sa-skull">💀 champion out</span>'}
+          </div>
+          <div class="sa-champ ${champAlive ? 'alive' : 'out'}">
+            <span class="sa-cf-lg">${flag(champ)}</span>
+            <span class="sa-champ-mid">
+              <span class="sa-tier">Champion</span>
+              <span class="sa-champ-name">${champ}</span>
+            </span>
+            <span class="sa-champ-state">${champAlive ? '✓ alive' : '✗ ELIMINATED'}</span>
+          </div>
+          <div class="sa-tierrow">
+            <span class="sa-tier">Finalists</span>
+            <span class="sa-chips">${d.finalists.map(t => chip(t, 'md')).join('') || '<span class="sa-none">—</span>'}</span>
+          </div>
+          <div class="sa-tierrow">
+            <span class="sa-tier">Semifinalists</span>
+            <span class="sa-chips">${d.sf.map(t => chip(t, 'sm')).join('') || '<span class="sa-none">—</span>'}</span>
           </div>
         </div>
-      </details>`;
+        <div class="sa-wall">
+          <div class="sa-wall-head">
+            <span class="sa-tier">Round of 32 pool</span>
+            <span class="sa-count ${r32Alive < r32Total / 2 ? 'low' : ''}">${r32Alive}/${r32Total} still in</span>
+          </div>
+          <div class="sa-flags">${wall}</div>
+        </div>
+      </div>`;
   }).join('');
 
   const elimNote = elim.size
@@ -1039,13 +1107,13 @@ function renderAlive() {
 
   return `
     <h2>Still Alive</h2>
-    <p class="subtitle">How many of each entrant's picked teams are still in the tournament. ${elimNote}. Tap a row for the deep-run breakdown.</p>
-    <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap">
-      <span style="font-size:12px;color:var(--muted);align-self:center">Sort by:</span>
-      <button class="round-tab ${aliveSort === 'r32' ? 'active' : ''}" onclick="setAliveSort('r32')">R32 teams alive</button>
+    <p class="subtitle">Each entrant's title hopes and full Round-of-32 pool, at a glance. ${elimNote}.</p>
+    <div class="sort-bar">
+      <span class="sort-lbl">Sort by:</span>
       <button class="round-tab ${aliveSort === 'deep' ? 'active' : ''}" onclick="setAliveSort('deep')">Deep picks alive</button>
+      <button class="round-tab ${aliveSort === 'r32' ? 'active' : ''}" onclick="setAliveSort('r32')">R32 teams alive</button>
     </div>
-    <div class="alive-list">${cards}</div>`;
+    <div class="sa-list">${cards}</div>`;
 }
 
 window.setMaxSort = function(s) { maxSort = s; render(); };
@@ -1088,26 +1156,28 @@ function renderMaxPts() {
     ? (b.lockedIn - a.lockedIn) || (b.maxPossible - a.maxPossible)
     : (b.maxPossible - a.maxPossible) || (b.lockedIn - a.lockedIn));
 
+  const floorPct = Math.round(leaderLocked / ceilingMax * 100);
   const cards = rows.map(({ e, lockedIn, maxPossible: mp }) => {
     const cantCatch = mp < leaderLocked;
     const lockedPct = Math.round(lockedIn / ceilingMax * 100);
     const ceilPct = Math.round(mp / ceilingMax * 100);
     return `
       <div class="max-row ${cantCatch ? 'cant-catch' : ''}">
-        <span class="mr-name">${entrantAlias(e)}${cantCatch ? ' <span class="cant-tag">🚫 can’t catch leader</span>' : ''}</span>
+        <span class="mr-name">${flag(e.nationality)} ${entrantAlias(e)}${cantCatch ? ' <span class="cant-tag">🔒 can’t win</span>' : ''}</span>
         <span class="mr-bar">
           <span class="mr-ceil" style="width:${ceilPct}%"></span>
           <span class="mr-locked" style="width:${lockedPct}%"></span>
+          <span class="mr-floor" style="left:${floorPct}%" title="leader has ${leaderLocked} banked"></span>
         </span>
-        <span class="mr-nums"><b class="num">${lockedIn}</b> now · <span class="num">${mp}</span> ceiling</span>
+        <span class="mr-nums"><b class="num">${lockedIn}</b> now · <span class="num">${mp}</span> max</span>
       </div>`;
   }).join('');
 
   return `
     <h2>Max Possible Points</h2>
-    <p class="subtitle">Each entrant's locked-in total plus everything still mathematically achievable given current eliminations. The solid bar is points already banked; the light bar is the ceiling.</p>
-    <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap">
-      <span style="font-size:12px;color:var(--muted);align-self:center">Sort by:</span>
+    <p class="subtitle">Points already banked (solid) plus everything still mathematically achievable (light). The vertical line marks the leader's banked total — anyone whose ceiling sits left of it is mathematically out.</p>
+    <div class="sort-bar">
+      <span class="sort-lbl">Sort by:</span>
       <button class="round-tab ${maxSort === 'ceiling' ? 'active' : ''}" onclick="setMaxSort('ceiling')">Ceiling</button>
       <button class="round-tab ${maxSort === 'now' ? 'active' : ''}" onclick="setMaxSort('now')">Current total</button>
     </div>
