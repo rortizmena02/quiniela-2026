@@ -100,7 +100,9 @@
   .rank-num { font-size: 19px; font-weight: 800; color: var(--muted); }
   .rank-medal { font-size: 22px; }
   .card-body { flex: 1; min-width: 0; }
-  .alias { font-weight: 800; font-size: 15px; letter-spacing: -.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .alias { font-weight: 800; font-size: 15px; letter-spacing: -.2px; display: flex; align-items: center; gap: 7px; min-width: 0; }
+  .alias > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .flag-img { flex-shrink: 0; display: inline-block; }
   .fullname { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .champ-line { font-size: 11px; color: var(--muted); margin-top: 4px; }
   .champ-line span { color: var(--primary); font-weight: 700; }
@@ -484,19 +486,32 @@ let whatIf = {};   // src_row -> hypothetical outcome ({winner} or {score1,score
 let aliveSort = 'deep';    // 'deep' | 'r32'
 let maxSort = 'ceiling';   // 'ceiling' | 'now'
 
-// ── flags (Unicode regional-indicator emoji; render inline, screenshot-safe) ──
-const TEAM_FLAG = {
-  'Algeria': '🇩🇿', 'Argentina': '🇦🇷', 'Australia': '🇦🇺', 'Austria': '🇦🇹', 'Belgium': '🇧🇪',
-  'Bosnia/Herzeg.': '🇧🇦', 'Brazil': '🇧🇷', 'Canada': '🇨🇦', 'Cape Verde': '🇨🇻', 'Colombia': '🇨🇴',
-  'Croatia': '🇭🇷', 'Curaçao': '🇨🇼', 'Czech Rep.': '🇨🇿', 'DR Congo': '🇨🇩', 'Ecuador': '🇪🇨', 'Egypt': '🇪🇬',
-  'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'France': '🇫🇷', 'Germany': '🇩🇪', 'Ghana': '🇬🇭', 'Haiti': '🇭🇹', 'IR Iran': '🇮🇷',
-  'Iraq': '🇮🇶', 'Ivory Coast': '🇨🇮', 'Japan': '🇯🇵', 'Jordan': '🇯🇴', 'Mexico': '🇲🇽', 'Morocco': '🇲🇦',
-  'Netherlands': '🇳🇱', 'New Zealand': '🇳🇿', 'Norway': '🇳🇴', 'Panama': '🇵🇦', 'Paraguay': '🇵🇾',
-  'Portugal': '🇵🇹', 'Qatar': '🇶🇦', 'Rep. of Korea': '🇰🇷', 'Saudi Arabia': '🇸🇦', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-  'Senegal': '🇸🇳', 'South Africa': '🇿🇦', 'Spain': '🇪🇸', 'Sweden': '🇸🇪', 'Switzerland': '🇨🇭',
-  'Tunisia': '🇹🇳', 'Turkey': '🇹🇷', 'USA': '🇺🇸', 'Uruguay': '🇺🇾', 'Uzbekistan': '🇺🇿',
+// ── flags (flagcdn images — render reliably on all browsers incl. Windows) ──
+const TEAM_FLAG_CODE = {
+  // team-name keys (all 48 teams)
+  "Algeria":"dz","Argentina":"ar","Australia":"au","Austria":"at","Belgium":"be",
+  "Bosnia/Herzeg.":"ba","Brazil":"br","Canada":"ca","Cape Verde":"cv","Colombia":"co",
+  "Croatia":"hr","Curaçao":"cw","Czech Rep.":"cz","DR Congo":"cd","Ecuador":"ec",
+  "Egypt":"eg","England":"gb-eng","France":"fr","Germany":"de","Ghana":"gh",
+  "Haiti":"ht","IR Iran":"ir","Iraq":"iq","Ivory Coast":"ci","Japan":"jp",
+  "Jordan":"jo","Mexico":"mx","Morocco":"ma","Netherlands":"nl","New Zealand":"nz",
+  "Norway":"no","Panama":"pa","Paraguay":"py","Portugal":"pt","Qatar":"qa",
+  "Rep. of Korea":"kr","Saudi Arabia":"sa","Scotland":"gb-sct","Senegal":"sn",
+  "South Africa":"za","Spain":"es","Sweden":"se","Switzerland":"ch","Tunisia":"tn",
+  "Turkey":"tr","USA":"us","Uruguay":"uy","Uzbekistan":"uz",
+  // nationality-specific values used in entrant.nationality
+  "United States":"us","Iran":"ir","Chile":"cl","China":"cn","Puerto Rico":"pr","Uganda":"ug",
 };
-function flag(team) { return TEAM_FLAG[team] || ''; }
+
+function flag(team, size = 20) {
+  const code = TEAM_FLAG_CODE[team];
+  if (!code) return '';
+  const h = Math.round(size * 0.66);
+  return `<img class="flag-img" src="https://flagcdn.com/w40/${code}.png" ` +
+         `srcset="https://flagcdn.com/w80/${code}.png 2x" ` +
+         `width="${size}" height="${h}" alt="${team}" loading="lazy" ` +
+         `style="border-radius:2px;vertical-align:middle;object-fit:cover;">`;
+}
 
 // hidden admin mode — manual results entry only shows with ?admin=1 in the URL
 const ADMIN_MODE = new URLSearchParams(location.search).get('admin') === '1';
@@ -624,8 +639,8 @@ function renderStandings() {
       <div class="card ${tier(pts)}" onclick="drillDown(${e.picks[0]?.src_row ?? 6}, '${e.alias}')">
         <div class="rank">${rankCell}</div>
         <div class="card-body">
-          <div class="alias">${alias}</div>
-          <div class="fullname">${e.name} · ${e.nationality}</div>
+          <div class="alias">${flag(e.nationality, 22)}<span>${alias}</span></div>
+          <div class="fullname">${e.name}${e.nationality ? ' · ' + e.nationality : ''}</div>
           <div class="champ-line">🏆 <span>${e.champion}</span></div>
         </div>
         <span class="move ${mv.cls}" title="movement since last update">${mv.sym}</span>
@@ -1065,7 +1080,7 @@ function renderAlive() {
     const champAlive = alive(champ);
     const wall = r32.map(t => {
       const ok = alive(t);
-      return `<span class="sa-fc ${ok ? 'alive' : 'out'}" title="${t}${ok ? '' : ' — eliminated'}">${flag(t) || '·'}</span>`;
+      return `<span class="sa-fc ${ok ? 'alive' : 'out'}" title="${t}${ok ? '' : ' — eliminated'}">${flag(t, 22) || '·'}</span>`;
     }).join('');
     return `
       <div class="sa-card ${champAlive ? '' : 'busted'}">
@@ -1075,7 +1090,7 @@ function renderAlive() {
             ${champAlive ? '' : '<span class="sa-skull">💀 champion out</span>'}
           </div>
           <div class="sa-champ ${champAlive ? 'alive' : 'out'}">
-            <span class="sa-cf-lg">${flag(champ)}</span>
+            <span class="sa-cf-lg">${flag(champ, 32)}</span>
             <span class="sa-champ-mid">
               <span class="sa-tier">Champion</span>
               <span class="sa-champ-name">${champ}</span>
