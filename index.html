@@ -313,6 +313,37 @@
   .mr-nums { font-size: 13px; color: var(--muted); white-space: nowrap; }
   .mr-nums b { color: var(--primary); font-size: 16px; }
 
+  /* ── KNOCKOUT STAKES ── */
+  .ks-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .ks-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; font-size: 12px; font-weight: 700; transition: all .15s; }
+  .ks-chip:hover { border-color: var(--border2); transform: translateY(-1px); }
+  .ks-chip.active { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+  .ks-chip .ks-v { color: var(--muted); font-size: 11px; }
+  .ks-st { font-size: 10px; font-weight: 800; }
+  .ks-st.final { color: var(--green); }
+  .ks-st.live { color: var(--accent); }
+  .ks-bar { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; background: linear-gradient(135deg, var(--surface), var(--bg2)); border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px; margin-bottom: 18px; box-shadow: 0 1px 2px rgba(29,22,51,.04); }
+  .ks-bar-team { font-size: 18px; font-weight: 800; letter-spacing: -.3px; display: inline-flex; align-items: center; gap: 8px; }
+  .ks-vs { color: var(--muted); font-weight: 700; font-size: 13px; }
+  .ks-bar-state { flex-basis: 100%; text-align: center; }
+  .ks-state { font-size: 13px; font-weight: 800; padding: 4px 12px; border-radius: 20px; display: inline-block; }
+  .ks-state.final { background: linear-gradient(180deg, #35cf78, var(--green)); color: #fff; }
+  .ks-state.live { background: var(--accent); color: #fff; animation: pulse 1.5s infinite; }
+  .ks-state.fixture { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+  .ks-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ks-col { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 1px 2px rgba(29,22,51,.04); }
+  .ks-colhead { display: flex; align-items: center; gap: 8px; padding: 12px 14px; font-weight: 800; font-size: 15px; color: #fff; flex-wrap: wrap; }
+  .ks-colhead.left { background: linear-gradient(180deg, #5b9dff, var(--mid)); }
+  .ks-colhead.right { background: linear-gradient(180deg, #ff7a52, var(--accent)); }
+  .ks-colteam { letter-spacing: -.3px; }
+  .ks-need { font-size: 11px; font-weight: 700; opacity: .9; margin-left: auto; white-space: nowrap; }
+  .ks-rows { padding: 6px 14px 12px; }
+  .ks-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .ks-row:last-child { border: none; }
+  .ks-alias { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ks-meta { font-size: 11px; font-weight: 700; color: var(--primary); white-space: nowrap; flex-shrink: 0; }
+  .ks-empty { padding: 12px 0; color: var(--muted); font-size: 13px; }
+
   /* ── MOBILE (≤600px) ── */
   @media (max-width: 600px) {
     main { padding: 18px 14px 50px; }
@@ -322,6 +353,7 @@
     .mr-name { min-width: 100%; }
     .mr-bar { order: 3; flex-basis: 100%; }
     .mr-nums { margin-left: auto; }
+    .ks-cols { grid-template-columns: 1fr; }
   }
 
   /* ── WHAT-IF ── */
@@ -382,6 +414,7 @@
   </div>
   <button class="nav-btn active" onclick="showView('standings')">Standings</button>
   <button class="nav-btn" onclick="showView('alive')">Still Alive</button>
+  <button class="nav-btn" onclick="showView('kostakes')">Knockout Stakes</button>
   <button class="nav-btn" onclick="showView('maxpts')">Max Points</button>
   <button class="nav-btn" onclick="showView('bracket')">Brackets</button>
   <button class="nav-btn" onclick="showView('breakdown')">Group Stage</button>
@@ -485,6 +518,8 @@ let adminRound = 'Group Stage';
 let whatIf = {};   // src_row -> hypothetical outcome ({winner} or {score1,score2}); in memory only
 let aliveSort = 'deep';    // 'deep' | 'r32'
 let maxSort = 'ceiling';   // 'ceiling' | 'now'
+let koStakesRound = null;  // selected KO round (defaults to active)
+let koStakesGame = null;   // selected game src_row
 
 // ── flags (flagcdn images — render reliably on all browsers incl. Windows) ──
 const TEAM_FLAG_CODE = {
@@ -578,6 +613,7 @@ function render() {
   else if (currentView === 'breakdown') app.innerHTML = renderBreakdownShell();
   else if (currentView === 'bracket') app.innerHTML = renderBracketShell();
   else if (currentView === 'alive') app.innerHTML = renderAlive();
+  else if (currentView === 'kostakes') app.innerHTML = renderKnockoutStakes();
   else if (currentView === 'maxpts') app.innerHTML = renderMaxPts();
   else if (currentView === 'whatif') app.innerHTML = renderWhatIf();
   else if (currentView === 'admin') app.innerHTML = renderAdmin();
@@ -666,7 +702,7 @@ window.drillDown = function(srcRow, alias) {
 function showViewDirect(v) {
   currentView = v;
   document.querySelectorAll('.nav-btn').forEach((b,i) => {
-    const views = ['standings','alive','maxpts','bracket','breakdown','whatif','admin'];
+    const views = ['standings','alive','kostakes','maxpts','bracket','breakdown','whatif','admin'];
     b.classList.toggle('active', views[i] === v);
   });
   render();
@@ -1197,6 +1233,161 @@ function renderMaxPts() {
       <button class="round-tab ${maxSort === 'now' ? 'active' : ''}" onclick="setMaxSort('now')">Current total</button>
     </div>
     <div class="max-list">${cards}</div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// VIEW — KNOCKOUT STAKES (who needs each team to advance, on real games)
+// ═══════════════════════════════════════════════════════════════════════════
+const KO_SEQ = ['Round of 32', 'Round of 16', 'Quarter-final', 'Semi-final', 'Final'];
+
+window.selectKoRound = function(rd) { koStakesRound = rd; koStakesGame = null; render(); };
+window.selectKoGame = function(sr) { koStakesGame = sr; render(); };
+
+function koSlotsByRound() {
+  const m = {};
+  for (const rd of KO_SEQ) m[rd] = DATA.entrants[0].picks.filter(p => p.round === rd).map(p => p.src_row);
+  return m;
+}
+
+// earliest round with results but not fully final; else the round after the last
+// fully-complete round; else the first round that has any results.
+function koActiveRound(slotsByRound, results) {
+  let lastComplete = -1;
+  for (let i = 0; i < KO_SEQ.length; i++) {
+    const slots = slotsByRound[KO_SEQ[i]];
+    const withResult = slots.filter(sr => results[String(sr)]);
+    const finals = slots.filter(sr => results[String(sr)] && results[String(sr)].final);
+    if (withResult.length > 0 && finals.length < slots.length) return KO_SEQ[i];
+    if (slots.length > 0 && withResult.length > 0 && finals.length === slots.length) lastComplete = i;
+  }
+  if (lastComplete >= 0 && lastComplete + 1 < KO_SEQ.length) return KO_SEQ[lastComplete + 1];
+  for (const rd of KO_SEQ) if (slotsByRound[rd].some(sr => results[String(sr)])) return rd;
+  return 'Round of 32';
+}
+
+function koRealGames(round, slotsByRound, results) {
+  return (slotsByRound[round] || []).map(sr => {
+    const res = results[String(sr)];
+    if (!res || !res.team1 || !res.team2) return null;
+    const state = res.final ? 'final' : res.status === 'in_progress' ? 'live' : 'fixture';
+    return { srcRow: sr, t1: res.team1, t2: res.team2, result: res, state };
+  }).filter(Boolean);
+}
+
+const KO_LEVEL = { 'Round of 32': 1, 'Round of 16': 2, 'Quarter-final': 3, 'Semi-final': 4, 'Final': 5 };
+
+// deepest level a team reaches in an entrant's picks (6=champion .. 1=R32, 0=none)
+function reachLevel(e, team) {
+  if (e.champion === team) return 6;
+  const fin = e.picks.find(p => p.round === 'Final');
+  if ((fin && (fin.team1 === team || fin.team2 === team)) || e.runner_up === team) return 5;
+  if (e.picks.some(p => p.round === 'Semi-final' && (p.team1 === team || p.team2 === team))) return 4;
+  if (e.picks.some(p => p.round === 'Quarter-final' && (p.team1 === team || p.team2 === team))) return 3;
+  if (e.picks.some(p => p.round === 'Round of 16' && (p.team1 === team || p.team2 === team))) return 2;
+  if (e.picks.some(p => p.round === 'Round of 32' && (p.team1 === team || p.team2 === team))) return 1;
+  return 0;
+}
+function depthLabel(l) { return l === 6 ? '👑 champion' : l === 5 ? 'finalist' : l === 4 ? 'to SF' : l === 3 ? 'to QF' : l === 2 ? 'to R16' : ''; }
+
+// entrants who predicted `team` to advance past `round`, with depth + exact-matchup score
+function stakesBackers(team, round, game) {
+  const idx = KO_SEQ.indexOf(round);
+  const isFinal = round === 'Final';
+  const nextRound = isFinal ? null : KO_SEQ[idx + 1];
+  const nextLevel = isFinal ? 6 : (KO_LEVEL[nextRound] || 0);
+  const gameKey = [game.t1, game.t2].slice().sort().join('|');
+
+  const list = [];
+  for (const e of DATA.entrants) {
+    const isBacker = isFinal
+      ? e.champion === team
+      : e.picks.some(p => p.round === nextRound && (p.team1 === team || p.team2 === team));
+    if (!isBacker) continue;
+
+    const level = reachLevel(e, team);
+    const pick = e.picks.find(p => p.src_row === game.srcRow);
+    let exact = null;
+    if (pick && pick.team1 && pick.team2 && pick.score1 != null && pick.score2 != null) {
+      if ([pick.team1, pick.team2].slice().sort().join('|') === gameKey) exact = `${pick.score1}–${pick.score2}`;
+    }
+    list.push({ e, level, exact, showTag: level > nextLevel });
+  }
+  list.sort((x, y) => y.level - x.level || entrantAlias(x.e).localeCompare(entrantAlias(y.e)));
+  return list;
+}
+
+function renderKnockoutStakes() {
+  const results = getResults();
+  const slotsByRound = koSlotsByRound();
+  const roundsWithGames = KO_SEQ.filter(rd => slotsByRound[rd].some(sr => {
+    const res = results[String(sr)]; return res && res.team1 && res.team2;
+  }));
+  const active = koActiveRound(slotsByRound, results);
+
+  let round = koStakesRound;
+  if (!round || !roundsWithGames.includes(round)) round = roundsWithGames.includes(active) ? active : (roundsWithGames[0] || active);
+  koStakesRound = round;
+
+  const games = koRealGames(round, slotsByRound, results);
+
+  const intro = `<h2>Knockout Stakes</h2>
+    <p class="subtitle">Who needs each team to advance, and what's on the line — for real knockout games only.</p>`;
+
+  if (!games.length) {
+    return `${intro}<p class="subtitle">No ${round} games entered yet — they'll appear here as results post.</p>`;
+  }
+
+  let sel = games.find(g => g.srcRow === koStakesGame);
+  if (!sel) sel = games.find(g => g.state === 'live') || games.find(g => g.state !== 'final') || games[0];
+  koStakesGame = sel.srcRow;
+
+  const roundSel = roundsWithGames.length > 1 ? `
+    <div class="sort-bar">
+      <span class="sort-lbl">Round:</span>
+      ${roundsWithGames.map(rd => `<button class="round-tab ${rd === round ? 'active' : ''}" onclick="selectKoRound('${rd}')">${rd}${rd === active ? ' •' : ''}</button>`).join('')}
+    </div>` : '';
+
+  const chips = games.map(g => {
+    const st = g.state === 'final' ? '<span class="ks-st final">✓</span>'
+      : g.state === 'live' ? '<span class="ks-st live">● LIVE</span>' : '';
+    return `<button class="ks-chip ${g.srcRow === sel.srcRow ? 'active' : ''}" onclick="selectKoGame(${g.srcRow})" title="${g.t1} v ${g.t2}">
+      ${flag(g.t1, 18)}<span class="ks-v">v</span>${flag(g.t2, 18)}${st}
+    </button>`;
+  }).join('');
+
+  const res = sel.result;
+  const score = (res.score1 != null && res.score2 != null) ? `${res.score1}–${res.score2}` : '';
+  const pens = (res.pen1 != null && res.pen2 != null) ? ` (pens ${res.pen1}–${res.pen2})` : '';
+  const stateBadge = sel.state === 'final' ? `<span class="ks-state final">✓ Final ${score}${pens}</span>`
+    : sel.state === 'live' ? `<span class="ks-state live">● LIVE ${score}</span>`
+    : `<span class="ks-state fixture">Not started</span>`;
+
+  const col = (team, side) => {
+    const backers = stakesBackers(team, round, sel);
+    const rows = backers.map(b => {
+      const parts = [];
+      if (b.showTag) { const l = depthLabel(b.level); if (l) parts.push(l); }
+      if (b.exact) parts.push(b.exact);
+      const meta = parts.length ? `<span class="ks-meta">${parts.join(' · ')}</span>` : '';
+      return `<div class="ks-row"><span class="ks-alias">${entrantAlias(b.e)}</span>${meta}</div>`;
+    }).join('') || '<div class="ks-empty">No one in the pool.</div>';
+    return `<div class="ks-col ${side}">
+      <div class="ks-colhead ${side}">${flag(team, 22)} <span class="ks-colteam">${team}</span> <span class="ks-need">${backers.length} need them through</span></div>
+      <div class="ks-rows">${rows}</div>
+    </div>`;
+  };
+
+  return `
+    ${intro}
+    ${roundSel}
+    <div class="ks-chips">${chips}</div>
+    <div class="ks-bar">
+      <span class="ks-bar-team">${flag(sel.t1, 24)} <b>${sel.t1}</b></span>
+      <span class="ks-vs">vs</span>
+      <span class="ks-bar-team"><b>${sel.t2}</b> ${flag(sel.t2, 24)}</span>
+      <span class="ks-bar-state">${stateBadge}</span>
+    </div>
+    <div class="ks-cols">${col(sel.t1, 'left')}${col(sel.t2, 'right')}</div>`;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
