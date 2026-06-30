@@ -72,8 +72,13 @@ export function qualifiedTeams(DATA) {
       if (table[1]) out.add(table[1].team);
       if (table[2]) thirds.push(table[2]);
     }
-    const need = Math.max(0, qualifiedCount - out.size);
-    thirds.sort(rankCmp).slice(0, need).forEach(t => out.add(t.team));
+    // Number of best-third-placed berths is fixed by the format
+    // (qualifiedCount - 2 per group), computed INDEPENDENTLY of how many of
+    // those teams already happen to be in `out` from knockout seeding. Using
+    // out.size here would under-count thirds and drop a legitimate qualifier
+    // (e.g. an 8th-best third that already appeared in a played R32 result).
+    const thirdsToTake = Math.max(0, qualifiedCount - 2 * numGroups);
+    thirds.sort(rankCmp).slice(0, thirdsToTake).forEach(t => out.add(t.team));
   }
 
   return out;

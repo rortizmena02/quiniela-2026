@@ -38620,10 +38620,10 @@
      "fifa_rank1": 23,
      "team2": "Norway",
      "fifa_rank2": 31,
-     "score1": 7,
-     "score2": 6,
-     "pen1": null,
-     "pen2": null,
+     "score1": 2,
+     "score2": 2,
+     "pen1": 5,
+     "pen2": 4,
      "winner": "Ecuador"
     },
     {
@@ -38668,14 +38668,14 @@
     {
      "src_row": 103,
      "round": "Round of 32",
-     "team1": "Egypt",
+     "team1": "Turkey",
      "fifa_rank1": 11,
      "team2": "Egypt",
      "fifa_rank2": 29,
-     "score1": 6,
-     "score2": 7,
-     "pen1": null,
-     "pen2": null,
+     "score1": 2,
+     "score2": 2,
+     "pen1": 4,
+     "pen2": 5,
      "winner": "Egypt"
     },
     {
@@ -38841,10 +38841,10 @@
      "fifa_rank1": 6,
      "team2": "England",
      "fifa_rank2": 4,
-     "score1": 5,
-     "score2": 6,
-     "pen1": null,
-     "pen2": null,
+     "score1": 1,
+     "score2": 1,
+     "pen1": 4,
+     "pen2": 5,
      "winner": "England"
     },
     {
@@ -38880,10 +38880,10 @@
      "fifa_rank1": 4,
      "team2": "Portugal",
      "fifa_rank2": 5,
-     "score1": 6,
-     "score2": 7,
-     "pen1": null,
-     "pen2": null,
+     "score1": 2,
+     "score2": 2,
+     "pen1": 4,
+     "pen2": 5,
      "winner": "Portugal"
     },
     {

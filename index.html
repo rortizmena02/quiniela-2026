@@ -235,9 +235,15 @@
   .kg-row + .kg-row { border-top: 1px solid var(--border); }
   .kg-team { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
   .kg-row.is-winner .kg-team { color: var(--text); font-weight: 800; }
-  .kg-sc { font-weight: 800; font-variant-numeric: tabular-nums; min-width: 16px; text-align: right; color: var(--mid); }
+  .kg-sc { font-weight: 700; font-variant-numeric: tabular-nums; min-width: 16px; text-align: right; color: var(--muted); }
   .kg-pts { position: absolute; top: -9px; right: 8px; font-size: 10px; font-weight: 800; background: var(--green); color: #fff; border-radius: 10px; padding: 1px 7px; box-shadow: 0 2px 6px rgba(43,157,94,.4); }
   .kg-pts.zero { background: var(--red); color: #fff; border: none; box-shadow: 0 2px 6px rgba(229,72,77,.35); }
+  .kg-reach { font-size: 10px; font-weight: 800; color: var(--green); white-space: nowrap; }
+  .kg-reach.didnt { color: var(--muted); }
+  .kg-row.reached .kg-team { color: var(--text); }
+  .kg-row.didnt .kg-team { color: var(--muted); opacity: .65; }
+  .kg-bonus { position: absolute; top: -9px; right: 8px; font-size: 10px; font-weight: 800; background: var(--primary); color: #fff; border-radius: 10px; padding: 1px 7px; box-shadow: 0 2px 6px rgba(109,40,217,.4); }
+  .kg-pen { font-size: 10px; color: var(--muted); text-align: right; padding-top: 2px; }
 
   .final-third { display: flex; gap: 18px; flex-wrap: wrap; align-items: stretch; margin-top: 8px; }
   .trophy-card { flex: 1 1 240px; background: linear-gradient(160deg, #fff7e9, #fffdfa); border: 1px solid #f4d9a8; border-radius: 18px; padding: 18px 20px; text-align: center; box-shadow: 0 6px 18px rgba(245,158,11,.14); }
@@ -452,8 +458,6 @@ let baselineOrder = null;   // entrant order under the *previous* results
 let displayedSig = null;    // results signature currently on screen
 let displayedOrder = null;  // entrant order under displayedSig
 
-const NEW_ENTRANTS = new Set(['Jose Larena', 'Peter', 'Nate Oakes', 'Nayan']);
-
 function getResults() {
   return DATA.results;
 }
@@ -563,7 +567,6 @@ function renderStandings() {
 
   const medals = ['🥇', '🥈', '🥉'];
   let cards = scored.map(({ e, pts }, i) => {
-    const isNew = NEW_ENTRANTS.has(e.name);
     const alias = e.alias || `${e.name.split(' ')[0]} (no alias)`;
     const rankCell = (i < 3 && pts > 0)
       ? `<span class="rank-medal">${medals[i]}</span>`
@@ -573,7 +576,7 @@ function renderStandings() {
       <div class="card ${tier(pts)}" onclick="drillDown(${e.picks[0]?.src_row ?? 6}, '${e.alias}')">
         <div class="rank">${rankCell}</div>
         <div class="card-body">
-          <div class="alias">${alias}${isNew ? '<span class="new-tag">NEW</span>' : ''}</div>
+          <div class="alias">${alias}</div>
           <div class="fullname">${e.name} · ${e.nationality}</div>
           <div class="champ-line">🏆 <span>${e.champion}</span></div>
         </div>
@@ -768,28 +771,82 @@ function renderBracketShell() {
 
 window.selectBracketEntrant = function(i) { bracketEntrant = i; render(); };
 
-// render a single knockout game card
-function koGameCard(p, r) {
-  const actual = r[String(p.src_row)];
-  // scoreCard() (scorecard.js) delegates to pointsForPick in scoring.js and
-  // gates on actual.final — unplayed matches stay uncolored.
-  const { state, points } = scoreCard(p, actual, DATA.scoring);
-  const gameCls = state === 'correct' ? 'correct' : state === 'wrong' ? 'wrong' : '';
+// src_row -> round, from the stable reference bracket (entrant 0)
+function koRoundOf() {
+  const m = {};
+  for (const p of DATA.entrants[0].picks) m[p.src_row] = p.round;
+  return m;
+}
+// per KO round, a map of unordered-matchup-key -> actual final result
+function actualMatchupsByRound() {
+  const roundOf = koRoundOf();
+  const KO = ['Round of 32', 'Round of 16', 'Quarter-final', 'Semi-final', 'Final'];
+  const out = {};
+  for (const [sr, res] of Object.entries(getResults())) {
+    const rd = roundOf[sr];
+    if (!rd || !KO.includes(rd) || !res || res.final !== true || !res.team1 || !res.team2) continue;
+    (out[rd] ||= new Map()).set([res.team1, res.team2].slice().sort().join(' | '), res);
+  }
+  return out;
+}
 
-  const s1 = p.score1 !== null ? p.score1 : '–';
-  const s2 = p.score2 !== null ? p.score2 : '–';
+// Render a single knockout game card.
+// Knockout slots are entrant-specific, so a per-slot comparison to the result
+// stored at that slot is invalid (different teams). Instead we show, per predicted
+// team, whether it actually reached this round (worth the round's reach points),
+// and a winner/exact bonus ONLY when the entrant's predicted matchup equals an
+// actual played matchup somewhere in this round. No green/red slot colouring.
+function koGameCard(p, ctx) {
+  const round = p.round;
+  const sc = ctx.scoring[round] || {};
+  const reachVal = round === 'Final' ? (sc.finalist_reaches || 0) : (sc.team_reaches || 0);
+  const reachedSet = ctx.reached[round] || new Set();
+  const participantsKnown = reachedSet.size > 0;
+  const t1 = p.team1, t2 = p.team2;
+  const t1Reached = !!t1 && reachedSet.has(t1);
+  const t2Reached = !!t2 && reachedSet.has(t2);
+
+  // Matchup bonus: predicted (unordered) matchup equals an actual played result.
+  let bonus = 0, matchupHit = false;
+  const matchMap = ctx.matchups[round];
+  if (matchMap && t1 && t2) {
+    const actualMatch = matchMap.get([t1, t2].slice().sort().join(' | '));
+    if (actualMatch) {
+      matchupHit = true;
+      let oriented = actualMatch;
+      if (actualMatch.team1 === t2 && actualMatch.team2 === t1) {
+        oriented = { ...actualMatch, team1: actualMatch.team2, team2: actualMatch.team1, score1: actualMatch.score2, score2: actualMatch.score1 };
+      }
+      const full = pointsForPick(p, { ...oriented, reached: [...reachedSet] }, ctx.scoring);
+      const reachPart = (t1Reached ? reachVal : 0) + (t2Reached ? reachVal : 0);
+      bonus = Math.max(0, full - reachPart);
+    }
+  }
+
+  const ps1 = p.score1 !== null ? p.score1 : '–';
+  const ps2 = p.score2 !== null ? p.score2 : '–';
   const pen = (p.pen1 != null && p.pen2 != null) ? ` <span style="color:var(--muted);font-size:10px">(${p.pen1}-${p.pen2}p)</span>` : '';
-  const win1 = p.winner === p.team1 ? 'is-winner' : '';
-  const win2 = p.winner === p.team2 ? 'is-winner' : '';
-  const ptsBadge = (state !== 'unplayed')
-    ? `<span class="kg-pts ${points > 0 ? '' : 'zero'}">${points > 0 ? '+' : ''}${points}</span>`
-    : '';
+
+  function teamRow(team, reached, predScore) {
+    const winTag = p.winner === team ? 'is-winner' : '';
+    const stateCls = !participantsKnown ? '' : reached ? 'reached' : 'didnt';
+    const mark = !participantsKnown ? '' : reached
+      ? `<span class="kg-reach">✓ +${reachVal}</span>`
+      : `<span class="kg-reach didnt">✗</span>`;
+    return `<div class="kg-row ${winTag} ${stateCls}">
+      <span class="kg-team">${team || '—'}</span>
+      <span class="kg-sc num">${predScore}</span>${mark}
+    </div>`;
+  }
+
+  const bonusTag = (matchupHit && bonus > 0) ? `<span class="kg-bonus">matchup ✓ +${bonus}</span>` : '';
 
   return `
-    <div class="ko-game ${gameCls}">
-      ${ptsBadge}
-      <div class="kg-row ${win1}"><span class="kg-team">${p.team1 || '—'}</span><span class="kg-sc num">${s1}</span></div>
-      <div class="kg-row ${win2}"><span class="kg-team">${p.team2 || '—'}</span><span class="kg-sc num">${s2}${pen}</span></div>
+    <div class="ko-game">
+      ${bonusTag}
+      ${teamRow(t1, t1Reached, ps1)}
+      ${teamRow(t2, t2Reached, ps2 + (pen ? '' : ''))}
+      ${pen ? `<div class="kg-pen">${pen}</div>` : ''}
     </div>`;
 }
 
@@ -831,13 +888,36 @@ function renderBracket(idx) {
   }).join('');
 
   // ── Knockout tree ──
+  // Fix 4: order each column so a round's predicted winners sit next to the
+  // next-round game they feed. Walk from the Final backwards: each round's games
+  // are sorted so their predicted winners line up with the teams expected by the
+  // round below; the teams in those (now ordered) games become the expectation
+  // for the round above. This also makes the elbow connectors line up.
+  const orderedKO = {};
+  let expected = null;
+  for (const rd of ['Final', 'Semi-final', 'Quarter-final', 'Round of 16', 'Round of 32']) {
+    let games = byRound[rd] ? [...byRound[rd]] : [];
+    if (expected && games.length) {
+      const pos = t => { const i = expected.indexOf(t); return i === -1 ? Number.MAX_SAFE_INTEGER : i; };
+      games = games
+        .map((g, origIdx) => ({ g, origIdx }))
+        .sort((a, b) => (pos(a.g.winner) - pos(b.g.winner)) || (a.origIdx - b.origIdx))
+        .map(x => x.g);
+    }
+    orderedKO[rd] = games;
+    expected = games.flatMap(g => [g.team1, g.team2]);
+  }
+
+  // Fix 3: context for reach-aware, matchup-gated knockout cards.
+  const koCtx = { scoring: DATA.scoring, reached: reachedByRound(DATA), matchups: actualMatchupsByRound() };
+
   const koOrder = ['Round of 32', 'Round of 16', 'Quarter-final', 'Semi-final', 'Final'];
-  const koRounds = koOrder.filter(rd => byRound[rd]);
+  const koRounds = koOrder.filter(rd => orderedKO[rd] && orderedKO[rd].length);
   const koCols = koRounds.map((rd, i) => {
     const hasIn = i > 0;
     const hasOut = i < koRounds.length - 1;
-    const matches = byRound[rd].map(p =>
-      `<div class="ko-match">${koGameCard(p, r)}</div>`
+    const matches = orderedKO[rd].map(p =>
+      `<div class="ko-match">${koGameCard(p, koCtx)}</div>`
     ).join('');
     return `
       <div class="ko-round">

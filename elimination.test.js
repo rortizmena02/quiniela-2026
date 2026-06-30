@@ -7,7 +7,8 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { eliminatedTeams } from './elimination.js';
+import fs from 'node:fs';
+import { eliminatedTeams, qualifiedTeams } from './elimination.js';
 
 // ── (a) a team that lost a final knockout match is eliminated ────────────────
 test('(a) loser of a final knockout match is eliminated; winner is not', () => {
@@ -81,4 +82,67 @@ test('(c) non-qualifiers are NOT eliminated while the group stage is incomplete'
   const out = eliminatedTeams(groupDATA(false)); // one group match not final
   assert.equal(out.has('C'), false);  // status unknown -> alive
   assert.equal(out.has('D'), false);  // status unknown -> alive
+});
+
+// ── (FIX 1 regression) best-third berths must not shrink because a third-placed
+//    qualifier already appears in a played knockout result ─────────────────────
+// Two complete groups; qualifiedCount = 6 (3 R32 picks) => top-2 each (4) + 2
+// best thirds. One third-placed team (A3) also appears in a played R32 result,
+// which previously made `need` one too small and dropped the other third (B3).
+test('(FIX1) a best-third qualifier already seen in a KO result does not drop another third', () => {
+  const res = (t1, t2, a, b, final = true) => ({
+    team1: t1, team2: t2, score1: a, score2: b, winner: a > b ? t1 : b > a ? t2 : 'Draw', final,
+  });
+  // group of 4, ranked T1>T2>T3>T4 via T1 wins all, T2 beats T3/T4, T3 beats T4
+  const groupPicks = (g, base) => ([
+    { src_row: base + 0, round: g, team1: `${g}1`, team2: `${g}2` },
+    { src_row: base + 1, round: g, team1: `${g}1`, team2: `${g}3` },
+    { src_row: base + 2, round: g, team1: `${g}1`, team2: `${g}4` },
+    { src_row: base + 3, round: g, team1: `${g}2`, team2: `${g}3` },
+    { src_row: base + 4, round: g, team1: `${g}2`, team2: `${g}4` },
+    { src_row: base + 5, round: g, team1: `${g}3`, team2: `${g}4` },
+  ]);
+  const groupResults = (g, base) => ({
+    [base + 0]: res(`${g}1`, `${g}2`, 1, 0), [base + 1]: res(`${g}1`, `${g}3`, 1, 0),
+    [base + 2]: res(`${g}1`, `${g}4`, 1, 0), [base + 3]: res(`${g}2`, `${g}3`, 1, 0),
+    [base + 4]: res(`${g}2`, `${g}4`, 1, 0), [base + 5]: res(`${g}3`, `${g}4`, 1, 0),
+  });
+  const picks = [
+    ...groupPicks('Group A', 1),
+    ...groupPicks('Group B', 7),
+    { src_row: 90, round: 'Round of 32', team1: 'Group A3', team2: 'Group B1' },
+    { src_row: 91, round: 'Round of 32', team1: 'x', team2: 'y' },
+    { src_row: 92, round: 'Round of 32', team1: 'x', team2: 'y' },
+  ];
+  const results = {
+    ...groupResults('Group A', 1),
+    ...groupResults('Group B', 7),
+    // a played R32 result that seeds a third-placed team (Group A3) into the set
+    '90': res('Group A3', 'Group B1', 1, 0),
+  };
+  const DATA = { entrants: [{ picks }], results };
+
+  const q = qualifiedTeams(DATA);
+  assert.equal(q.size, 6, 'should qualify exactly 6 (4 group winners/runners-up + 2 best thirds)');
+  assert.equal(q.has('Group B3'), true, 'the other best-third (Group B3) must not be dropped');
+  assert.equal(q.has('Group A3'), true);
+});
+
+// ── (FIX 1 data check) against the live data: 32 qualifiers incl. Senegal ────
+// Skips automatically until the group stage is complete in the deployed JSON.
+test('(FIX1 data) qualifiedTeams has 32 incl. Senegal once groups are complete', (t) => {
+  let DATA;
+  try {
+    DATA = JSON.parse(fs.readFileSync(new URL('./quiniela_brackets_v4.json', import.meta.url), 'utf8'));
+  } catch {
+    return t.skip('quiniela_brackets_v4.json not found');
+  }
+  const picks0 = DATA.entrants[0].picks;
+  const groupSrc = picks0.filter(p => typeof p.round === 'string' && p.round.startsWith('Group ')).map(p => p.src_row);
+  const complete = groupSrc.length > 0 && groupSrc.every(sr => DATA.results[String(sr)] && DATA.results[String(sr)].final === true);
+  if (!complete) return t.skip('group stage not complete in current data');
+
+  const q = qualifiedTeams(DATA);
+  assert.equal(q.size, 32);
+  assert.equal(q.has('Senegal'), true);
 });
