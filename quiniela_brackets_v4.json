@@ -664,7 +664,9 @@
     "Ivory Coast",
     "Norway",
     "Mexico",
-    "Ecuador"
+    "Ecuador",
+    "England",
+    "DR Congo"
    ],
    "final": true
   },
@@ -690,7 +692,9 @@
     "Ivory Coast",
     "Norway",
     "Mexico",
-    "Ecuador"
+    "Ecuador",
+    "England",
+    "DR Congo"
    ],
    "final": true
   },
@@ -716,7 +720,9 @@
     "Ivory Coast",
     "Norway",
     "Mexico",
-    "Ecuador"
+    "Ecuador",
+    "England",
+    "DR Congo"
    ],
    "final": true
   },
@@ -740,7 +746,9 @@
     "Ivory Coast",
     "Norway",
     "Mexico",
-    "Ecuador"
+    "Ecuador",
+    "England",
+    "DR Congo"
    ],
    "final": true
   },
@@ -764,7 +772,9 @@
     "Ivory Coast",
     "Norway",
     "Mexico",
-    "Ecuador"
+    "Ecuador",
+    "England",
+    "DR Congo"
    ],
    "final": true
   },
@@ -788,7 +798,9 @@
     "Ivory Coast",
     "Norway",
     "Mexico",
-    "Ecuador"
+    "Ecuador",
+    "England",
+    "DR Congo"
    ],
    "final": true
   },
@@ -812,7 +824,35 @@
     "Ivory Coast",
     "Norway",
     "Mexico",
-    "Ecuador"
+    "Ecuador",
+    "England",
+    "DR Congo"
+   ],
+   "final": true
+  },
+  "97": {
+   "team1": "England",
+   "team2": "DR Congo",
+   "score1": 2,
+   "score2": 1,
+   "winner": "England",
+   "reached": [
+    "South Africa",
+    "Canada",
+    "Germany",
+    "Paraguay",
+    "Netherlands",
+    "Morocco",
+    "Brazil",
+    "Japan",
+    "France",
+    "Sweden",
+    "Ivory Coast",
+    "Norway",
+    "Mexico",
+    "Ecuador",
+    "England",
+    "DR Congo"
    ],
    "final": true
   }
