@@ -670,7 +670,9 @@
     "USA",
     "Bosnia/Herzeg.",
     "Belgium",
-    "Senegal"
+    "Senegal",
+    "Spain",
+    "Austria"
    ],
    "final": true
   },
@@ -702,7 +704,9 @@
     "USA",
     "Bosnia/Herzeg.",
     "Belgium",
-    "Senegal"
+    "Senegal",
+    "Spain",
+    "Austria"
    ],
    "final": true
   },
@@ -734,7 +738,9 @@
     "USA",
     "Bosnia/Herzeg.",
     "Belgium",
-    "Senegal"
+    "Senegal",
+    "Spain",
+    "Austria"
    ],
    "final": true
   },
@@ -764,7 +770,9 @@
     "USA",
     "Bosnia/Herzeg.",
     "Belgium",
-    "Senegal"
+    "Senegal",
+    "Spain",
+    "Austria"
    ],
    "final": true
   },
@@ -794,7 +802,9 @@
     "USA",
     "Bosnia/Herzeg.",
     "Belgium",
-    "Senegal"
+    "Senegal",
+    "Spain",
+    "Austria"
    ],
    "final": true
   },
@@ -824,7 +834,9 @@
     "USA",
     "Bosnia/Herzeg.",
     "Belgium",
-    "Senegal"
+    "Senegal",
+    "Spain",
+    "Austria"
    ],
    "final": true
   },
@@ -854,7 +866,9 @@
     "USA",
     "Bosnia/Herzeg.",
     "Belgium",
-    "Senegal"
+    "Senegal",
+    "Spain",
+    "Austria"
    ],
    "final": true
   },
@@ -884,7 +898,9 @@
     "USA",
     "Bosnia/Herzeg.",
     "Belgium",
-    "Senegal"
+    "Senegal",
+    "Spain",
+    "Austria"
    ],
    "final": true
   },
@@ -914,7 +930,9 @@
     "USA",
     "Bosnia/Herzeg.",
     "Belgium",
-    "Senegal"
+    "Senegal",
+    "Spain",
+    "Austria"
    ],
    "final": true
   },
@@ -944,7 +962,41 @@
     "USA",
     "Bosnia/Herzeg.",
     "Belgium",
-    "Senegal"
+    "Senegal",
+    "Spain",
+    "Austria"
+   ],
+   "final": true
+  },
+  "100": {
+   "team1": "Spain",
+   "team2": "Austria",
+   "score1": 3,
+   "score2": 0,
+   "winner": "Spain",
+   "reached": [
+    "South Africa",
+    "Canada",
+    "Germany",
+    "Paraguay",
+    "Netherlands",
+    "Morocco",
+    "Brazil",
+    "Japan",
+    "France",
+    "Sweden",
+    "Ivory Coast",
+    "Norway",
+    "Mexico",
+    "Ecuador",
+    "England",
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal",
+    "Spain",
+    "Austria"
    ],
    "final": true
   }
