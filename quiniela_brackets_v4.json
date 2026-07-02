@@ -666,7 +666,11 @@
     "Mexico",
     "Ecuador",
     "England",
-    "DR Congo"
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal"
    ],
    "final": true
   },
@@ -694,7 +698,11 @@
     "Mexico",
     "Ecuador",
     "England",
-    "DR Congo"
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal"
    ],
    "final": true
   },
@@ -722,7 +730,11 @@
     "Mexico",
     "Ecuador",
     "England",
-    "DR Congo"
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal"
    ],
    "final": true
   },
@@ -748,7 +760,11 @@
     "Mexico",
     "Ecuador",
     "England",
-    "DR Congo"
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal"
    ],
    "final": true
   },
@@ -774,7 +790,11 @@
     "Mexico",
     "Ecuador",
     "England",
-    "DR Congo"
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal"
    ],
    "final": true
   },
@@ -800,7 +820,11 @@
     "Mexico",
     "Ecuador",
     "England",
-    "DR Congo"
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal"
    ],
    "final": true
   },
@@ -826,7 +850,11 @@
     "Mexico",
     "Ecuador",
     "England",
-    "DR Congo"
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal"
    ],
    "final": true
   },
@@ -852,7 +880,71 @@
     "Mexico",
     "Ecuador",
     "England",
-    "DR Congo"
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal"
+   ],
+   "final": true
+  },
+  "98": {
+   "team1": "USA",
+   "team2": "Bosnia/Herzeg.",
+   "score1": 2,
+   "score2": 0,
+   "winner": "USA",
+   "reached": [
+    "South Africa",
+    "Canada",
+    "Germany",
+    "Paraguay",
+    "Netherlands",
+    "Morocco",
+    "Brazil",
+    "Japan",
+    "France",
+    "Sweden",
+    "Ivory Coast",
+    "Norway",
+    "Mexico",
+    "Ecuador",
+    "England",
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal"
+   ],
+   "final": true
+  },
+  "99": {
+   "team1": "Belgium",
+   "team2": "Senegal",
+   "score1": 3,
+   "score2": 2,
+   "winner": "Belgium",
+   "reached": [
+    "South Africa",
+    "Canada",
+    "Germany",
+    "Paraguay",
+    "Netherlands",
+    "Morocco",
+    "Brazil",
+    "Japan",
+    "France",
+    "Sweden",
+    "Ivory Coast",
+    "Norway",
+    "Mexico",
+    "Ecuador",
+    "England",
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal"
    ],
    "final": true
   }
