@@ -676,7 +676,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -714,7 +716,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -752,7 +756,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -788,7 +794,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -824,7 +832,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -860,7 +870,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -896,7 +908,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -932,7 +946,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -968,7 +984,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -1004,7 +1022,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -1040,7 +1060,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -1076,7 +1098,9 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   },
@@ -1112,7 +1136,49 @@
     "Spain",
     "Austria",
     "Switzerland",
-    "Algeria"
+    "Algeria",
+    "Australia",
+    "Egypt"
+   ],
+   "final": true
+  },
+  "103": {
+   "team1": "Australia",
+   "team2": "Egypt",
+   "score1": 1,
+   "score2": 1,
+   "pen1": 2,
+   "pen2": 4,
+   "winner": "Egypt",
+   "reached": [
+    "South Africa",
+    "Canada",
+    "Germany",
+    "Paraguay",
+    "Netherlands",
+    "Morocco",
+    "Brazil",
+    "Japan",
+    "France",
+    "Sweden",
+    "Ivory Coast",
+    "Norway",
+    "Mexico",
+    "Ecuador",
+    "England",
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal",
+    "Portugal",
+    "Croatia",
+    "Spain",
+    "Austria",
+    "Switzerland",
+    "Algeria",
+    "Australia",
+    "Egypt"
    ],
    "final": true
   }
