@@ -671,8 +671,12 @@
     "Bosnia/Herzeg.",
     "Belgium",
     "Senegal",
+    "Portugal",
+    "Croatia",
     "Spain",
-    "Austria"
+    "Austria",
+    "Switzerland",
+    "Algeria"
    ],
    "final": true
   },
@@ -705,8 +709,12 @@
     "Bosnia/Herzeg.",
     "Belgium",
     "Senegal",
+    "Portugal",
+    "Croatia",
     "Spain",
-    "Austria"
+    "Austria",
+    "Switzerland",
+    "Algeria"
    ],
    "final": true
   },
@@ -739,8 +747,12 @@
     "Bosnia/Herzeg.",
     "Belgium",
     "Senegal",
+    "Portugal",
+    "Croatia",
     "Spain",
-    "Austria"
+    "Austria",
+    "Switzerland",
+    "Algeria"
    ],
    "final": true
   },
@@ -771,8 +783,12 @@
     "Bosnia/Herzeg.",
     "Belgium",
     "Senegal",
+    "Portugal",
+    "Croatia",
     "Spain",
-    "Austria"
+    "Austria",
+    "Switzerland",
+    "Algeria"
    ],
    "final": true
   },
@@ -803,8 +819,12 @@
     "Bosnia/Herzeg.",
     "Belgium",
     "Senegal",
+    "Portugal",
+    "Croatia",
     "Spain",
-    "Austria"
+    "Austria",
+    "Switzerland",
+    "Algeria"
    ],
    "final": true
   },
@@ -835,8 +855,12 @@
     "Bosnia/Herzeg.",
     "Belgium",
     "Senegal",
+    "Portugal",
+    "Croatia",
     "Spain",
-    "Austria"
+    "Austria",
+    "Switzerland",
+    "Algeria"
    ],
    "final": true
   },
@@ -867,8 +891,12 @@
     "Bosnia/Herzeg.",
     "Belgium",
     "Senegal",
+    "Portugal",
+    "Croatia",
     "Spain",
-    "Austria"
+    "Austria",
+    "Switzerland",
+    "Algeria"
    ],
    "final": true
   },
@@ -899,8 +927,12 @@
     "Bosnia/Herzeg.",
     "Belgium",
     "Senegal",
+    "Portugal",
+    "Croatia",
     "Spain",
-    "Austria"
+    "Austria",
+    "Switzerland",
+    "Algeria"
    ],
    "final": true
   },
@@ -931,8 +963,12 @@
     "Bosnia/Herzeg.",
     "Belgium",
     "Senegal",
+    "Portugal",
+    "Croatia",
     "Spain",
-    "Austria"
+    "Austria",
+    "Switzerland",
+    "Algeria"
    ],
    "final": true
   },
@@ -963,12 +999,52 @@
     "Bosnia/Herzeg.",
     "Belgium",
     "Senegal",
+    "Portugal",
+    "Croatia",
     "Spain",
-    "Austria"
+    "Austria",
+    "Switzerland",
+    "Algeria"
    ],
    "final": true
   },
   "100": {
+   "team1": "Portugal",
+   "team2": "Croatia",
+   "score1": 2,
+   "score2": 1,
+   "winner": "Portugal",
+   "reached": [
+    "South Africa",
+    "Canada",
+    "Germany",
+    "Paraguay",
+    "Netherlands",
+    "Morocco",
+    "Brazil",
+    "Japan",
+    "France",
+    "Sweden",
+    "Ivory Coast",
+    "Norway",
+    "Mexico",
+    "Ecuador",
+    "England",
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal",
+    "Portugal",
+    "Croatia",
+    "Spain",
+    "Austria",
+    "Switzerland",
+    "Algeria"
+   ],
+   "final": true
+  },
+  "101": {
    "team1": "Spain",
    "team2": "Austria",
    "score1": 3,
@@ -995,8 +1071,48 @@
     "Bosnia/Herzeg.",
     "Belgium",
     "Senegal",
+    "Portugal",
+    "Croatia",
     "Spain",
-    "Austria"
+    "Austria",
+    "Switzerland",
+    "Algeria"
+   ],
+   "final": true
+  },
+  "102": {
+   "team1": "Switzerland",
+   "team2": "Algeria",
+   "score1": 2,
+   "score2": 0,
+   "winner": "Switzerland",
+   "reached": [
+    "South Africa",
+    "Canada",
+    "Germany",
+    "Paraguay",
+    "Netherlands",
+    "Morocco",
+    "Brazil",
+    "Japan",
+    "France",
+    "Sweden",
+    "Ivory Coast",
+    "Norway",
+    "Mexico",
+    "Ecuador",
+    "England",
+    "DR Congo",
+    "USA",
+    "Bosnia/Herzeg.",
+    "Belgium",
+    "Senegal",
+    "Portugal",
+    "Croatia",
+    "Spain",
+    "Austria",
+    "Switzerland",
+    "Algeria"
    ],
    "final": true
   }
