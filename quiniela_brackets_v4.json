@@ -1321,6 +1321,18 @@
     "Egypt"
    ],
    "final": true
+  },
+  "107": {
+   "team1": "Canada",
+   "team2": "Morocco",
+   "score1": 0,
+   "score2": 3,
+   "winner": "Morocco",
+   "reached": [
+    "Canada",
+    "Morocco"
+   ],
+   "final": true
   }
  },
  "entrants": [
