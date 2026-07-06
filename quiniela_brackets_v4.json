@@ -1332,7 +1332,11 @@
     "Paraguay",
     "France",
     "Canada",
-    "Morocco"
+    "Morocco",
+    "Brazil",
+    "Norway",
+    "Mexico",
+    "England"
    ],
    "final": true
   },
@@ -1346,7 +1350,47 @@
     "Paraguay",
     "France",
     "Canada",
-    "Morocco"
+    "Morocco",
+    "Brazil",
+    "Norway",
+    "Mexico",
+    "England"
+   ],
+   "final": true
+  },
+  "109": {
+   "team1": "Brazil",
+   "team2": "Norway",
+   "score1": 1,
+   "score2": 2,
+   "winner": "Norway",
+   "reached": [
+    "Paraguay",
+    "France",
+    "Canada",
+    "Morocco",
+    "Brazil",
+    "Norway",
+    "Mexico",
+    "England"
+   ],
+   "final": true
+  },
+  "110": {
+   "team1": "Mexico",
+   "team2": "England",
+   "score1": 2,
+   "score2": 3,
+   "winner": "England",
+   "reached": [
+    "Paraguay",
+    "France",
+    "Canada",
+    "Morocco",
+    "Brazil",
+    "Norway",
+    "Mexico",
+    "England"
    ],
    "final": true
   }
