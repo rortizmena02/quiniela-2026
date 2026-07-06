@@ -1336,7 +1336,9 @@
     "Brazil",
     "Norway",
     "Mexico",
-    "England"
+    "England",
+    "Portugal",
+    "Spain"
    ],
    "final": true
   },
@@ -1354,7 +1356,9 @@
     "Brazil",
     "Norway",
     "Mexico",
-    "England"
+    "England",
+    "Portugal",
+    "Spain"
    ],
    "final": true
   },
@@ -1372,7 +1376,9 @@
     "Brazil",
     "Norway",
     "Mexico",
-    "England"
+    "England",
+    "Portugal",
+    "Spain"
    ],
    "final": true
   },
@@ -1390,7 +1396,29 @@
     "Brazil",
     "Norway",
     "Mexico",
-    "England"
+    "England",
+    "Portugal",
+    "Spain"
+   ],
+   "final": true
+  },
+  "111": {
+   "team1": "Portugal",
+   "team2": "Spain",
+   "score1": 0,
+   "score2": 1,
+   "winner": "Spain",
+   "reached": [
+    "Paraguay",
+    "France",
+    "Canada",
+    "Morocco",
+    "Brazil",
+    "Norway",
+    "Mexico",
+    "England",
+    "Portugal",
+    "Spain"
    ],
    "final": true
   }
