@@ -1340,7 +1340,9 @@
     "Portugal",
     "Spain",
     "USA",
-    "Belgium"
+    "Belgium",
+    "Argentina",
+    "Egypt"
    ],
    "final": true
   },
@@ -1362,7 +1364,9 @@
     "Portugal",
     "Spain",
     "USA",
-    "Belgium"
+    "Belgium",
+    "Argentina",
+    "Egypt"
    ],
    "final": true
   },
@@ -1384,7 +1388,9 @@
     "Portugal",
     "Spain",
     "USA",
-    "Belgium"
+    "Belgium",
+    "Argentina",
+    "Egypt"
    ],
    "final": true
   },
@@ -1406,7 +1412,9 @@
     "Portugal",
     "Spain",
     "USA",
-    "Belgium"
+    "Belgium",
+    "Argentina",
+    "Egypt"
    ],
    "final": true
   },
@@ -1428,7 +1436,9 @@
     "Portugal",
     "Spain",
     "USA",
-    "Belgium"
+    "Belgium",
+    "Argentina",
+    "Egypt"
    ],
    "final": true
   },
@@ -1450,7 +1460,33 @@
     "Portugal",
     "Spain",
     "USA",
-    "Belgium"
+    "Belgium",
+    "Argentina",
+    "Egypt"
+   ],
+   "final": true
+  },
+  "113": {
+   "team1": "Argentina",
+   "team2": "Egypt",
+   "score1": 3,
+   "score2": 2,
+   "winner": "Argentina",
+   "reached": [
+    "Paraguay",
+    "France",
+    "Canada",
+    "Morocco",
+    "Brazil",
+    "Norway",
+    "Mexico",
+    "England",
+    "Portugal",
+    "Spain",
+    "USA",
+    "Belgium",
+    "Argentina",
+    "Egypt"
    ],
    "final": true
   }
