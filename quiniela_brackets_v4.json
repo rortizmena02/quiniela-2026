@@ -1338,7 +1338,9 @@
     "Mexico",
     "England",
     "Portugal",
-    "Spain"
+    "Spain",
+    "USA",
+    "Belgium"
    ],
    "final": true
   },
@@ -1358,7 +1360,9 @@
     "Mexico",
     "England",
     "Portugal",
-    "Spain"
+    "Spain",
+    "USA",
+    "Belgium"
    ],
    "final": true
   },
@@ -1378,7 +1382,9 @@
     "Mexico",
     "England",
     "Portugal",
-    "Spain"
+    "Spain",
+    "USA",
+    "Belgium"
    ],
    "final": true
   },
@@ -1398,7 +1404,9 @@
     "Mexico",
     "England",
     "Portugal",
-    "Spain"
+    "Spain",
+    "USA",
+    "Belgium"
    ],
    "final": true
   },
@@ -1418,7 +1426,31 @@
     "Mexico",
     "England",
     "Portugal",
-    "Spain"
+    "Spain",
+    "USA",
+    "Belgium"
+   ],
+   "final": true
+  },
+  "112": {
+   "team1": "USA",
+   "team2": "Belgium",
+   "score1": 1,
+   "score2": 4,
+   "winner": "Belgium",
+   "reached": [
+    "Paraguay",
+    "France",
+    "Canada",
+    "Morocco",
+    "Brazil",
+    "Norway",
+    "Mexico",
+    "England",
+    "Portugal",
+    "Spain",
+    "USA",
+    "Belgium"
    ],
    "final": true
   }
