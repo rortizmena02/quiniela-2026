@@ -1342,7 +1342,9 @@
     "USA",
     "Belgium",
     "Argentina",
-    "Egypt"
+    "Egypt",
+    "Switzerland",
+    "Colombia"
    ],
    "final": true
   },
@@ -1366,7 +1368,9 @@
     "USA",
     "Belgium",
     "Argentina",
-    "Egypt"
+    "Egypt",
+    "Switzerland",
+    "Colombia"
    ],
    "final": true
   },
@@ -1390,7 +1394,9 @@
     "USA",
     "Belgium",
     "Argentina",
-    "Egypt"
+    "Egypt",
+    "Switzerland",
+    "Colombia"
    ],
    "final": true
   },
@@ -1414,7 +1420,9 @@
     "USA",
     "Belgium",
     "Argentina",
-    "Egypt"
+    "Egypt",
+    "Switzerland",
+    "Colombia"
    ],
    "final": true
   },
@@ -1438,7 +1446,9 @@
     "USA",
     "Belgium",
     "Argentina",
-    "Egypt"
+    "Egypt",
+    "Switzerland",
+    "Colombia"
    ],
    "final": true
   },
@@ -1462,7 +1472,9 @@
     "USA",
     "Belgium",
     "Argentina",
-    "Egypt"
+    "Egypt",
+    "Switzerland",
+    "Colombia"
    ],
    "final": true
   },
@@ -1486,7 +1498,37 @@
     "USA",
     "Belgium",
     "Argentina",
-    "Egypt"
+    "Egypt",
+    "Switzerland",
+    "Colombia"
+   ],
+   "final": true
+  },
+  "114": {
+   "team1": "Switzerland",
+   "team2": "Colombia",
+   "score1": 0,
+   "score2": 0,
+   "pen1": 4,
+   "pen2": 3,
+   "winner": "Switzerland",
+   "reached": [
+    "Paraguay",
+    "France",
+    "Canada",
+    "Morocco",
+    "Brazil",
+    "Norway",
+    "Mexico",
+    "England",
+    "Portugal",
+    "Spain",
+    "USA",
+    "Belgium",
+    "Argentina",
+    "Egypt",
+    "Switzerland",
+    "Colombia"
    ],
    "final": true
   }
