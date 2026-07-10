@@ -1531,6 +1531,18 @@
     "Colombia"
    ],
    "final": true
+  },
+  "116": {
+   "team1": "France",
+   "team2": "Morocco",
+   "score1": 2,
+   "score2": 0,
+   "winner": "France",
+   "reached": [
+    "France",
+    "Morocco"
+   ],
+   "final": true
   }
  },
  "entrants": [
