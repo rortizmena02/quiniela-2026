@@ -1540,7 +1540,23 @@
    "winner": "France",
    "reached": [
     "France",
-    "Morocco"
+    "Morocco",
+    "Spain",
+    "Belgium"
+   ],
+   "final": true
+  },
+  "117": {
+   "team1": "Spain",
+   "team2": "Belgium",
+   "score1": 2,
+   "score2": 1,
+   "winner": "Spain",
+   "reached": [
+    "France",
+    "Morocco",
+    "Spain",
+    "Belgium"
    ],
    "final": true
   }
