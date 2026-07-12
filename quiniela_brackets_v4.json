@@ -1544,7 +1544,9 @@
     "Spain",
     "Belgium",
     "Norway",
-    "England"
+    "England",
+    "Argentina",
+    "Switzerland"
    ],
    "final": true
   },
@@ -1560,7 +1562,9 @@
     "Spain",
     "Belgium",
     "Norway",
-    "England"
+    "England",
+    "Argentina",
+    "Switzerland"
    ],
    "final": true
   },
@@ -1576,7 +1580,27 @@
     "Spain",
     "Belgium",
     "Norway",
-    "England"
+    "England",
+    "Argentina",
+    "Switzerland"
+   ],
+   "final": true
+  },
+  "119": {
+   "team1": "Argentina",
+   "team2": "Switzerland",
+   "score1": 3,
+   "score2": 1,
+   "winner": "Argentina",
+   "reached": [
+    "France",
+    "Morocco",
+    "Spain",
+    "Belgium",
+    "Norway",
+    "England",
+    "Argentina",
+    "Switzerland"
    ],
    "final": true
   }
