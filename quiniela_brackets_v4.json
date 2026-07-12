@@ -1542,7 +1542,9 @@
     "France",
     "Morocco",
     "Spain",
-    "Belgium"
+    "Belgium",
+    "Norway",
+    "England"
    ],
    "final": true
   },
@@ -1556,7 +1558,25 @@
     "France",
     "Morocco",
     "Spain",
-    "Belgium"
+    "Belgium",
+    "Norway",
+    "England"
+   ],
+   "final": true
+  },
+  "118": {
+   "team1": "Norway",
+   "team2": "England",
+   "score1": 1,
+   "score2": 2,
+   "winner": "England",
+   "reached": [
+    "France",
+    "Morocco",
+    "Spain",
+    "Belgium",
+    "Norway",
+    "England"
    ],
    "final": true
   }
