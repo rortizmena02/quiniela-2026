@@ -1612,7 +1612,23 @@
    "winner": "Spain",
    "reached": [
     "France",
-    "Spain"
+    "Spain",
+    "England",
+    "Argentina"
+   ],
+   "final": true
+  },
+  "122": {
+   "team1": "England",
+   "team2": "Argentina",
+   "score1": 1,
+   "score2": 2,
+   "winner": "Argentina",
+   "reached": [
+    "France",
+    "Spain",
+    "England",
+    "Argentina"
    ],
    "final": true
   }
