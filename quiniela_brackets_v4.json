@@ -1639,6 +1639,18 @@
    "score2": 6,
    "winner": "England",
    "final": true
+  },
+  "126": {
+   "team1": "Spain",
+   "team2": "Argentina",
+   "score1": 1,
+   "score2": 0,
+   "winner": "Spain",
+   "reached": [
+    "Spain",
+    "Argentina"
+   ],
+   "final": true
   }
  },
  "entrants": [
